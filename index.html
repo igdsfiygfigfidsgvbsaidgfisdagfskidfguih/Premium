@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextGenAdi4U | Premium Access</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style> 
+        body { -webkit-user-select: none; user-select: none; } 
+        :root { 
+            --gold: #D4AF37; --gold-dark: #B8860B; 
+            --bg-body: #FAFAFA; --card-bg: #FFFFFF;
+            --text-main: #18181B; --text-muted: #71717A; --border: #E4E4E7;
+            --shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.1);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        body { 
+            min-height: 100vh; display: flex; justify-content: center; align-items: center; 
+            background-color: var(--bg-body); overflow: hidden; position: relative;
+        }
+
+        /* ✨ GOLDEN GLOW ANIMATION (White Theme Special) */
+        .ambient-glow {
+            position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08), transparent 70%);
+            animation: pulseGlow 6s infinite alternate; z-index: 1; pointer-events: none;
+        }
+        @keyframes pulseGlow { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.1); opacity: 1; } }
+        
+        /* ✨ PARTICLES */
+        .particles {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(#D4AF37 1px, transparent 1px);
+            background-size: 40px 40px; opacity: 0.15; z-index: 1;
+        }
+
+        /* 🏰 AUTH CARD (White Luxury) */
+        .auth-card {
+            position: relative; z-index: 10; width: 100%; max-width: 420px; 
+            background: var(--card-bg); border: 1px solid white;
+            padding: 45px 40px; border-radius: 20px; 
+            box-shadow: var(--shadow);
+            animation: slideUp 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* HEADER */
+        .brand-header { text-align: center; margin-bottom: 30px; }
+        .brand-header h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 5px; letter-spacing: 1px; }
+        .brand-header span { color: var(--gold); }
+        .brand-header p { color: var(--text-muted); font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;}
+
+        /* TOGGLE BUTTONS */
+        .toggle-container { 
+            display: flex; background: #F4F4F5; border-radius: 12px; padding: 5px; margin-bottom: 25px; 
+            border: 1px solid var(--border);
+        }
+        .toggle-btn { 
+            flex: 1; padding: 10px; border: none; background: transparent; 
+            font-size: 0.9rem; font-weight: 600; color: var(--text-muted); cursor: pointer; 
+            border-radius: 8px; transition: all 0.3s ease; 
+        }
+        .toggle-btn.active { background: #FFFFFF; color: var(--text-main); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+        /* FORMS */
+        .form-area { display: none; animation: fadeIn 0.4s ease; }
+        .form-area.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+
+        .input-group { margin-bottom: 18px; position: relative; }
+        .input-group i { position: absolute; left: 15px; top: 40px; color: var(--gold); font-size: 0.95rem; }
+        .input-group label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px; margin-left: 5px; }
+        
+        .lux-input { 
+            width: 100%; padding: 12px 12px 12px 40px; 
+            background: #FFFFFF; border: 1px solid var(--border); 
+            border-radius: 10px; font-size: 0.95rem; color: var(--text-main); outline: none; transition: 0.3s; 
+        }
+        .lux-input:focus { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1); }
+
+        /* BUTTONS */
+        .btn-primary { 
+            width: 100%; padding: 14px; background: #0A0A0A; 
+            color: var(--gold); border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; 
+            cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; 
+            margin-top: 10px; 
+        }
+        .btn-primary:hover { background: var(--gold); color: #fff; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212,175,55,0.2); }
+
+        .forgot-pass { text-align: right; margin-bottom: 20px; }
+        .forgot-pass a { color: var(--text-muted); font-size: 0.85rem; text-decoration: none; transition: 0.3s; cursor: pointer; font-weight: 500; }
+        .forgot-pass a:hover { color: var(--gold); text-decoration: underline; }
+
+        .divider { display: flex; align-items: center; text-align: center; margin: 25px 0; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border); }
+        .divider::before { margin-right: 15px; } .divider::after { margin-left: 15px; }
+        
+        .social-btn { 
+            width: 100%; padding: 12px; background: #FFFFFF; border: 1px solid var(--border); border-radius: 10px; 
+            font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; 
+            transition: 0.3s; color: var(--text-main);
+        }
+        .social-btn:hover { background: #F9FAFB; transform: translateY(-2px); border-color: #D1D5DB; }
+
+        /* SWEETALERT CUSTOM */
+        .luxury-popup { background: #FFFFFF !important; border-radius: 16px !important; }
+        .luxury-title { color: #18181B !important; font-family: 'Cinzel' !important; }
+        .luxury-confirm { background-color: #0A0A0A !important; color: #D4AF37 !important; }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+    <div class="particles"></div>
+
+    <div class="auth-card">
+        <div class="brand-header">
+            <h1>NextGen<span>Adi4U</span></h1>
+            <p>Premium Digital Vault Access</p>
+        </div>
+
+        <div class="toggle-container">
+            <button class="toggle-btn active" id="btn-login" onclick="toggleView('login')">Login</button>
+            <button class="toggle-btn" id="btn-register" onclick="toggleView('register')">Sign Up</button>
+        </div>
+
+        <div class="form-area active" id="login-section">
+            <form onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" class="lux-input" placeholder="Enter your email" required>
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" class="lux-input" placeholder="Enter password" required>
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="forgot-pass">
+                    <a onclick="forgotPassword()">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn-primary" id="loginBtn"><span>Unlock Vault</span> <i class="fas fa-arrow-right"></i></button>
+            </form>
+        </div>
+
+        <div class="form-area" id="register-section">
+            <form onsubmit="handleRegister(event)">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" id="regName" class="lux-input" placeholder="Your Name" required>
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="regEmail" class="lux-input" placeholder="Email" required>
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="input-group">
+                    <label>Create Password</label>
+                    <input type="password" id="regPassword" class="lux-input" placeholder="Password (Min 6 chars)" required minlength="6">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <button type="submit" class="btn-primary" id="regBtn"><span>Create Account</span> <i class="fas fa-user-plus"></i></button>
+            </form>
+        </div>
+
+        <div class="divider">Or Access With</div>
+        <button class="social-btn" onclick="handleGoogleLogin()">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20"> Google Secure Login
+        </button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, increment, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // 🔥 FIREBASE CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyBE4rNCK5MR1Joy-EOJgWgMLqmm6QDEH40",
+            authDomain: "premium-6172b.firebaseapp.com",
+            projectId: "premium-6172b",
+            storageBucket: "premium-6172b.firebasestorage.app",
+            messagingSenderId: "1024825846032",
+            appId: "1:1024825846032:web:93209b4ca94480da32dd95",
+            measurementId: "G-QGEW9H7NST"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        // 🚨 YOUR TELEGRAM BOT
+        const TG_TOKEN = "8336599171:AAFNKIKQ_3DBOLO9HHpkgFoFHXd2NO2NOAE"; 
+        const TG_CHAT_ID = "8255824096"; 
+
+        // 🚀 REFERRAL CAPTURE
+        const urlParams = new URLSearchParams(window.location.search);
+        const refID = urlParams.get('ref');
+        if(refID) { sessionStorage.setItem('referredBy', refID); }
+
+        // 🔄 AUTO REDIRECT (NO SPAM)
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                await checkAndCreateUser(user);
+                window.location.replace("dashboard.html");
+            }
+        });
+
+        window.toggleView = function(view) {
+            if (view === 'login') { 
+                document.getElementById('register-section').classList.remove('active'); 
+                document.getElementById('login-section').classList.add('active'); 
+                document.getElementById('btn-register').classList.remove('active'); 
+                document.getElementById('btn-login').classList.add('active'); 
+            } else { 
+                document.getElementById('login-section').classList.remove('active'); 
+                document.getElementById('register-section').classList.add('active'); 
+                document.getElementById('btn-login').classList.remove('active'); 
+                document.getElementById('btn-register').classList.add('active'); 
+            }
+        }
+
+        // 📧 REGISTER
+        window.handleRegister = async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('regBtn'); btn.innerHTML = "Creating...";
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                await checkAndCreateUser(userCredential.user, name);
+                
+                // 🔔 TELEGRAM ALERT
+                await sendTelegramLog(userCredential.user, "🎉 NEW SIGNUP", name);
+                
+                Swal.fire({ title: 'Welcome!', text: 'Account created successfully!', icon: 'success', customClass: { popup: 'luxury-popup', title: 'luxury-title', confirmButton: 'luxury-confirm' } });
+            } catch (error) { 
+                Swal.fire({ title: 'Error', text: error.message, icon: 'error', customClass: { popup: 'luxury-popup', title: 'luxury-title', confirmButton: 'luxury-confirm' } });
+                btn.innerHTML = '<span>Create Account</span> <i class="fas fa-user-plus"></i>';
+            }
+        }
+
+        // 🔐 LOGIN
+        window.handleLogin = async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn'); btn.innerHTML = "Verifying...";
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, document.getElementById('loginEmail').value, document.getElementById('loginPassword').value);
+                await checkAndCreateUser(userCredential.user);
+                
+                // 🔔 TELEGRAM ALERT
+                await sendTelegramLog(userCredential.user, "🟢 EMAIL LOGIN");
+
+            } catch (error) { 
+                Swal.fire({ title: 'Login Failed', text: 'Invalid Email or Password', icon: 'error', customClass: { popup: 'luxury-popup', title: 'luxury-title', confirmButton: 'luxury-confirm' } });
+                btn.innerHTML = '<span>Unlock Vault</span> <i class="fas fa-arrow-right"></i>';
+            }
+        }
+
+        // 🌐 GOOGLE LOGIN
+        window.handleGoogleLogin = async function() {
+            try {
+                const result = await signInWithPopup(auth, googleProvider);
+                await checkAndCreateUser(result.user);
+                
+                // 🔔 TELEGRAM ALERT
+                await sendTelegramLog(result.user, "🟢 GOOGLE LOGIN");
+
+            } catch (error) { 
+                let msg = error.message;
+                if(msg.includes("unauthorized-domain")) msg = "Please Add Vercel Domain in Firebase Settings!";
+                Swal.fire({ title: 'Error', text: msg, icon: 'error', customClass: { popup: 'luxury-popup', title: 'luxury-title', confirmButton: 'luxury-confirm' } });
+            }
+        }
+
+        // ❓ FORGOT PASSWORD
+        window.forgotPassword = async function() {
+            const { value: email } = await Swal.fire({
+                title: 'Reset Password',
+                input: 'email',
+                inputLabel: 'Enter your email address',
+                inputPlaceholder: 'name@example.com',
+                showCancelButton: true,
+                customClass: { popup: 'luxury-popup', title: 'luxury-title', confirmButton: 'luxury-confirm' }
+            });
+
+            if (email) {
+                try {
+                    await sendPasswordResetEmail(auth, email);
+                    Swal.fire({ title: 'Sent!', text: 'Check your email for reset link.', icon: 'success', customClass: { popup: 'luxury-popup', title: 'luxury-title', confirmButton: 'luxury-confirm' } });
+                } catch (e) {
+                    Swal.fire({ title: 'Error', text: e.message, icon: 'error', customClass: { popup: 'luxury-popup', title: 'luxury-title', confirmButton: 'luxury-confirm' } });
+                }
+            }
+        }
+
+        // 🛠️ DATABASE HANDLER
+        async function checkAndCreateUser(user, name = null) {
+            const userRef = doc(db, "users", user.uid);
+            const snap = await getDoc(userRef);
+
+            if (!snap.exists()) {
+                let userData = {
+                    fullName: name || user.displayName || "User",
+                    email: user.email,
+                    credits: 100, // 🎁 Bonus
+                    planType: "Free",
+                    joinedDate: new Date().toISOString()
+                };
+
+                const referrerID = sessionStorage.getItem('referredBy');
+                if (referrerID && referrerID !== user.uid) {
+                    userData.referredBy = referrerID;
+                    try {
+                        await updateDoc(doc(db, "users", referrerID), {
+                            credits: increment(20), // 🎁 Ref Bonus
+                            referralLogs: arrayUnion({ type: 'signup', user: userData.fullName, bonus: 20, date: new Date().toISOString() })
+                        });
+                    } catch (e) {}
+                }
+                await setDoc(userRef, userData);
+            }
+        }
+
+        // 📢 TELEGRAM ALERT (ANTI-SPAM & PHOTO)
+        async function sendTelegramLog(user, type, manualName = null) {
+            const displayName = manualName || user.displayName || "User";
+            const email = user.email;
+            const photo = user.photoURL;
+            
+            const text = `🔔 *${type}*\n\n👤 *Name:* ${displayName}\n📧 *Email:* ${email}\n⏰ *Time:* ${new Date().toLocaleString()}`;
+
+            try {
+                if (photo) {
+                    await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendPhoto`, {
+                        method: 'POST', headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: TG_CHAT_ID, photo: photo, caption: text, parse_mode: "Markdown" })
+                    });
+                } else {
+                    await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+                        method: 'POST', headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: TG_CHAT_ID, text: text, parse_mode: "Markdown" })
+                    });
+                }
+            } catch (e) { console.error("TG Error", e); }
+        }
+    </script>
+</body>
+</html>

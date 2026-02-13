@@ -15,7 +15,7 @@
     </script>
 
     <style>
-        /* CORE VARIABLES */
+        /* CORE VARIABLES - GOLDEN & WHITE THEME */
         :root {
             --bg-body: #FAFAFA; --bg-nav: rgba(255, 255, 255, 0.95); --bg-card: #FFFFFF; 
             --text-main: #18181B; --text-muted: #71717A; --border-color: #E4E4E7;
@@ -82,56 +82,63 @@
         .hero span { color: var(--gold); }
         .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px; line-height: 1.6; }
 
+        /* 🔥 HYPER SEARCH BAR */
         .search-container {
-            max-width: 600px; margin: 0 auto 40px; position: relative;
+            max-width: 700px; margin: 0 auto 40px; position: relative; animation: slideDown 1.2s ease-out;
         }
         .search-input {
-            width: 100%; padding: 18px 25px 18px 55px; border-radius: 50px; border: 2px solid var(--border-color);
-            background: var(--bg-card); color: var(--text-main); font-size: 1.1rem; outline: none; transition: 0.4s;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 100%; padding: 20px 25px 20px 60px; border-radius: 50px; border: 2px solid var(--gold);
+            background: var(--bg-card); color: var(--text-main); font-size: 1.2rem; outline: none; transition: 0.4s;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15); font-weight: 600;
         }
-        .search-input:focus { border-color: var(--gold); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2); }
-        .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.2rem; }
+        .search-input:focus { box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4); transform: scale(1.02); }
+        .search-icon { position: absolute; left: 25px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.5rem; }
 
         /* 🚀 THEME GRID & CARDS */
         .container { max-width: 1400px; margin: 0 auto; padding: 0 20px 80px; flex-grow: 1; width: 100%; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 35px; justify-content: center; }
         
         .theme-card { 
-            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 20px; 
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 25px; 
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; 
             display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.03); z-index: 1;
         }
         .theme-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-hover); }
-        
-        /* SLIDER CSS */
-        .slider-container { position: relative; width: 100%; height: 220px; border-radius: 12px; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border-color); background: #000; }
-        .slider-img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease-in-out; }
-        .slide-btn { 
-            position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: #fff; 
-            border: 1px solid var(--gold); width: 35px; height: 35px; border-radius: 50%; cursor: pointer; 
-            display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 10;
-        }
-        .slide-btn:hover { background: var(--gold); transform: translateY(-50%) scale(1.1); }
-        .prev-btn { left: 10px; } .next-btn { right: 10px; }
-        .slide-counter { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: var(--gold); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; border: 1px solid var(--gold); }
-        
-        /* Premium Badge */
-        .premium-badge { position: absolute; top: 10px; left: 10px; background: linear-gradient(45deg, var(--dark), var(--gold)); color: #fff; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; z-index: 10; box-shadow: 0 5px 10px rgba(0,0,0,0.3); text-transform: uppercase;}
 
-        .theme-info { flex-grow: 1; display: flex; flex-direction: column; }
-        .theme-title { font-size: 1.25rem; color: var(--text-main); font-weight: 800; margin-bottom: 10px; font-family: 'Cinzel'; }
+        /* ✨ HYPER ANIMATED GOLD SHOPIFY LOGO */
+        @keyframes goldGlowIcon {
+            0% { text-shadow: 0 0 15px rgba(212,175,55,0.4), 0 0 30px rgba(212,175,55,0.2); transform: scale(1) translateY(0); }
+            50% { text-shadow: 0 0 25px rgba(212,175,55,0.8), 0 0 50px rgba(212,175,55,0.6); transform: scale(1.1) translateY(-5px); }
+            100% { text-shadow: 0 0 15px rgba(212,175,55,0.4), 0 0 30px rgba(212,175,55,0.2); transform: scale(1) translateY(0); }
+        }
+        .animated-logo-container {
+            width: 100%; height: 220px; border-radius: 12px; margin-bottom: 25px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(10,10,10,0.9) 100%);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            display: flex; align-items: center; justify-content: center; position: relative;
+        }
+        .animated-logo-container i {
+            font-size: 6rem; color: var(--gold); animation: goldGlowIcon 2.5s infinite ease-in-out;
+        }
+        .theme-card:hover .animated-logo-container { border-color: var(--gold); }
+        .theme-card:hover .animated-logo-container i { animation-duration: 1s; } /* Spins/Glows faster on hover */
+
+        /* Premium Badge */
+        .premium-badge { position: absolute; top: 15px; left: 15px; background: linear-gradient(45deg, var(--dark), var(--gold)); color: #fff; padding: 6px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; z-index: 10; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5); text-transform: uppercase; animation: pulseGlow 2s infinite alternate;}
+
+        .theme-info { flex-grow: 1; display: flex; flex-direction: column; text-align: center; }
+        .theme-title { font-size: 1.3rem; color: var(--text-main); font-weight: 800; margin-bottom: 15px; font-family: 'Cinzel'; line-height: 1.4; }
         
-        .price-box { background: rgba(212,175,55,0.05); border: 1px dashed var(--gold); padding: 12px; border-radius: 12px; margin-bottom: 20px; }
-        .market-price { font-size: 0.85rem; color: var(--text-muted); text-decoration: line-through; margin-bottom: 5px; }
-        .our-price { font-size: 1.1rem; color: var(--gold); font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .price-box { background: rgba(212,175,55,0.05); border: 1px dashed var(--gold); padding: 15px; border-radius: 12px; margin-bottom: 20px; }
+        .market-price { font-size: 0.9rem; color: var(--text-muted); text-decoration: line-through; margin-bottom: 8px; }
+        .our-price { font-size: 1.2rem; color: var(--gold); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
         .btn-download { 
-            width: 100%; padding: 14px; background: var(--dark); color: var(--gold); 
-            border: 1px solid var(--gold); border-radius: 12px; font-weight: 800; cursor: pointer; 
-            transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1rem;
+            width: 100%; padding: 15px; background: var(--dark); color: var(--gold); 
+            border: 2px solid var(--gold); border-radius: 12px; font-weight: 800; cursor: pointer; 
+            transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.05rem;
         }
-        .btn-download:hover { background: var(--gold); color: #fff; box-shadow: 0 8px 20px rgba(212,175,55,0.4); transform: scale(1.02); }
+        .btn-download:hover { background: var(--gold); color: #fff; box-shadow: 0 8px 25px rgba(212,175,55,0.5); transform: scale(1.03); }
 
         /* 🌟 FOOTER (Same as Dashboard) */
         footer { background: var(--bg-card); border-top: 2px solid var(--gold); padding: 60px 20px 30px; color: var(--text-main); position: relative; box-shadow: 0 -10px 30px rgba(0,0,0,0.02); }
@@ -157,14 +164,14 @@
         .spinner { width: 60px; height: 60px; border: 5px solid rgba(212,175,55,0.1); border-top: 5px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;}
         @keyframes spin { 100% { transform: rotate(360deg); } }
         
-        .no-results { grid-column: 1 / -1; text-align: center; padding: 50px; font-size: 1.2rem; color: var(--text-muted); font-weight: bold; }
+        .no-results { grid-column: 1 / -1; text-align: center; padding: 50px; font-size: 1.5rem; color: var(--text-muted); font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div id="loader">
         <div class="spinner"></div>
-        <h3 style="font-family: 'Cinzel'; color: var(--text-main); letter-spacing: 1px;">Loading Premium Themes...</h3>
+        <h3 style="font-family: 'Cinzel'; color: var(--text-main); letter-spacing: 1px;">Loading Premium Vault...</h3>
     </div>
 
     <nav class="navbar">
@@ -191,11 +198,11 @@
 
     <div class="hero">
         <h1>Shopify <span>Themes Vault</span></h1>
-        <p>Premium, high-converting themes ready to deploy. Find the perfect look for your store.</p>
+        <p>Your Ultimate Digital Arsenal. Unlock Premium Themes with Credits.</p>
         
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="Search themes (e.g., Prestige, Fashion, Electronics...)">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search 55+ Themes (e.g., Prestige, Fashion, Electronics...)">
         </div>
     </div>
 
@@ -268,7 +275,7 @@
                     if(currentUserDoc.profilePicBase64) document.getElementById('navProfilePic').src = currentUserDoc.profilePicBase64;
                 }
                 document.getElementById('loader').style.display = 'none';
-                renderThemes(themesData); // Render themes once loaded
+                renderThemes(themesData); 
             } else {
                 window.location.replace("index.html");
             }
@@ -276,66 +283,105 @@
 
         window.toggleMenu = () => document.getElementById('userMenu').classList.toggle('active');
         window.logout = () => signOut(auth).then(() => window.location.replace("index.html"));
-
         if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
 
         // ==========================================
-        // 🔥 THEMES DATA ARRAY (SCARCH LOGIC SATHI)
+        // 🔥 ALL 59 THEMES DATA ARRAY (NO SHORTCUTS)
         // ==========================================
-        // Placeholder images used for preview slider (1 to 10)
-        const getPreviewImages = (seed) => Array.from({length: 10}, (_, i) => `https://picsum.photos/400/300?random=${seed + i}`);
-
         const themesData = [
-            { id: 't1', name: "PRESTIGE THEME", link: "https://drive.google.com/file/d/1Wli6ceFEoRI4Zd1fSd6Fw23_3WQldjXx/view?usp=sharing", priceUSD: 350, priceINR: 29000, premium: true, images: getPreviewImages(100) },
-            { id: 't2', name: "TURBO THEME", link: "https://drive.google.com/file/d/1aOzOHYhUBLWkt81Gp4Fgn7upXVKwb0aH/view?usp=sharing", priceUSD: 400, priceINR: 33000, premium: true, images: getPreviewImages(110) },
-            { id: 't3', name: "WAREHOUSE THEME", link: "https://drive.google.com/file/d/10sbL02oFIdINEuj0rQFQ9qrwBxUUfoyf/view?usp=sharing", priceUSD: 320, priceINR: 26500, premium: true, images: getPreviewImages(120) },
-            { id: 't4', name: "IMPULSE THEME", link: "https://drive.google.com/file/d/1bQlKvu2Sl9m5tBxenDWKCaU-NRini6ry/view?usp=sharing", priceUSD: 350, priceINR: 29000, premium: true, images: getPreviewImages(130) },
-            
-            { id: 't5', name: "Apparelix Mens Fashion", link: "https://drive.google.com/file/d/12cjI6ByXD6pO9KfwlEVcHMexsrAF2h8F/view?usp=sharing", priceUSD: 120, priceINR: 9900, premium: false, images: getPreviewImages(140) },
-            { id: 't6', name: "Aronic Hardware Tool", link: "https://drive.google.com/file/d/1G1xwQ8oFxpokdVw3w-BWnVxtrKSi5wlO/view?usp=sharing", priceUSD: 89, priceINR: 7300, premium: false, images: getPreviewImages(150) },
-            { id: 't7', name: "Flone Multipurpose v2.0", link: "https://drive.google.com/file/d/1ASqr4tNC3b4CCeZQjV1s6Au_VhGsC28a/view?usp=sharing", priceUSD: 69, priceINR: 5700, premium: false, images: getPreviewImages(160) },
-            { id: 't8', name: "Cake Shop Bakery", link: "https://drive.google.com/file/d/14ff4PpdIpjM3fjVsJOOVnywL7Zneg4KE/view?usp=sharing", priceUSD: 75, priceINR: 6200, premium: false, images: getPreviewImages(170) },
-            { id: 't9', name: "Apexx Esports Gaming", link: "https://drive.google.com/file/d/1avUe_BUalTMExVE_MRmSwnTftzku0srg/view?usp=sharing", priceUSD: 110, priceINR: 9000, premium: false, images: getPreviewImages(180) },
-            { id: 't10', name: "Empire Theme v6.2.0", link: "https://drive.google.com/file/d/1a53f58uCmpIZ9az51CTc9s2V1OcozPs0/view?usp=sharing", priceUSD: 340, priceINR: 28000, premium: false, images: getPreviewImages(190) }
-            // Bhai tula ithe baki chya saglya links add karaychya aahet. Same format copy kar!
+            // TOP 4 PREMIUM THEMES (5000 CREDITS)
+            { name: "PRESTIGE THEME", link: "https://drive.google.com/file/d/1Wli6ceFEoRI4Zd1fSd6Fw23_3WQldjXx/view?usp=sharing", cost: 5000, priceUSD: 350, priceINR: 29000, premium: true },
+            { name: "TURBO THEME", link: "https://drive.google.com/file/d/1aOzOHYhUBLWkt81Gp4Fgn7upXVKwb0aH/view?usp=sharing", cost: 5000, priceUSD: 400, priceINR: 33000, premium: true },
+            { name: "WAREHOUSE THEME", link: "https://drive.google.com/file/d/10sbL02oFIdINEuj0rQFQ9qrwBxUUfoyf/view?usp=sharing", cost: 5000, priceUSD: 320, priceINR: 26500, premium: true },
+            { name: "IMPULSE THEME", link: "https://drive.google.com/file/d/1bQlKvu2Sl9m5tBxenDWKCaU-NRini6ry/view?usp=sharing", cost: 5000, priceUSD: 350, priceINR: 29000, premium: true },
+
+            // 55 REGULAR THEMES (1000 CREDITS)
+            { name: "Apparelix Mens Fashion", link: "https://drive.google.com/file/d/12cjI6ByXD6pO9KfwlEVcHMexsrAF2h8F/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
+            { name: "Apparelix Sunglasses", link: "https://drive.google.com/file/d/1Vd5gl5ywSxR0Sm4STJ4alGXnO5b89nXk/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
+            { name: "Aronic Hardware Tool", link: "https://drive.google.com/file/d/1G1xwQ8oFxpokdVw3w-BWnVxtrKSi5wlO/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
+            { name: "Bob Multipurpose Fashion", link: "https://drive.google.com/file/d/1YPrmuJazTNqF42fhMTR5C85r6Fr6zUCj/view?usp=sharing", cost: 1000, priceUSD: 65, priceINR: 5400, premium: false },
+            { name: "Flone v2.0.8", link: "https://drive.google.com/file/d/1ASqr4tNC3b4CCeZQjV1s6Au_VhGsC28a/view?usp=sharing", cost: 1000, priceUSD: 79, priceINR: 6500, premium: false },
+            { name: "Coro Minimal Clean Fashion", link: "https://drive.google.com/file/d/1ok-V9fitP0Pn3Ber7NAIr4iiW2l61sND/view?usp=sharing", cost: 1000, priceUSD: 55, priceINR: 4500, premium: false },
+            { name: "Apparelix Mobile Accessories", link: "https://drive.google.com/file/d/1FacOnk0i6HDftm6Sa_0e5lvqPLgweh_e/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
+            { name: "ClickBoom2", link: "https://drive.google.com/file/d/1bfnyGXxXF0UUALejuGzEVrm8BrLuBd_a/view?usp=sharing", cost: 1000, priceUSD: 75, priceINR: 6200, premium: false },
+            { name: "FlashMart Responsive", link: "https://drive.google.com/file/d/1URlnbUtjDQCj2kopDkUwDYUH5vo0uDYr/view?usp=sharing", cost: 1000, priceUSD: 58, priceINR: 4800, premium: false },
+            { name: "FashShop Drag & Drop", link: "https://drive.google.com/file/d/111QjcE4i2HL0LNiPHQ1HjTYcSFcUsgEb/view?usp=sharing", cost: 1000, priceUSD: 62, priceINR: 5100, premium: false },
+            { name: "Flairy Fashion", link: "https://drive.google.com/file/d/1K26vJxegJMfEZO2KGb4OC_t-pAxkLCOs/view?usp=sharing", cost: 1000, priceUSD: 55, priceINR: 4500, premium: false },
+            { name: "Cake Shop Bakery v1.4", link: "https://drive.google.com/file/d/14ff4PpdIpjM3fjVsJOOVnywL7Zneg4KE/view?usp=sharing", cost: 1000, priceUSD: 49, priceINR: 4000, premium: false },
+            { name: "Drou Electronics Store", link: "https://drive.google.com/file/d/1cEY44VAyPtjVzYZNLJcBO5It72rWGRdx/view?usp=sharing", cost: 1000, priceUSD: 85, priceINR: 7000, premium: false },
+            { name: "Floza v1.0.0", link: "https://drive.google.com/file/d/1xDilaQ2pWIeR6bpxfp6lgljwU2OOKJsa/view?usp=sharing", cost: 1000, priceUSD: 50, priceINR: 4100, premium: false },
+            { name: "Milatino Coffee Tea & Cake", link: "https://drive.google.com/file/d/1WWRySwHS-X2bZzPAJ0VAFceWtv3zOErA/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
+            { name: "Crazy Fashion", link: "https://drive.google.com/file/d/1QqOryJ70GlB8rTFnmvfrdI4xiq_GRXxD/view?usp=sharing", cost: 1000, priceUSD: 60, priceINR: 5000, premium: false },
+            { name: "Exist Drag & Drop", link: "https://drive.google.com/file/d/1CPV3-CjSAdAXM2vcU5sjQv5zMCJV-q69/view?usp=sharing", cost: 1000, priceUSD: 65, priceINR: 5400, premium: false },
+            { name: "Cafesa Coffee Shops", link: "https://drive.google.com/file/d/1vo0ovSZWvGVg9NkdQRnDRYncoDhCHnNN/view?usp=sharing", cost: 1000, priceUSD: 55, priceINR: 4500, premium: false },
+            { name: "Kaffe Coffee Shop", link: "https://drive.google.com/file/d/1nNR1FRiqTNKnevtclIE6ogkmrQ34BbNb/view?usp=sharing", cost: 1000, priceUSD: 58, priceINR: 4800, premium: false },
+            { name: "Frues Fruits Organic", link: "https://drive.google.com/file/d/14i7C8reuvmcsA9dsbiwp7jf_HE4IYn2y/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
+            { name: "Foodizo v1.0.0", link: "https://drive.google.com/file/d/1Fv-BtrDQmPwTEmtRkzR8X9CUkR_HDK15/view?usp=sharing", cost: 1000, priceUSD: 60, priceINR: 5000, premium: false },
+            { name: "Esprezo Cake Shop", link: "https://drive.google.com/file/d/10WiMms3FTXOPj_p-e8YD9h06l9FkROcz/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
+            { name: "Bowow Pet Store", link: "https://drive.google.com/file/d/1-Sm6yHfIK9ZBAvi9M9AMHlR93S8U8U1m/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
+            { name: "Astro Handbags Clothes", link: "https://drive.google.com/file/d/15P7WXhaAcrEQURlgCEXS1Gn_xPjjuaig/view?usp=sharing", cost: 1000, priceUSD: 55, priceINR: 4500, premium: false },
+            { name: "Brewmix Coffee Shops", link: "https://drive.google.com/file/d/1QlKfzPeKHWi7oIWCH-N78NQir9AyNQQK/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
+            { name: "Airkool Air Conditioning", link: "https://drive.google.com/file/d/1weKKNafjCUjUZGjTUKaSUkwG_mQGxUvg/view?usp=sharing", cost: 1000, priceUSD: 75, priceINR: 6200, premium: false },
+            { name: "Apexx Esports Gaming", link: "https://drive.google.com/file/d/1avUe_BUalTMExVE_MRmSwnTftzku0srg/view?usp=sharing", cost: 1000, priceUSD: 85, priceINR: 7000, premium: false },
+            { name: "Elektrix Electronics", link: "https://drive.google.com/file/d/1SCqV3Ul001o3tIGd3d-mmHac42NmWEEb/view?usp=sharing", cost: 1000, priceUSD: 79, priceINR: 6500, premium: false },
+            { name: "Fixxer Hardwares Tools", link: "https://drive.google.com/file/d/1YDEZMFIRzfwkIOT3x6VZ_uMtfLGRT5_5/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
+            { name: "Chewy Pet Shop", link: "https://drive.google.com/file/d/1brScRwe3thvfJ7i4JlhaoNweHbszDEYC/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
+            { name: "Cufee Coffee Shops", link: "https://drive.google.com/file/d/1YRNPHWIZmtC3WVfjir4fypzTFdaHgf_w/view?usp=sharing", cost: 1000, priceUSD: 62, priceINR: 5100, premium: false },
+            { name: "Clarie HandMade", link: "https://drive.google.com/file/d/1QKRcJvG8temDdL_EUCXmJo0H7Vyut37P/view?usp=sharing", cost: 1000, priceUSD: 55, priceINR: 4500, premium: false },
+            { name: "Chikshopify 11", link: "https://drive.google.com/file/d/1dyxJg19dorv4BvqmMr2663eVBjeOUf1k/view?usp=sharing", cost: 1000, priceUSD: 60, priceINR: 5000, premium: false },
+            { name: "Carze Auto Parts", link: "https://drive.google.com/file/d/1en6z8vrjbq_aarEBzM1xJMTfP59kR0XO/view?usp=sharing", cost: 1000, priceUSD: 75, priceINR: 6200, premium: false },
+            { name: "Dialz Shopify v1.0", link: "https://drive.google.com/file/d/1kYQKAMsC15v_5rJeZSqK_eBZeRpCPQFL/view?usp=sharing", cost: 1000, priceUSD: 65, priceINR: 5400, premium: false },
+            { name: "Bikun Bicycles Store", link: "https://drive.google.com/file/d/1XcmrgbWAt7b5djx_1bzAQaxm88AYFPuK/view?usp=sharing", cost: 1000, priceUSD: 79, priceINR: 6500, premium: false },
+            { name: "Drinks & Beverages", link: "https://drive.google.com/file/d/1OhjKozHav6PcKEEZvUiQO71fz9pIxcpO/view?usp=sharing", cost: 1000, priceUSD: 55, priceINR: 4500, premium: false },
+            { name: "Fivo Wedding Shop", link: "https://drive.google.com/file/d/1Z8MJV9afuU_srjuoCD91PrQZJPyecwtj/view?usp=sharing", cost: 1000, priceUSD: 85, priceINR: 7000, premium: false },
+            { name: "Alivana Interior Decor", link: "https://drive.google.com/file/d/1jEXcH9AlX3UAbpj4kS5aTgr9RnqjoldK/view?usp=sharing", cost: 1000, priceUSD: 79, priceINR: 6500, premium: false },
+            { name: "Electree Unique Electronics", link: "https://drive.google.com/file/d/1Vuis2vbOpB32JSdJK-9PGSBbvGjy-_2w/view?usp=sharing", cost: 1000, priceUSD: 89, priceINR: 7300, premium: false },
+            { name: "Bixbang Fullpackage", link: "https://drive.google.com/file/d/1IrQ37wIQ20UtjAxw1nBg4q3hAvnyfUGc/view?usp=sharing", cost: 1000, priceUSD: 99, priceINR: 8200, premium: false },
+            { name: "Brator Auto Parts", link: "https://drive.google.com/file/d/1mEn64K3i_ENVNf_u2QHYqWLYaoeUqmEg/view?usp=sharing", cost: 1000, priceUSD: 75, priceINR: 6200, premium: false },
+            { name: "Emllo Electronics", link: "https://drive.google.com/file/d/1o-FMs8yE6-39E95h5ESpqSj44RX9ub5d/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
+            { name: "Electrodream Electronics", link: "https://drive.google.com/file/d/10sGSXHEzb2Gxm-36q_oW0HBHaYk-XXxM/view?usp=sharing", cost: 1000, priceUSD: 85, priceINR: 7000, premium: false },
+            { name: "Elessi Shopify 3.0.1", link: "https://drive.google.com/file/d/1Njze9ynhR9v6Nse5q2InmE2eOvBUsgpy/view?usp=sharing", cost: 1000, priceUSD: 99, priceINR: 8200, premium: false },
+            { name: "Camaro Gadgets Digital", link: "https://drive.google.com/file/d/1aQY2o7H_WlRQCSq0rlc2FSRlApVgYAya/view?usp=sharing", cost: 1000, priceUSD: 79, priceINR: 6500, premium: false },
+            { name: "Anon Minimal Responsive", link: "https://drive.google.com/file/d/1rQ2DlM78tw9fomeDSPRj9MLjAA2sF0Wy/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
+            { name: "Corano v2.4.7", link: "https://drive.google.com/file/d/1tFpwJ93vxOQ8RkVJbrKGXvKXWGUj0sbq/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
+            { name: "Fastlane Shopify v4.4.6", link: "https://drive.google.com/file/d/13LX3SE4KEL3wiFtC_KTuI7JTjgMkMp2a/view?usp=sharing", cost: 1000, priceUSD: 89, priceINR: 7300, premium: false },
+            { name: "Brittney WP Blog Shop", link: "https://drive.google.com/file/d/1tFQLt2yA7Vc59_wV19-28-1RSrsXGnmd/view?usp=sharing", cost: 1000, priceUSD: 49, priceINR: 4000, premium: false },
+            { name: "Brittny", link: "https://drive.google.com/file/d/14bFdYhVRMysq5t5CyUqQ7JyY8Pxcx8KM/view?usp=sharing", cost: 1000, priceUSD: 49, priceINR: 4000, premium: false },
+            { name: "Avatar Shopify v2.0.1", link: "https://drive.google.com/file/d/167VwiJkb_U2n-aBG5t_JB_lI7IPHNQyb/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
+            { name: "Fabish Skincare Cosmetics", link: "https://drive.google.com/file/d/1D0qRVAk13Eq7wOzeeiqOsRfNu_Lw_2o_/view?usp=sharing", cost: 1000, priceUSD: 65, priceINR: 5400, premium: false },
+            { name: "Empire Shopify v6.2.0", link: "https://drive.google.com/file/d/1a53f58uCmpIZ9az51CTc9s2V1OcozPs0/view?usp=sharing", cost: 1000, priceUSD: 340, priceINR: 28000, premium: false },
+            { name: "Streamline v5.0.1", link: "https://drive.google.com/file/d/1Z8nvSuaDhz8hu-uTAPXCsd9t66OSBzgO/view?usp=sharing", cost: 1000, priceUSD: 320, priceINR: 26500, premium: false }
         ];
 
         // ==========================================
         // 🚀 RENDER THEMES TO HTML
         // ==========================================
-        window.currentSlideData = {}; // Stores current image index for each card
-
         function renderThemes(themes) {
             const grid = document.getElementById('themeGrid');
             grid.innerHTML = '';
 
             if(themes.length === 0) {
-                grid.innerHTML = '<div class="no-results"><i class="fas fa-ghost" style="font-size:3rem; color:var(--gold); margin-bottom:15px; display:block;"></i> No themes found. Try another search!</div>';
+                grid.innerHTML = '<div class="no-results"><i class="fas fa-ghost" style="font-size:4rem; color:var(--gold); margin-bottom:15px; display:block;"></i> No themes found. Try another search!</div>';
                 return;
             }
 
             themes.forEach(theme => {
-                window.currentSlideData[theme.id] = 0; // Initialize slide at 0
-                
-                let premiumTag = theme.premium ? `<div class="premium-badge"><i class="fas fa-crown"></i> HIGH DEMAND</div>` : '';
+                let premiumTag = theme.premium ? `<div class="premium-badge"><i class="fas fa-fire"></i> EXCLUSIVE 5000C</div>` : '';
                 
                 const cardHTML = `
                     <div class="theme-card">
-                        <div class="slider-container">
+                        <div class="animated-logo-container">
                             ${premiumTag}
-                            <button class="slide-btn prev-btn" onclick="changeSlide('${theme.id}', -1, '${escape(JSON.stringify(theme.images))}')"><i class="fas fa-chevron-left"></i></button>
-                            <img src="${theme.images[0]}" id="img-${theme.id}" class="slider-img" alt="${theme.name}">
-                            <button class="slide-btn next-btn" onclick="changeSlide('${theme.id}', 1, '${escape(JSON.stringify(theme.images))}')"><i class="fas fa-chevron-right"></i></button>
-                            <div class="slide-counter" id="counter-${theme.id}">1 / 10</div>
+                            <i class="fab fa-shopify"></i>
                         </div>
                         
                         <div class="theme-info">
                             <h3 class="theme-title">${theme.name}</h3>
                             <div class="price-box">
                                 <div class="market-price">Market Value: $${theme.priceUSD} | ₹${theme.priceINR.toLocaleString('en-IN')}</div>
-                                <div class="our-price"><i class="fas fa-coins"></i> 1000 Credits Only</div>
+                                <div class="our-price"><i class="fas fa-coins"></i> ${theme.cost} Credits Only</div>
                             </div>
-                            <button class="btn-download" onclick="processDownload('${theme.link}')">
+                            <button class="btn-download" onclick="processDownload('${theme.link}', ${theme.cost}, '${theme.name}')">
                                 <i class="fas fa-cloud-download-alt"></i> Download Theme
                             </button>
                         </div>
@@ -346,29 +392,7 @@
         }
 
         // ==========================================
-        // 🔄 SLIDER LOGIC
-        // ==========================================
-        window.changeSlide = (themeId, direction, imagesJsonStr) => {
-            const images = JSON.parse(unescape(imagesJsonStr));
-            let currentIndex = window.currentSlideData[themeId];
-            
-            currentIndex += direction;
-            if (currentIndex < 0) currentIndex = images.length - 1;
-            if (currentIndex >= images.length) currentIndex = 0;
-            
-            window.currentSlideData[themeId] = currentIndex;
-            
-            const imgEl = document.getElementById(`img-${themeId}`);
-            imgEl.style.opacity = 0; // Fade out
-            setTimeout(() => {
-                imgEl.src = images[currentIndex];
-                imgEl.style.opacity = 1; // Fade in
-                document.getElementById(`counter-${themeId}`).innerText = `${currentIndex + 1} / 10`;
-            }, 150);
-        };
-
-        // ==========================================
-        // 🔍 SEARCH LOGIC
+        // 🔍 HYPER SEARCH LOGIC
         // ==========================================
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
@@ -379,17 +403,15 @@
         // ==========================================
         // 💰 CREDIT DEDUCTION & DOWNLOAD LOGIC
         // ==========================================
-        window.processDownload = async (downloadLink) => {
+        window.processDownload = async (downloadLink, cost, themeName) => {
             const user = auth.currentUser;
             if (!user || !currentUserDoc) return;
 
             const currentCredits = currentUserDoc.credits || 0;
-            const cost = 1000;
 
             if (currentCredits >= cost) {
-                // Confirm purchase
                 Swal.fire({
-                    title: 'Unlock Premium Theme?',
+                    title: `Unlock ${themeName}?`,
                     text: `This will consume ${cost} Credits from your wallet.`,
                     icon: 'warning',
                     showCancelButton: true,
@@ -404,14 +426,14 @@
                             Swal.showLoading();
                             const newBalance = currentCredits - cost;
                             
-                            // Deduct credits in Firestore
+                            // Deduct credits in Database
                             await updateDoc(doc(db, "users", user.uid), { credits: newBalance });
                             
-                            // Update UI & Local Data
+                            // Update Live UI
                             currentUserDoc.credits = newBalance;
                             document.getElementById('navCredits').innerText = newBalance;
 
-                            // Success & Open Link
+                            // Success 
                             Swal.fire({
                                 icon: 'success', title: 'Theme Unlocked!',
                                 text: 'Your download link will open in a new tab.',
@@ -420,12 +442,11 @@
                                 window.open(downloadLink, '_blank');
                             });
                         } catch (err) {
-                            Swal.fire('Error', 'Failed to process transaction. Try again.', 'error');
+                            Swal.fire('Error', 'Transaction Failed. Please check your internet connection.', 'error');
                         }
                     }
                 });
             } else {
-                // Not enough credits
                 Swal.fire({
                     title: 'Insufficient Credits',
                     text: `You need ${cost} credits to download this. You currently have ${currentCredits}.`,

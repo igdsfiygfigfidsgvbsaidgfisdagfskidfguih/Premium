@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify Premium Themes | NextGenAdi4U</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.onkeydown = function(e) { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) return false; }
+    </script>
+
+    <style>
+        :root {
+            --bg-body: #FAFAFA; --bg-nav: rgba(255, 255, 255, 0.95); --bg-card: #FFFFFF; 
+            --text-main: #18181B; --text-muted: #71717A; --border-color: #E4E4E7;
+            --gold: #D4AF37; --gold-hover: #B8860B; 
+            --shadow: 0 15px 40px rgba(0,0,0,0.05); --shadow-hover: 0 25px 50px rgba(212, 175, 55, 0.15);
+            --dark: #0A0A0A; 
+        }
+
+        body.dark-mode {
+            --bg-body: #050505; --bg-nav: rgba(10, 10, 10, 0.95); --bg-card: #121212; 
+            --text-main: #F4F4F5; --text-muted: #A1A1AA; --border-color: #333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background 0.3s, color 0.3s, border 0.3s; }
+        body { background-color: var(--bg-body); color: var(--text-main); overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* NAVBAR */
+        .navbar { position: sticky; top: 0; z-index: 100; background: var(--bg-nav); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border-color); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: 800; text-decoration: none; background: linear-gradient(90deg, var(--text-main) 0%, var(--gold) 50%, var(--text-main) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; display: inline-block; }
+        @keyframes shine { 0% { background-position: -200%; } 100% { background-position: 200%; } }
+        
+        .nav-actions { display: flex; align-items: center; gap: 15px; }
+        .back-btn { text-decoration: none; color: var(--text-main); font-weight: 700; display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--bg-card); border-radius: 50px; border: 1px solid var(--border-color); font-size: 0.9rem; }
+        .back-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateX(-3px); }
+        .credit-badge { background: var(--dark); color: var(--gold); padding: 10px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 800; border: 1px solid var(--gold); display: flex; align-items: center; gap: 8px; }
+
+        /* HERO SECTION */
+        .hero { text-align: center; padding: 60px 20px 40px; position: relative; }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: 2.8rem; color: var(--text-main); margin-bottom: 10px; font-weight: 800; }
+        .hero span { color: var(--gold); }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        /* ✨ SEARCH BAR */
+        .search-container { max-width: 600px; margin: 0 auto 40px; position: relative; }
+        .search-input { width: 100%; padding: 16px 20px 16px 50px; border-radius: 50px; border: 2px solid var(--border-color); background: var(--bg-card); color: var(--text-main); font-size: 1rem; font-weight: 500; outline: none; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .search-input:focus { border-color: var(--gold); box-shadow: 0 5px 20px rgba(212,175,55,0.2); }
+        .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.2rem; }
+
+        /* CATEGORY TITLES */
+        .category-title { text-align: center; margin: 0 0 30px; font-family: 'Cinzel', serif; font-size: 2rem; color: var(--text-main); position: relative; }
+        .category-title::after { content: ''; display: block; width: 60px; height: 3px; background: var(--gold); margin: 10px auto 0; border-radius: 2px; }
+
+        /* GRID SYSTEM */
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 20px 80px; flex-grow: 1; width: 100%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; justify-content: center; }
+        
+        /* CARDS */
+        .card { 
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 30px; 
+            text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); z-index: 1;
+        }
+        .card.top-theme { border: 2px solid var(--gold); background: linear-gradient(180deg, rgba(212,175,55,0.05) 0%, transparent 100%); }
+        .card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-hover); }
+        
+        .badge { position: absolute; top: 20px; right: -35px; background: var(--gold); color: #fff; padding: 5px 40px; transform: rotate(45deg); font-size: 0.7rem; font-weight: 900; letter-spacing: 1px; box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+
+        /* ANIMATED SHOPIFY LOGO */
+        .animated-logo-wrapper { height: 120px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
+        .shopify-logo { font-size: 5rem; color: var(--gold); filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); animation: floatGlow 3s ease-in-out infinite; }
+        @keyframes floatGlow {
+            0% { transform: translateY(0px) scale(1); filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)); }
+            50% { transform: translateY(-10px) scale(1.05); filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.7)); }
+            100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)); }
+        }
+
+        .card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-main); font-weight: 800; font-family: 'Cinzel'; text-transform: uppercase; }
+        
+        /* PRICING DETAILS */
+        .price-section { background: var(--bg-body); padding: 15px; border-radius: 12px; width: 100%; margin-bottom: 20px; border: 1px solid var(--border-color); }
+        .market-price { font-size: 0.85rem; color: var(--text-muted); text-decoration: line-through; margin-bottom: 5px; }
+        .vault-price { font-size: 1.3rem; font-weight: 900; color: var(--gold); display: flex; justify-content: center; align-items: center; gap: 8px; }
+        
+        .btn-download { 
+            width: 100%; padding: 14px; background: var(--dark); color: var(--gold); 
+            border: none; border-radius: 12px; font-weight: 800; cursor: pointer; 
+            transition: 0.3s; font-size: 1rem; display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: auto;
+        }
+        .btn-download:hover { background: var(--gold); color: var(--bg-card); transform: scale(1.03); box-shadow: 0 8px 20px rgba(212,175,55,0.3); }
+
+        .no-results { grid-column: 1 / -1; text-align: center; color: var(--text-muted); font-size: 1.2rem; padding: 40px; font-weight: bold; }
+
+        /* FOOTER */
+        footer { background: var(--bg-card); border-top: 2px solid var(--gold); padding: 50px 20px 30px; color: var(--text-main); text-align: center; margin-top: auto; }
+        .footer-brand h2 { font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
+        .footer-brand span { color: var(--gold); }
+        .support-badge-footer { display: inline-flex; align-items: center; gap: 10px; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); padding: 10px 20px; border-radius: 8px; color: var(--gold-hover); font-weight: 700; font-size: 0.9rem; text-decoration: none; margin-top: 15px; }
+        
+        /* LOADER */
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-body); display: flex; justify-content: center; align-items: center; z-index: 99999; flex-direction: column; }
+        .spinner { width: 60px; height: 60px; border: 5px solid rgba(212,175,55,0.1); border-top: 5px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;}
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <h3 style="font-family: 'Cinzel'; color: var(--text-main);">Unlocking Vault...</h3>
+    </div>
+
+    <nav class="navbar">
+        <a href="dashboard.html" class="nav-logo">NextGen<span>Adi4U</span></a>
+        <div class="nav-actions">
+            <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Dashboard</a>
+            <div class="credit-badge" onclick="window.location.href='pricing.html'">
+                <i class="fas fa-coins"></i> <span id="navCredits">...</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>Premium <span>Shopify Themes</span></h1>
+        <p style="margin-bottom: 30px;">Build high-converting ecommerce stores instantly. Download top-tier, premium Shopify themes valued at thousands of dollars for just a fraction of credits.</p>
+        
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search for themes (e.g., Fashion, Gadgets, Turbo)..." onkeyup="filterThemes()">
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <div id="topSection">
+            <h2 class="category-title">🔥 High Demand Themes</h2>
+            <div class="grid" id="topThemesGrid"></div>
+        </div>
+
+        <div id="regularSection" style="margin-top: 60px;">
+            <h2 class="category-title">📦 Premium Library</h2>
+            <div class="grid" id="regularThemesGrid"></div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-brand">
+            <h2>NextGen<span>Adi4U</span></h2>
+            <p>The ultimate digital arsenal for elite creators and entrepreneurs.</p>
+            <a href="support.html" class="support-badge-footer">
+                <i class="fas fa-headset"></i> 24/7 Premium Support
+            </a>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-muted);">&copy; 2026 NextGenAdi4U. All Rights Reserved.</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc, increment, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // 🔥 FIREBASE CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyBE4rNCK5MR1Joy-EOJgWgMLqmm6QDEH40",
+            authDomain: "premium-6172b.firebaseapp.com",
+            projectId: "premium-6172b",
+            storageBucket: "premium-6172b.firebasestorage.app",
+            messagingSenderId: "1024825846032",
+            appId: "1:1024825846032:web:93209b4ca94480da32dd95"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUser = null;
+        let currentCredits = 0;
+
+        // 🚀 THEMES DATA (ALL 55+ LINKS ADDED - NO SHORTCUTS!)
+        const topThemes = [
+            { name: "PRESTIGE THEME", url: "https://drive.google.com/file/d/1Wli6ceFEoRI4Zd1fSd6Fw23_3WQldjXx/view?usp=sharing", market: "$350 / ₹29,000", cost: 5000 },
+            { name: "TURBO THEME", url: "https://drive.google.com/file/d/1aOzOHYhUBLWkt81Gp4Fgn7upXVKwb0aH/view?usp=sharing", market: "$400 / ₹33,000", cost: 5000 },
+            { name: "WAREHOUSE THEME", url: "https://drive.google.com/file/d/10sbL02oFIdINEuj0rQFQ9qrwBxUUfoyf/view?usp=sharing", market: "$320 / ₹26,500", cost: 5000 },
+            { name: "IMPULSE THEME", url: "https://drive.google.com/file/d/1bQlKvu2Sl9m5tBxenDWKCaU-NRini6ry/view?usp=sharing", market: "$350 / ₹29,000", cost: 5000 }
+        ];
+
+        const regularThemes = [
+            { name: "Apparelix Mens Fashion", url: "https://drive.google.com/file/d/12cjI6ByXD6pO9KfwlEVcHMexsrAF2h8F/view?usp=sharing" },
+            { name: "Apparelix Sunglasses", url: "https://drive.google.com/file/d/1Vd5gl5ywSxR0Sm4STJ4alGXnO5b89nXk/view?usp=sharing" },
+            { name: "Aronic Hardware Tool", url: "https://drive.google.com/file/d/1G1xwQ8oFxpokdVw3w-BWnVxtrKSi5wlO/view?usp=sharing" },
+            { name: "Bob Multipurpose Fashion", url: "https://drive.google.com/file/d/1YPrmuJazTNqF42fhMTR5C85r6Fr6zUCj/view?usp=sharing" },
+            { name: "Flone Fashion V2", url: "https://drive.google.com/file/d/1ASqr4tNC3b4CCeZQjV1s6Au_VhGsC28a/view?usp=sharing" },
+            { name: "Coro Minimal Clean", url: "https://drive.google.com/file/d/1ok-V9fitP0Pn3Ber7NAIr4iiW2l61sND/view?usp=sharing" },
+            { name: "Apparelix Mobile Accessories", url: "https://drive.google.com/file/d/1FacOnk0i6HDftm6Sa_0e5lvqPLgweh_e/view?usp=sharing" },
+            { name: "ClickBoom 2", url: "https://drive.google.com/file/d/1bfnyGXxXF0UUALejuGzEVrm8BrLuBd_a/view?usp=sharing" },
+            { name: "FlashMart Multipurpose", url: "https://drive.google.com/file/d/1URlnbUtjDQCj2kopDkUwDYUH5vo0uDYr/view?usp=sharing" },
+            { name: "FashShop Drag Drop", url: "https://drive.google.com/file/d/111QjcE4i2HL0LNiPHQ1HjTYcSFcUsgEb/view?usp=sharing" },
+            { name: "Flairy Fashion", url: "https://drive.google.com/file/d/1K26vJxegJMfEZO2KGb4OC_t-pAxkLCOs/view?usp=sharing" },
+            { name: "Cake Shop Bakery", url: "https://drive.google.com/file/d/14ff4PpdIpjM3fjVsJOOVnywL7Zneg4KE/view?usp=sharing" },
+            { name: "Drou Electronics Store", url: "https://drive.google.com/file/d/1cEY44VAyPtjVzYZNLJcBO5It72rWGRdx/view?usp=sharing" },
+            { name: "Floza Fashion V1", url: "https://drive.google.com/file/d/1xDilaQ2pWIeR6bpxfp6lgljwU2OOKJsa/view?usp=sharing" },
+            { name: "Milatino Coffee Tea", url: "https://drive.google.com/file/d/1WWRySwHS-X2bZzPAJ0VAFceWtv3zOErA/view?usp=sharing" },
+            { name: "Crazy Fashion", url: "https://drive.google.com/file/d/1QqOryJ70GlB8rTFnmvfrdI4xiq_GRXxD/view?usp=sharing" },
+            { name: "Exist Drag Drop", url: "https://drive.google.com/file/d/1CPV3-CjSAdAXM2vcU5sjQv5zMCJV-q69/view?usp=sharing" },
+            { name: "Cafesa Coffee Shops", url: "https://drive.google.com/file/d/1vo0ovSZWvGVg9NkdQRnDRYncoDhCHnNN/view?usp=sharing" },
+            { name: "Kaffe Coffee Shop", url: "https://drive.google.com/file/d/1nNR1FRiqTNKnevtclIE6ogkmrQ34BbNb/view?usp=sharing" },
+            { name: "Frues Fruits Organic", url: "https://drive.google.com/file/d/14i7C8reuvmcsA9dsbiwp7jf_HE4IYn2y/view?usp=sharing" },
+            { name: "Foodizo Store", url: "https://drive.google.com/file/d/1Fv-BtrDQmPwTEmtRkzR8X9CUkR_HDK15/view?usp=sharing" },
+            { name: "Esprezo Cake Shop", url: "https://drive.google.com/file/d/10WiMms3FTXOPj_p-e8YD9h06l9FkROcz/view?usp=sharing" },
+            { name: "Bowow Pet Store", url: "https://drive.google.com/file/d/1-Sm6yHfIK9ZBAvi9M9AMHlR93S8U8U1m/view?usp=sharing" },
+            { name: "Astro Handbags Shopping", url: "https://drive.google.com/file/d/15P7WXhaAcrEQURlgCEXS1Gn_xPjjuaig/view?usp=sharing" },
+            { name: "Brewmix Coffee Shops", url: "https://drive.google.com/file/d/1QlKfzPeKHWi7oIWCH-N78NQir9AyNQQK/view?usp=sharing" },
+            { name: "Airkool Heating AC", url: "https://drive.google.com/file/d/1weKKNafjCUjUZGjTUKaSUkwG_mQGxUvg/view?usp=sharing" },
+            { name: "Apexx Esports Gaming", url: "https://drive.google.com/file/d/1avUe_BUalTMExVE_MRmSwnTftzku0srg/view?usp=sharing" },
+            { name: "Elektrix Electronics", url: "https://drive.google.com/file/d/1SCqV3Ul001o3tIGd3d-mmHac42NmWEEb/view?usp=sharing" },
+            { name: "Fixxer Tools Shop", url: "https://drive.google.com/file/d/1YDEZMFIRzfwkIOT3x6VZ_uMtfLGRT5_5/view?usp=sharing" },
+            { name: "Chewy Pet Kitten Shop", url: "https://drive.google.com/file/d/1brScRwe3thvfJ7i4JlhaoNweHbszDEYC/view?usp=sharing" },
+            { name: "Cufee Coffee Shops 2.0", url: "https://drive.google.com/file/d/1YRNPHWIZmtC3WVfjir4fypzTFdaHgf_w/view?usp=sharing" },
+            { name: "Clarie HandMade", url: "https://drive.google.com/file/d/1QKRcJvG8temDdL_EUCXmJo0H7Vyut37P/view?usp=sharing" },
+            { name: "ChikShopify Fashion", url: "https://drive.google.com/file/d/1dyxJg19dorv4BvqmMr2663eVBjeOUf1k/view?usp=sharing" },
+            { name: "Carze Auto Parts", url: "https://drive.google.com/file/d/1en6z8vrjbq_aarEBzM1xJMTfP59kR0XO/view?usp=sharing" },
+            { name: "Dialz Gadgets Shop", url: "https://drive.google.com/file/d/1kYQKAMsC15v_5rJeZSqK_eBZeRpCPQFL/view?usp=sharing" },
+            { name: "Bikun Bicycles Store", url: "https://drive.google.com/file/d/1XcmrgbWAt7b5djx_1bzAQaxm88AYFPuK/view?usp=sharing" },
+            { name: "Drinks & Beverages", url: "https://drive.google.com/file/d/1OhjKozHav6PcKEEZvUiQO71fz9pIxcpO/view?usp=sharing" },
+            { name: "Fivo Wedding Shop", url: "https://drive.google.com/file/d/1Z8MJV9afuU_srjuoCD91PrQZJPyecwtj/view?usp=sharing" },
+            { name: "Alivana Interior Decor", url: "https://drive.google.com/file/d/1jEXcH9AlX3UAbpj4kS5aTgr9RnqjoldK/view?usp=sharing" },
+            { name: "Electree Unique Electronics", url: "https://drive.google.com/file/d/1Vuis2vbOpB32JSdJK-9PGSBbvGjy-_2w/view?usp=sharing" },
+            { name: "Bixbang Fullpackage", url: "https://drive.google.com/file/d/1IrQ37wIQ20UtjAxw1nBg4q3hAvnyfUGc/view?usp=sharing" },
+            { name: "Brator Auto Parts", url: "https://drive.google.com/file/d/1mEn64K3i_ENVNf_u2QHYqWLYaoeUqmEg/view?usp=sharing" },
+            { name: "Emllo Electronics Gadgets", url: "https://drive.google.com/file/d/1o-FMs8yE6-39E95h5ESpqSj44RX9ub5d/view?usp=sharing" },
+            { name: "Electrodream Electronics", url: "https://drive.google.com/file/d/10sGSXHEzb2Gxm-36q_oW0HBHaYk-XXxM/view?usp=sharing" },
+            { name: "Elessi Shopify 3.0.1", url: "https://drive.google.com/file/d/1Njze9ynhR9v6Nse5q2InmE2eOvBUsgpy/view?usp=sharing" },
+            { name: "Camaro Gadgets Digital", url: "https://drive.google.com/file/d/1aQY2o7H_WlRQCSq0rlc2FSRlApVgYAya/view?usp=sharing" },
+            { name: "Anon Minimal Responsive", url: "https://drive.google.com/file/d/1rQ2DlM78tw9fomeDSPRj9MLjAA2sF0Wy/view?usp=sharing" },
+            { name: "Corano Jewelry V2", url: "https://drive.google.com/file/d/1tFpwJ93vxOQ8RkVJbrKGXvKXWGUj0sbq/view?usp=sharing" },
+            { name: "Fastlane Shopify Theme", url: "https://drive.google.com/file/d/13LX3SE4KEL3wiFtC_KTuI7JTjgMkMp2a/view?usp=sharing" },
+            { name: "Brittney WP Blog Shop", url: "https://drive.google.com/file/d/1tFQLt2yA7Vc59_wV19-28-1RSrsXGnmd/view?usp=sharing" },
+            { name: "Brittny Fashion Store", url: "https://drive.google.com/file/d/14bFdYhVRMysq5t5CyUqQ7JyY8Pxcx8KM/view?usp=sharing" },
+            { name: "Avatar Shopify Theme", url: "https://drive.google.com/file/d/167VwiJkb_U2n-aBG5t_JB_lI7IPHNQyb/view?usp=sharing" },
+            { name: "Fabish Skincare Cosmetics", url: "https://drive.google.com/file/d/1D0qRVAk13Eq7wOzeeiqOsRfNu_Lw_2o_/view?usp=sharing" },
+            { name: "Empire Shopify V6", url: "https://drive.google.com/file/d/1a53f58uCmpIZ9az51CTc9s2V1OcozPs0/view?usp=sharing" },
+            { name: "Streamline Theme V5", url: "https://drive.google.com/file/d/1Z8nvSuaDhz8hu-uTAPXCsd9t66OSBzgO/view?usp=sharing" }
+        ];
+
+        // 🚀 CHECK LOGIN & RENDER
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                const snap = await getDoc(doc(db, "users", user.uid));
+                if (snap.exists()) {
+                    currentCredits = snap.data().credits || 0;
+                    document.getElementById('navCredits').innerText = currentCredits;
+                }
+                
+                if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
+                
+                renderThemes(topThemes, regularThemes);
+                document.getElementById('loader').style.display = 'none';
+            } else {
+                window.location.replace("index.html"); 
+            }
+        });
+
+        // 🎨 RENDER FUNCTION
+        function renderThemes(topArray, regArray) {
+            const topGrid = document.getElementById('topThemesGrid');
+            const regGrid = document.getElementById('regularThemesGrid');
+            const topSection = document.getElementById('topSection');
+            const regSection = document.getElementById('regularSection');
+
+            // Render Top
+            if(topArray.length > 0) {
+                topSection.style.display = 'block';
+                topGrid.innerHTML = topArray.map(t => createCard(t.name, t.market, t.cost, t.url, true)).join('');
+            } else { topSection.style.display = 'none'; }
+            
+            // Render Regular
+            if(regArray.length > 0) {
+                regSection.style.display = 'block';
+                regGrid.innerHTML = regArray.map(t => createCard(t.name, "$69 / ₹5,500", 1000, t.url, false)).join('');
+            } else { regSection.style.display = 'none'; }
+
+            if(topArray.length === 0 && regArray.length === 0) {
+                regGrid.innerHTML = '<div class="no-results">No themes found for your search.</div>';
+                regSection.style.display = 'block';
+            }
+        }
+
+        function createCard(name, marketPrice, cost, url, isTop) {
+            return `
+            <div class="card ${isTop ? 'top-theme' : ''}">
+                ${isTop ? '<div class="badge">PRO</div>' : ''}
+                <div class="animated-logo-wrapper">
+                    <i class="fab fa-shopify shopify-logo"></i>
+                </div>
+                <h3>${name}</h3>
+                <div class="price-section">
+                    <div class="market-price">Market Price: ${marketPrice}</div>
+                    <div class="vault-price"><i class="fas fa-coins" style="font-size:1.1rem;"></i> ${cost} Credits</div>
+                </div>
+                <button class="btn-download" onclick="handleDownload('${name}', ${cost}, '${url}')">
+                    <i class="fas fa-cloud-download-alt"></i> Unlock Theme
+                </button>
+            </div>`;
+        }
+
+        // 🔍 SEARCH FILTER LOGIC
+        window.filterThemes = function() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            
+            const filteredTop = topThemes.filter(t => t.name.toLowerCase().includes(query));
+            const filteredReg = regularThemes.filter(t => t.name.toLowerCase().includes(query));
+            
+            renderThemes(filteredTop, filteredReg);
+        }
+
+        // 💳 DOWNLOAD / VERIFICATION LOGIC
+        window.handleDownload = async function(themeName, cost, driveUrl) {
+            if (currentCredits < cost) {
+                Swal.fire({
+                    title: 'Insufficient Credits! ⚠️',
+                    text: `You need ${cost} credits to download this theme. You only have ${currentCredits}.`,
+                    icon: 'error',
+                    showCancelButton: true,
+                    confirmButtonText: 'Buy Credits',
+                    cancelButtonText: 'Cancel',
+                    background: '#fff',
+                    confirmButtonColor: '#D4AF37'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'pricing.html';
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Unlock Theme?',
+                    text: `${cost} Credits will be securely deducted from your vault.`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Unlock it!',
+                    cancelButtonText: 'Cancel',
+                    confirmButtonColor: '#10B981'
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('loader').style.display = 'flex';
+                        
+                        try {
+                            const userRef = doc(db, "users", currentUser.uid);
+                            await updateDoc(userRef, {
+                                credits: increment(-cost),
+                                downloads: arrayUnion({
+                                    item: themeName,
+                                    cost: cost,
+                                    date: new Date().toISOString()
+                                })
+                            });
+
+                            currentCredits -= cost;
+                            document.getElementById('navCredits').innerText = currentCredits;
+
+                            document.getElementById('loader').style.display = 'none';
+                            
+                            Swal.fire({
+                                title: 'Unlocked Successfully! 🎉',
+                                text: 'Opening Google Drive securely...',
+                                icon: 'success',
+                                timer: 2000,
+                                showConfirmButton: false
+                            }).then(() => {
+                                window.open(driveUrl, '_blank'); 
+                            });
+
+                        } catch (error) {
+                            document.getElementById('loader').style.display = 'none';
+                            Swal.fire('Error', 'Transaction failed. Please try again.', 'error');
+                        }
+                    }
+                });
+            }
+        };
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Shopify Themes | NextGenAdi4U</title>
+    <title>Premium Shopify Vault | NextGenAdi4U</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,7 +15,9 @@
     </script>
 
     <style>
-        /* CORE VARIABLES - GOLDEN & WHITE THEME */
+        /* ====================================================
+           CORE DASHBOARD STYLES (EXACT MATCH NO SHORTCUTS)
+           ==================================================== */
         :root {
             --bg-body: #FAFAFA; --bg-nav: rgba(255, 255, 255, 0.95); --bg-card: #FFFFFF; 
             --text-main: #18181B; --text-muted: #71717A; --border-color: #E4E4E7;
@@ -31,10 +33,13 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background 0.3s, color 0.3s, border 0.3s; }
+        
         body { background-color: var(--bg-body); color: var(--text-main); overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
 
-        /* ✨ CHAMKATA LOGO ANIMATION */
-        @keyframes shine { 0% { background-position: -200%; } 100% { background-position: 200%; } }
+        @keyframes shine {
+            0% { background-position: -200%; }
+            100% { background-position: 200%; }
+        }
         .nav-logo { 
             font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: 800; text-decoration: none; 
             background: linear-gradient(90deg, var(--text-main) 0%, var(--gold) 50%, var(--text-main) 100%);
@@ -42,23 +47,24 @@
             animation: shine 3s linear infinite; display: inline-block;
         }
 
-        /* 🌟 NAVBAR */
         .navbar { 
             position: sticky; top: 0; z-index: 100; background: var(--bg-nav); backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border-color); padding: 15px 5%; 
             display: flex; justify-content: space-between; align-items: center; 
         }
+        
         .nav-actions { display: flex; align-items: center; gap: 15px; }
+
         .credit-badge { 
             background: var(--bg-card); color: var(--gold); padding: 8px 16px; border-radius: 50px; 
             font-size: 0.85rem; font-weight: 700; border: 1px solid var(--gold); 
             display: flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.3s;
         }
         .credit-badge:hover { background: var(--gold); color: #fff; transform: translateY(-2px); box-shadow: 0 0 15px rgba(212,175,55,0.4); }
+
         .profile-btn { cursor: pointer; width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; transition: 0.3s; }
         .profile-btn:hover { transform: scale(1.1); box-shadow: 0 0 10px var(--gold); }
 
-        /* 🌟 DROPDOWN MENU */
         .dropdown-menu { 
             position: absolute; top: 75px; right: 5%; background: var(--bg-card); width: 280px; 
             border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-hover); 
@@ -72,82 +78,90 @@
         .dropdown-item:hover { background: rgba(212, 175, 55, 0.1); color: var(--gold); }
         .menu-header { padding: 15px; border-bottom: 1px solid var(--border-color); margin-bottom: 5px; background: linear-gradient(135deg, rgba(212,175,55,0.1), transparent); border-radius: 8px; }
 
-        /* 🌟 HERO & SEARCH SECTION */
-        .hero { text-align: center; padding: 50px 20px 30px; position: relative; animation: slideDown 1s ease-out; }
+        /* HERO SECTION */
+        .hero { text-align: center; padding: 70px 20px 30px; position: relative; animation: slideDown 1s ease-out; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        
         .hero::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 250px; height: 250px; background: var(--gold); filter: blur(150px); opacity: 0.15; z-index: -1; animation: pulseGlow 4s infinite alternate; }
         @keyframes pulseGlow { 0% { opacity: 0.1; transform: translate(-50%,-50%) scale(0.8); } 100% { opacity: 0.2; transform: translate(-50%,-50%) scale(1.2); } }
         
-        .hero h1 { font-family: 'Cinzel', serif; font-size: 3rem; color: var(--text-main); margin-bottom: 10px; font-weight: 800; }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: 3.2rem; color: var(--text-main); margin-bottom: 10px; font-weight: 800; letter-spacing: 1px; }
         .hero span { color: var(--gold); }
-        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px; line-height: 1.6; }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
-        /* 🔥 HYPER SEARCH BAR */
+        /* ====================================================
+           PREMIUM SHOPIFY CARDS & SEARCH STYLES
+           ==================================================== */
         .search-container {
-            max-width: 700px; margin: 0 auto 40px; position: relative; animation: slideDown 1.2s ease-out;
+            max-width: 600px; margin: 30px auto 40px; position: relative; animation: slideDown 1.2s ease-out;
         }
         .search-input {
-            width: 100%; padding: 20px 25px 20px 60px; border-radius: 50px; border: 2px solid var(--gold);
-            background: var(--bg-card); color: var(--text-main); font-size: 1.2rem; outline: none; transition: 0.4s;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15); font-weight: 600;
+            width: 100%; padding: 18px 25px 18px 60px; border-radius: 50px; border: 2px solid var(--border-color);
+            background: var(--bg-card); color: var(--text-main); font-size: 1.1rem; outline: none; transition: 0.4s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03); font-weight: 500;
         }
-        .search-input:focus { box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4); transform: scale(1.02); }
-        .search-icon { position: absolute; left: 25px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.5rem; }
+        .search-input:focus { border-color: var(--gold); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15); }
+        .search-icon { position: absolute; left: 25px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.3rem; }
 
-        /* 🚀 THEME GRID & CARDS */
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px 80px; flex-grow: 1; width: 100%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 35px; justify-content: center; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 20px 80px; flex-grow: 1; width: 100%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; justify-content: center; }
         
         .theme-card { 
-            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 25px; 
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; 
-            display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.03); z-index: 1;
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; 
+            display: flex; flex-direction: column; box-shadow: 0 8px 25px rgba(0,0,0,0.02); z-index: 1;
         }
-        .theme-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-hover); }
+        .theme-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--shadow-hover); }
 
-        /* ✨ HYPER ANIMATED GOLD SHOPIFY LOGO */
-        @keyframes goldGlowIcon {
-            0% { text-shadow: 0 0 15px rgba(212,175,55,0.4), 0 0 30px rgba(212,175,55,0.2); transform: scale(1) translateY(0); }
-            50% { text-shadow: 0 0 25px rgba(212,175,55,0.8), 0 0 50px rgba(212,175,55,0.6); transform: scale(1.1) translateY(-5px); }
-            100% { text-shadow: 0 0 15px rgba(212,175,55,0.4), 0 0 30px rgba(212,175,55,0.2); transform: scale(1) translateY(0); }
+        @keyframes hyperGoldLogo {
+            0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(212,175,55,0.3)); }
+            50% { transform: scale(1.15); filter: drop-shadow(0 0 25px rgba(212,175,55,0.8)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(212,175,55,0.3)); }
         }
         .animated-logo-container {
-            width: 100%; height: 220px; border-radius: 12px; margin-bottom: 25px;
-            background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(10,10,10,0.9) 100%);
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            display: flex; align-items: center; justify-content: center; position: relative;
+            width: 100%; height: 190px; border-radius: 12px; margin-bottom: 20px;
+            background: linear-gradient(135deg, rgba(20,20,20,1) 0%, rgba(0,0,0,1) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+        }
+        .animated-logo-container::before {
+            content: ''; position: absolute; width: 150%; height: 150%; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%); animation: spin 10s linear infinite;
         }
         .animated-logo-container i {
-            font-size: 6rem; color: var(--gold); animation: goldGlowIcon 2.5s infinite ease-in-out;
+            font-size: 5rem; color: var(--gold); animation: hyperGoldLogo 2s infinite ease-in-out; position: relative; z-index: 2;
         }
-        .theme-card:hover .animated-logo-container { border-color: var(--gold); }
-        .theme-card:hover .animated-logo-container i { animation-duration: 1s; } /* Spins/Glows faster on hover */
 
-        /* Premium Badge */
-        .premium-badge { position: absolute; top: 15px; left: 15px; background: linear-gradient(45deg, var(--dark), var(--gold)); color: #fff; padding: 6px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; z-index: 10; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5); text-transform: uppercase; animation: pulseGlow 2s infinite alternate;}
+        .premium-badge { position: absolute; top: 12px; left: 12px; background: linear-gradient(45deg, var(--gold), var(--gold-hover)); color: #fff; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; z-index: 10; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); text-transform: uppercase;}
 
         .theme-info { flex-grow: 1; display: flex; flex-direction: column; text-align: center; }
-        .theme-title { font-size: 1.3rem; color: var(--text-main); font-weight: 800; margin-bottom: 15px; font-family: 'Cinzel'; line-height: 1.4; }
+        .theme-title { font-size: 1.15rem; color: var(--text-main); font-weight: 800; margin-bottom: 15px; font-family: 'Cinzel'; letter-spacing: 0.5px; }
         
-        .price-box { background: rgba(212,175,55,0.05); border: 1px dashed var(--gold); padding: 15px; border-radius: 12px; margin-bottom: 20px; }
-        .market-price { font-size: 0.9rem; color: var(--text-muted); text-decoration: line-through; margin-bottom: 8px; }
-        .our-price { font-size: 1.2rem; color: var(--gold); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .price-box { border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 12px 0; margin-bottom: 20px; }
+        .market-price { font-size: 0.85rem; color: var(--text-muted); text-decoration: line-through; margin-bottom: 5px; }
+        .our-price { font-size: 1.1rem; color: var(--gold); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
         .btn-download { 
-            width: 100%; padding: 15px; background: var(--dark); color: var(--gold); 
-            border: 2px solid var(--gold); border-radius: 12px; font-weight: 800; cursor: pointer; 
-            transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.05rem;
+            width: 100%; padding: 14px; background: var(--dark); color: var(--gold); 
+            border: none; border-radius: 10px; font-weight: 700; cursor: pointer; 
+            transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.95rem;
         }
-        .btn-download:hover { background: var(--gold); color: #fff; box-shadow: 0 8px 25px rgba(212,175,55,0.5); transform: scale(1.03); }
+        .btn-download:hover { background: var(--gold); color: #fff; box-shadow: 0 8px 20px rgba(212,175,55,0.3); transform: translateY(-2px); }
+        .no-results { grid-column: 1 / -1; text-align: center; padding: 50px; font-size: 1.2rem; color: var(--text-muted); font-weight: 600; }
 
-        /* 🌟 FOOTER (Same as Dashboard) */
-        footer { background: var(--bg-card); border-top: 2px solid var(--gold); padding: 60px 20px 30px; color: var(--text-main); position: relative; box-shadow: 0 -10px 30px rgba(0,0,0,0.02); }
+        /* ====================================================
+           FOOTER & MODALS (EXACT MATCH DASHBOARD.HTML)
+           ==================================================== */
+        footer { 
+            background: var(--bg-card); border-top: 2px solid var(--gold); padding: 60px 20px 30px; 
+            color: var(--text-main); position: relative; overflow: hidden; box-shadow: 0 -10px 30px rgba(0,0,0,0.02);
+        }
         .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; text-align: left; position: relative; z-index: 10; }
         .footer-brand h2 { font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 800; margin-bottom: 15px; color: var(--text-main); }
         .footer-brand span { color: var(--gold); }
         .footer-brand p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
         .support-badge-footer { display: inline-flex; align-items: center; gap: 10px; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); padding: 10px 20px; border-radius: 8px; color: var(--gold-hover); font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: 0.3s; }
         .support-badge-footer:hover { background: var(--gold); color: #fff; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); transform: translateY(-2px); }
+        .support-badge-footer i { font-size: 1.2rem; }
         .footer-links-col h3 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px; position: relative; display: inline-block; font-weight: 700; }
         .footer-links-col h3::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 40px; height: 3px; background: var(--gold); border-radius: 2px; }
         .footer-links-col ul { list-style: none; padding: 0; }
@@ -159,23 +173,50 @@
         .footer-socials a:hover { background: var(--gold); border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); color: #FFF; }
         .footer-bottom { border-top: 1px solid var(--border-color); text-align: center; padding-top: 25px; margin-top: 40px; color: var(--text-muted); font-size: 0.85rem; font-weight: 500; }
 
-        /* LOADER */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.3s; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content { background: var(--bg-card); width: 90%; max-width: 500px; padding: 40px 35px; border-radius: 24px; border: 1px solid var(--gold); box-shadow: 0 25px 60px rgba(0,0,0,0.3); position: relative; transform: scale(0.9); transition: 0.3s; max-height: 90vh; overflow-y: auto; }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        .close-modal { position: absolute; top: 15px; right: 20px; background: var(--bg-body); border: 1px solid var(--border-color); font-size: 1.2rem; color: var(--text-muted); cursor: pointer; width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; transition: 0.3s;}
+        .close-modal:hover { background: #EF4444; color: #fff; border-color: #EF4444; }
+        .modal-header { text-align: center; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; }
+        .modal-header h2 { font-family: 'Cinzel'; color: var(--text-main); margin-bottom: 8px; font-size: 1.8rem; }
+        .modal-header p { font-size: 0.95rem; color: var(--text-muted); }
+        .lux-input { width: 100%; padding: 14px 16px; border: 1px solid var(--border-color); background: var(--bg-body); color: var(--text-main); border-radius: 12px; margin: 8px 0 15px; outline: none; transition: 0.3s; font-size: 0.95rem; }
+        .lux-input:focus { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1); }
+        .btn-modal { width: 100%; padding: 15px; background: var(--dark); color: var(--gold); border: none; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 10px; transition: 0.3s; font-size: 1rem; }
+        .btn-modal:hover { background: var(--gold); color: var(--card-bg); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212,175,55,0.2); }
+        .ref-box { background: rgba(212,175,55,0.05); padding: 20px; border-radius: 16px; border: 1px dashed var(--gold); text-align: left; margin-bottom: 25px; }
+        .ref-step { display: flex; gap: 12px; margin-bottom: 12px; font-size: 0.9rem; align-items: flex-start; color: var(--text-main); line-height: 1.4;}
+        .ref-step i { color: var(--gold); margin-top: 3px; font-size: 1.1rem; }
+        .logs-box { max-height: 180px; overflow-y: auto; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px; }
+        .log-item { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 12px 10px; border-bottom: 1px solid var(--border-color); align-items: center;}
+        .log-profit { color: #10B981; font-weight: 800; background: rgba(16, 185, 129, 0.1); padding: 4px 10px; border-radius: 6px;}
+
+        #brightnessOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; opacity: 0; pointer-events: none; z-index: 99999; mix-blend-mode: multiply; transition: opacity 0.1s; }
         #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-body); display: flex; justify-content: center; align-items: center; z-index: 99999; flex-direction: column; }
         .spinner { width: 60px; height: 60px; border: 5px solid rgba(212,175,55,0.1); border-top: 5px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;}
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        
-        .no-results { grid-column: 1 / -1; text-align: center; padding: 50px; font-size: 1.5rem; color: var(--text-muted); font-weight: bold; }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 15px 20px; } .hero h1 { font-size: 2.2rem; } .hero p { font-size: 0.95rem; }
+            .dropdown-menu { right: 20px; width: 250px; } .grid { grid-template-columns: 1fr; }
+            .footer-container { text-align: center; } .footer-links-col h3::after { left: 50%; transform: translateX(-50%); }
+            .footer-links-col ul a { justify-content: center; } .support-badge-footer { margin: 0 auto; }
+        }
     </style>
 </head>
 <body>
 
+    <div id="brightnessOverlay"></div>
+
     <div id="loader">
         <div class="spinner"></div>
-        <h3 style="font-family: 'Cinzel'; color: var(--text-main); letter-spacing: 1px;">Loading Premium Vault...</h3>
+        <h3 style="font-family: 'Cinzel'; color: var(--text-main); letter-spacing: 1px;">Loading Vault...</h3>
     </div>
 
     <nav class="navbar">
-        <a href="dashboard.html" class="nav-logo"><i class="fas fa-arrow-left" style="font-size: 1rem; margin-right: 8px;"></i> NextGen<span>Adi4U</span></a>
+        <a href="dashboard.html" class="nav-logo">NextGen<span>Adi4U</span></a>
         
         <div class="nav-actions">
             <div class="credit-badge" onclick="window.location.href='pricing.html'">
@@ -187,10 +228,14 @@
         <div class="dropdown-menu" id="userMenu">
             <div class="menu-header">
                 <b id="menuName" style="display:block; color:var(--text-main); font-size:1.05rem; font-weight:800;">Master</b>
-                <small id="menuPlan" style="color:var(--gold); font-weight:800; text-transform: uppercase;">Free Plan</small>
+                <small id="menuPlan" style="color:var(--gold); font-weight:800; text-transform: uppercase; letter-spacing: 0.5px;">Free Plan</small>
             </div>
             <a class="dropdown-item" href="dashboard.html"><i class="fas fa-home"></i> Back to Dashboard</a>
+            <a class="dropdown-item" onclick="openModal('profileModal')"><i class="fas fa-user-circle"></i> Edit Profile</a>
+            <a class="dropdown-item" onclick="openModal('referModal')"><i class="fas fa-gift"></i> Refer & Earn</a>
             <a class="dropdown-item" href="pricing.html"><i class="fas fa-wallet"></i> Buy Credits</a>
+            <a class="dropdown-item" onclick="openModal('themeModal')"><i class="fas fa-adjust"></i> Theme Settings</a>
+            <a class="dropdown-item" onclick="openModal('accountModal')"><i class="fas fa-shield-alt"></i> Account Settings</a>
             <div style="height:1px; background:var(--border-color); margin:8px 0;"></div>
             <a class="dropdown-item" onclick="logout()" style="color:#EF4444; font-weight: 700;"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
@@ -198,11 +243,11 @@
 
     <div class="hero">
         <h1>Shopify <span>Themes Vault</span></h1>
-        <p>Your Ultimate Digital Arsenal. Unlock Premium Themes with Credits.</p>
+        <p>Premium digital arsenal for elite stores. Search, unlock, and dominate.</p>
         
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="Search 55+ Themes (e.g., Prestige, Fashion, Electronics...)">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search 55+ Premium Themes...">
         </div>
     </div>
 
@@ -215,24 +260,37 @@
         <div class="footer-container">
             <div class="footer-brand">
                 <h2>NextGen<span>Adi4U</span></h2>
-                <p>The ultimate digital arsenal for creators, developers, and entrepreneurs.</p>
+                <p>The ultimate digital arsenal for creators, developers, and entrepreneurs. Unlock premium assets, master prompts, and exclusive tools to dominate your digital journey.</p>
                 <a href="support.html" class="support-badge-footer">
                     <i class="fas fa-headset"></i> 24/7 Premium Support
                 </a>
             </div>
+            
             <div class="footer-links-col">
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="dashboard.html"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Dashboard</a></li>
-                    <li><a href="pricing.html"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Buy Credits</a></li>
+                    <li><a href="pricing.html"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Pricing & Store</a></li>
+                    <li><a href="#" onclick="openModal('referModal')"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Refer & Earn</a></li>
                 </ul>
             </div>
+
+            <div class="footer-links-col">
+                <h3>Legal & Terms</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-shield-alt" style="font-size:0.7rem;"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-file-contract" style="font-size:0.7rem;"></i> Terms of Service</a></li>
+                    <li><a href="#"><i class="fas fa-exclamation-triangle" style="font-size:0.7rem;"></i> Disclaimer</a></li>
+                </ul>
+            </div>
+
             <div class="footer-links-col">
                 <h3>Connect With Us</h3>
                 <div class="footer-socials">
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-telegram-plane"></i></a>
                     <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
         </div>
@@ -241,11 +299,85 @@
         </div>
     </footer>
 
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('profileModal')"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <h2>Edit Profile</h2>
+                <p>Update your public identity and avatar.</p>
+            </div>
+            <div style="text-align:center; margin-bottom:20px;">
+                <div style="position: relative; display: inline-block;">
+                    <img src="" id="modalImg" style="width:110px; height:110px; border-radius:50%; border:3px solid var(--gold); object-fit:cover; padding:3px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                    <button onclick="document.getElementById('fileInput').click()" style="position: absolute; bottom: 0; right: 0; background: var(--gold); color: #fff; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.2);"><i class="fas fa-camera"></i></button>
+                </div>
+                <input type="file" id="fileInput" hidden accept="image/*" onchange="uploadPic(event)">
+            </div>
+            <label style="font-size:0.85rem; font-weight:700; color:var(--text-muted); margin-left: 5px;">Full Name</label>
+            <input type="text" id="editName" class="lux-input" placeholder="Enter Full Name">
+            <button class="btn-modal" onclick="saveProfile()">Save Changes</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="referModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('referModal')"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <h2>Refer & Earn</h2>
+                <p>Invite friends, build your digital empire.</p>
+            </div>
+            <div class="ref-box">
+                <div class="ref-step"><i class="fas fa-user-plus"></i> <div><b>Invite Friend:</b> They get 100 Bonus Credits instantly on signup.</div></div>
+                <div class="ref-step"><i class="fas fa-coins"></i> <div><b>You Earn:</b> Get 20 Credits for every successful signup.</div></div>
+                <div class="ref-step"><i class="fas fa-percent"></i> <div><b>Lifetime Commission:</b> Earn 20% on their Credit purchases & 10% on Memberships forever.</div></div>
+            </div>
+            <label style="font-size:0.85rem; font-weight:700; color:var(--text-muted); margin-left: 5px;">Your Unique Link</label>
+            <input type="text" id="refLink" class="lux-input" readonly style="text-align:center; font-weight:bold; color:var(--gold); cursor:pointer; font-size: 1rem;" onclick="copyRef()">
+            <button class="btn-modal" onclick="copyRef()"><i class="fas fa-copy"></i> Copy Link</button>
+            <div class="logs-box" id="refLogs">
+                <p style="text-align:center; font-size:0.85rem; padding:10px; color:var(--text-muted);">Loading earning history...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="themeModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('themeModal')"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <h2>Theme Settings</h2>
+                <p>Customize your visual experience.</p>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px; padding:20px; border:1px solid var(--border-color); border-radius:12px; background: var(--bg-body);">
+                <span style="font-weight:700; font-size: 1.1rem; color: var(--text-main);"><i class="fas fa-moon" style="color: var(--gold); margin-right: 10px;"></i> Dark Mode</span>
+                <button onclick="toggleTheme()" style="padding:10px 20px; background:var(--gold); border:none; border-radius:8px; cursor:pointer; font-weight:bold; color:var(--bg-card); transition: 0.3s; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);">Toggle UI</button>
+            </div>
+            <label style="font-size:0.85rem; font-weight:700; color:var(--text-muted); margin-left: 5px;">Eye Protection (Brightness)</label>
+            <input type="range" min="0" max="70" value="0" class="lux-input" style="padding:0; height: 6px; background: var(--border-color); border: none; outline: none; margin-top: 15px; margin-bottom: 10px;" oninput="adjustBrightness(this.value)">
+            <p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">Slide to dim screen and protect your eyes</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="accountModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('accountModal')"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <h2>Account Settings</h2>
+                <p>Manage your secure login credentials.</p>
+            </div>
+            <label style="font-size:0.85rem; font-weight:700; color:var(--text-muted); margin-left: 5px;">Update Email Address</label>
+            <input type="email" id="settingEmail" class="lux-input" placeholder="New Email Address">
+            <label style="font-size:0.85rem; font-weight:700; color:var(--text-muted); margin-left: 5px;">Set / Change Password</label>
+            <input type="password" id="settingPass" class="lux-input" placeholder="New Password (Min 6 chars)">
+            <button class="btn-modal" onclick="updateSecurity()"><i class="fas fa-shield-alt"></i> Update Credentials</button>
+        </div>
+    </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // 🔥 FIREBASE CONFIG (Kept EXACTLY same)
         const firebaseConfig = {
             apiKey: "AIzaSyBE4rNCK5MR1Joy-EOJgWgMLqmm6QDEH40",
             authDomain: "premium-6172b.firebaseapp.com",
@@ -262,40 +394,151 @@
 
         let currentUserDoc = null;
 
-        // AUTH CHECKER
+        // 🚀 AUTH LISTENER & PROFILE SETUP
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const userRef = doc(db, "users", user.uid);
-                const snap = await getDoc(userRef);
-                if (snap.exists()) {
-                    currentUserDoc = snap.data();
-                    document.getElementById('navCredits').innerText = currentUserDoc.credits || 0;
-                    document.getElementById('menuName').innerText = currentUserDoc.fullName || "Master";
-                    document.getElementById('menuPlan').innerText = (currentUserDoc.planType || "Free") + " Plan";
-                    if(currentUserDoc.profilePicBase64) document.getElementById('navProfilePic').src = currentUserDoc.profilePicBase64;
-                }
-                document.getElementById('loader').style.display = 'none';
-                renderThemes(themesData); 
+                try {
+                    const snap = await getDoc(userRef);
+                    if (snap.exists()) {
+                        currentUserDoc = snap.data();
+                        setupDashboard(user, currentUserDoc);
+                    } else {
+                        const newData = { fullName: user.displayName || "User", email: user.email, credits: 100, planType: "Free", joinedDate: new Date().toISOString() };
+                        await setDoc(userRef, newData);
+                        currentUserDoc = newData;
+                        setupDashboard(user, newData);
+                    }
+                } catch (e) { console.error("DB Error", e); }
             } else {
                 window.location.replace("index.html");
             }
         });
 
+        function setupDashboard(user, data) {
+            document.getElementById('loader').style.display = 'none';
+
+            // Text Setup
+            const name = data.fullName || "Master";
+            document.getElementById('navCredits').innerText = data.credits || 0;
+            document.getElementById('menuName').innerText = name;
+            document.getElementById('editName').value = name;
+            document.getElementById('settingEmail').value = user.email;
+            document.getElementById('menuPlan').innerText = (data.planType || "Free") + " Plan";
+
+            // Profile Picture
+            if(data.profilePicBase64) {
+                document.getElementById('navProfilePic').src = data.profilePicBase64;
+                document.getElementById('modalImg').src = data.profilePicBase64;
+            } else {
+                document.getElementById('modalImg').src = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+            }
+
+            // Referral Setup
+            let baseUrl = window.location.origin + window.location.pathname.replace('shopify-themes.html', 'index.html');
+            document.getElementById('refLink').value = `${baseUrl}?ref=${user.uid}`;
+
+            // Referral Logs Setup
+            const logsDiv = document.getElementById('refLogs');
+            if (data.referralLogs && data.referralLogs.length > 0) {
+                logsDiv.innerHTML = "";
+                [...data.referralLogs].reverse().forEach(log => {
+                    let text = log.type === 'signup' ? `New Signup: ${log.user}` : `Commission: ${log.buyerName}`;
+                    let profit = log.bonus || log.earnedCredits || 0;
+                    let icon = log.type === 'signup' ? '<i class="fas fa-user-check" style="color: #6366F1; margin-right: 8px;"></i>' : '<i class="fas fa-hand-holding-usd" style="color: #D4AF37; margin-right: 8px;"></i>';
+                    logsDiv.innerHTML += `<div class="log-item"><span style="color: var(--text-main);">${icon}${text}</span><span class="log-profit">+${profit} <i class="fas fa-coins" style="font-size: 0.7rem; margin-left: 2px;"></i></span></div>`;
+                });
+            } else {
+                logsDiv.innerHTML = '<p style="text-align:center; font-size:0.9rem; color:var(--text-muted); padding:20px;">No referrals yet. Share your link to start earning!</p>';
+            }
+
+            // Render Themes once data is loaded
+            renderThemes(themesData);
+        }
+
+        // --- ACCOUNT SETTINGS ---
+        window.updateSecurity = async () => {
+            const newEmail = document.getElementById('settingEmail').value;
+            const newPass = document.getElementById('settingPass').value;
+            const user = auth.currentUser;
+
+            if(!newEmail && !newPass) return Swal.fire('Notice', 'Please enter email or password to update.', 'info');
+
+            try {
+                if(newPass && newPass.length >= 6) {
+                    await updatePassword(user, newPass);
+                    Swal.fire({icon:'success', title:'Password Securely Updated!', toast:true, position:'top-end', showConfirmButton:false, timer:2500});
+                }
+                if(newEmail && newEmail !== user.email) {
+                    await updateEmail(user, newEmail);
+                    await updateDoc(doc(db, "users", user.uid), { email: newEmail });
+                    Swal.fire('Email Updated', 'Your email has been changed. Please login again.', 'success').then(() => window.logout());
+                }
+                document.getElementById('settingPass').value = '';
+            } catch (error) {
+                if(error.code === 'auth/requires-recent-login') {
+                    Swal.fire('Security Alert', 'For your security, please Logout & Login again to update sensitive info.', 'warning');
+                } else {
+                    Swal.fire('Error', error.message, 'error');
+                }
+            }
+        };
+
+        // --- UI & MODAL FUNCTIONS ---
         window.toggleMenu = () => document.getElementById('userMenu').classList.toggle('active');
-        window.logout = () => signOut(auth).then(() => window.location.replace("index.html"));
+        window.openModal = (id) => { document.getElementById(id).classList.add('active'); document.getElementById('userMenu').classList.remove('active'); };
+        window.closeModal = (id) => document.getElementById(id).classList.remove('active');
+        
+        // --- THEME & BRIGHTNESS TOGGLE (Exactly like Dashboard) ---
+        window.toggleTheme = () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        };
         if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
+        
+        window.adjustBrightness = (val) => { document.getElementById('brightnessOverlay').style.opacity = val / 100; };
+
+        // --- PROFILE & REFERRAL FUNCTIONS ---
+        window.copyRef = () => {
+            const copyText = document.getElementById("refLink");
+            copyText.select(); navigator.clipboard.writeText(copyText.value);
+            Swal.fire({ icon: 'success', title: 'Referral Link Copied!', toast: true, position: 'top-end', showConfirmButton: false, timer: 2000, background: '#D4AF37', color: '#fff', iconColor: '#fff' });
+        };
+
+        window.saveProfile = async () => {
+            const newName = document.getElementById('editName').value;
+            if(newName) {
+                await updateDoc(doc(db, "users", auth.currentUser.uid), { fullName: newName });
+                Swal.fire({ icon: 'success', title: 'Profile Updated!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1500 }).then(() => location.reload());
+            }
+        };
+
+        window.uploadPic = (e) => {
+            const file = e.target.files[0];
+            if(file && file.size < 1572864) {
+                const reader = new FileReader();
+                reader.onloadend = async () => {
+                    document.getElementById('modalImg').src = reader.result;
+                    await updateDoc(doc(db, "users", auth.currentUser.uid), { profilePicBase64: reader.result });
+                    Swal.fire({ icon: 'success', title: 'Avatar Saved!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1500 }).then(() => location.reload());
+                };
+                reader.readAsDataURL(file);
+            } else { Swal.fire('Error', 'Image is too large. Please upload an image under 1.5MB.', 'error'); }
+        };
+
+        window.logout = () => signOut(auth).then(() => window.location.replace("index.html"));
 
         // ==========================================
-        // 🔥 ALL 59 THEMES DATA ARRAY (NO SHORTCUTS)
+        // 🔥 59 THEMES DATA (NO SHORTCUTS)
         // ==========================================
         const themesData = [
-            // TOP 4 PREMIUM THEMES (5000 CREDITS)
+            // TOP 4 PREMIUM
             { name: "PRESTIGE THEME", link: "https://drive.google.com/file/d/1Wli6ceFEoRI4Zd1fSd6Fw23_3WQldjXx/view?usp=sharing", cost: 5000, priceUSD: 350, priceINR: 29000, premium: true },
             { name: "TURBO THEME", link: "https://drive.google.com/file/d/1aOzOHYhUBLWkt81Gp4Fgn7upXVKwb0aH/view?usp=sharing", cost: 5000, priceUSD: 400, priceINR: 33000, premium: true },
             { name: "WAREHOUSE THEME", link: "https://drive.google.com/file/d/10sbL02oFIdINEuj0rQFQ9qrwBxUUfoyf/view?usp=sharing", cost: 5000, priceUSD: 320, priceINR: 26500, premium: true },
             { name: "IMPULSE THEME", link: "https://drive.google.com/file/d/1bQlKvu2Sl9m5tBxenDWKCaU-NRini6ry/view?usp=sharing", cost: 5000, priceUSD: 350, priceINR: 29000, premium: true },
 
-            // 55 REGULAR THEMES (1000 CREDITS)
+            // 55 REGULAR THEMES
             { name: "Apparelix Mens Fashion", link: "https://drive.google.com/file/d/12cjI6ByXD6pO9KfwlEVcHMexsrAF2h8F/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
             { name: "Apparelix Sunglasses", link: "https://drive.google.com/file/d/1Vd5gl5ywSxR0Sm4STJ4alGXnO5b89nXk/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
             { name: "Aronic Hardware Tool", link: "https://drive.google.com/file/d/1G1xwQ8oFxpokdVw3w-BWnVxtrKSi5wlO/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
@@ -353,20 +596,18 @@
             { name: "Streamline v5.0.1", link: "https://drive.google.com/file/d/1Z8nvSuaDhz8hu-uTAPXCsd9t66OSBzgO/view?usp=sharing", cost: 1000, priceUSD: 320, priceINR: 26500, premium: false }
         ];
 
-        // ==========================================
-        // 🚀 RENDER THEMES TO HTML
-        // ==========================================
+        // 🚀 RENDER THEMES
         function renderThemes(themes) {
             const grid = document.getElementById('themeGrid');
             grid.innerHTML = '';
 
             if(themes.length === 0) {
-                grid.innerHTML = '<div class="no-results"><i class="fas fa-ghost" style="font-size:4rem; color:var(--gold); margin-bottom:15px; display:block;"></i> No themes found. Try another search!</div>';
+                grid.innerHTML = '<div class="no-results"><i class="fas fa-ghost" style="font-size:3rem; color:var(--gold); margin-bottom:15px; display:block;"></i> No themes found. Try another search!</div>';
                 return;
             }
 
             themes.forEach(theme => {
-                let premiumTag = theme.premium ? `<div class="premium-badge"><i class="fas fa-fire"></i> EXCLUSIVE 5000C</div>` : '';
+                let premiumTag = theme.premium ? `<div class="premium-badge"><i class="fas fa-crown"></i> 5000C EXCLUSIVE</div>` : '';
                 
                 const cardHTML = `
                     <div class="theme-card">
@@ -382,7 +623,7 @@
                                 <div class="our-price"><i class="fas fa-coins"></i> ${theme.cost} Credits Only</div>
                             </div>
                             <button class="btn-download" onclick="processDownload('${theme.link}', ${theme.cost}, '${theme.name}')">
-                                <i class="fas fa-cloud-download-alt"></i> Download Theme
+                                <i class="fas fa-cloud-download-alt"></i> Unlock Theme
                             </button>
                         </div>
                     </div>
@@ -391,18 +632,14 @@
             });
         }
 
-        // ==========================================
-        // 🔍 HYPER SEARCH LOGIC
-        // ==========================================
+        // 🔍 HYPER SEARCH
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
             const filtered = themesData.filter(t => t.name.toLowerCase().includes(query));
             renderThemes(filtered);
         });
 
-        // ==========================================
-        // 💰 CREDIT DEDUCTION & DOWNLOAD LOGIC
-        // ==========================================
+        // 💰 PROCESS DOWNLOAD
         window.processDownload = async (downloadLink, cost, themeName) => {
             const user = auth.currentUser;
             if (!user || !currentUserDoc) return;
@@ -426,14 +663,11 @@
                             Swal.showLoading();
                             const newBalance = currentCredits - cost;
                             
-                            // Deduct credits in Database
                             await updateDoc(doc(db, "users", user.uid), { credits: newBalance });
                             
-                            // Update Live UI
                             currentUserDoc.credits = newBalance;
                             document.getElementById('navCredits').innerText = newBalance;
 
-                            // Success 
                             Swal.fire({
                                 icon: 'success', title: 'Theme Unlocked!',
                                 text: 'Your download link will open in a new tab.',

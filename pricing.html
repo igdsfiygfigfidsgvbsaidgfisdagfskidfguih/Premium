@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Store (Test Mode) | NextGenAdi4U</title>
+    <title>Premium Store | NextGenAdi4U</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
@@ -37,7 +39,7 @@
         .store-title { text-align: center; margin-bottom: 30px; }
         .store-title h1 { font-family: 'Cinzel', serif; font-size: 2.8rem; margin-bottom: 10px; }
         .store-title span { color: var(--gold); }
-        .test-mode-badge { display: inline-block; background: rgba(16, 185, 129, 0.1); color: #10B981; padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 800; border: 1px solid rgba(16, 185, 129, 0.3); letter-spacing: 1px; }
+        .live-mode-badge { display: inline-block; background: rgba(212, 175, 55, 0.1); color: var(--gold-dark); padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 800; border: 1px solid rgba(212, 175, 55, 0.3); letter-spacing: 1px; }
 
         /* TABS */
         .tabs-wrapper { width: 100%; display: flex; justify-content: center; margin-bottom: 40px; }
@@ -45,7 +47,7 @@
         .toggle-btn { padding: 12px 35px; border: none; background: transparent; font-weight: 700; cursor: pointer; border-radius: 10px; color: var(--text-muted); font-size: 0.95rem; }
         .toggle-btn.active { background: var(--card-bg); color: var(--dark); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 
-        /* 🚀 GRID LAYOUT (PC & Mobile Responsive) */
+        /* GRID LAYOUT (PC & Mobile Responsive) */
         .grid-container { 
             display: none; 
             width: 100%; 
@@ -88,7 +90,7 @@
             border: none; border-radius: 14px; font-size: 1.05rem; font-weight: 800; 
             cursor: pointer; transition: 0.3s; margin-top: auto; 
         }
-        .btn-buy:hover { background: var(--gold); color: var(--dark); transform: scale(1.03); box-shadow: 0 10px 20px rgba(212,175,55,0.3); }
+        .btn-buy:hover { background: var(--gold); color: var(--card-bg); transform: scale(1.03); box-shadow: 0 10px 20px rgba(212,175,55,0.3); }
 
         /* LOADER */
         #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-body); display: flex; justify-content: center; align-items: center; z-index: 9999; flex-direction: column; display: none; }
@@ -108,7 +110,7 @@
 
     <div id="loader">
         <div class="spinner"></div>
-        <h2 style="font-family:'Cinzel'; color: var(--text-main);">Processing...</h2>
+        <h2 style="font-family:'Cinzel'; color: var(--text-main); letter-spacing:1px;">Securing Purchase...</h2>
     </div>
 
     <div class="header">
@@ -118,7 +120,7 @@
 
     <div class="store-title">
         <h1>Premium <span>Store</span></h1>
-        <div class="test-mode-badge"><i class="fas fa-flask"></i> TEST MODE (Pay ₹0)</div>
+        <div class="live-mode-badge"><i class="fas fa-shield-check"></i> SECURE SECONDS CHECKOUT</div>
         <p id="memberStatusMsg" style="color:var(--gold); font-weight:bold; margin-top:15px; font-size:1rem;"></p>
     </div>
 
@@ -142,7 +144,7 @@
                 <li><i class="fas fa-tags"></i> <b>20% OFF</b> Lifetime on Credits</li>
                 <li><i class="fas fa-bolt"></i> Instant Account Upgrade</li>
             </ul>
-            <button class="btn-buy" onclick="processPayment('Membership', 'Plus Member', 1000, 299, 20)">Buy Plan (Test)</button>
+            <button class="btn-buy" onclick="initiateRazorpayPayment('Membership', 'Plus Member', 1000, 299, 20)">Buy Plan</button>
         </div>
 
         <div class="card popular">
@@ -155,7 +157,7 @@
                 <li><i class="fas fa-tags"></i> <b>40% OFF</b> Lifetime on Credits</li>
                 <li><i class="fas fa-bolt"></i> Instant Account Upgrade</li>
             </ul>
-            <button class="btn-buy" onclick="processPayment('Membership', 'Pro Member', 3500, 599, 40)">Buy Plan (Test)</button>
+            <button class="btn-buy" onclick="initiateRazorpayPayment('Membership', 'Pro Member', 3500, 599, 40)">Buy Plan</button>
         </div>
 
         <div class="card premium">
@@ -168,7 +170,7 @@
                 <li><i class="fas fa-tags"></i> <b>70% OFF</b> Lifetime on Credits</li>
                 <li><i class="fas fa-bolt"></i> Instant Account Upgrade</li>
             </ul>
-            <button class="btn-buy" onclick="processPayment('Membership', 'Ultimate Member', 7000, 1099, 70)">Buy Plan (Test)</button>
+            <button class="btn-buy" onclick="initiateRazorpayPayment('Membership', 'Ultimate Member', 7000, 1099, 70)">Buy Plan</button>
         </div>
     </div>
 
@@ -191,7 +193,8 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // 🚨 TELEGRAM DETAILS
+        // 🚨 LIVE KEYS & TOKENS
+        const RAZORPAY_KEY = "rzp_live_SFCBSbx9v2B3Nw"; 
         const TG_TOKEN = "8336599171:AAFNKIKQ_3DBOLO9HHpkgFoFHXd2NO2NOAE"; 
         const TG_CHAT_ID = "8255824096"; 
 
@@ -247,85 +250,116 @@
                         <span class="price">₹${finalPrice}</span>
                         ${isDiscounted ? '<span class="discount-tag"><i class="fas fa-tag"></i> Member Benefit</span>' : ''}
                     </div>
-                    <button class="btn-buy" onclick="processPayment('Credit Pack', '${pack.credits} Credits', ${pack.credits}, ${finalPrice})">Buy Credits (Test)</button>
+                    <button class="btn-buy" onclick="initiateRazorpayPayment('Credit Pack', '${pack.credits} Credits', ${pack.credits}, ${finalPrice})">Buy Now</button>
                 </div>`;
             }).join('');
         }
 
-        // 🧪 MASTER PURCHASE FUNCTION (TEST MODE)
-        window.processPayment = async function(type, itemName, itemValue, cost, discountPercent = 0) {
+        // 💳 LIVE RAZORPAY INTEGRATION
+        window.initiateRazorpayPayment = function(type, itemName, itemValue, cost, discountPercent = 0) {
             if(!currentUser) return;
+
+            var options = {
+                "key": RAZORPAY_KEY, 
+                "amount": cost * 100, // Amount is in paise (₹1 = 100 paise)
+                "currency": "INR",
+                "name": "NextGenAdi4U",
+                "description": "Purchase: " + itemName,
+                "image": "https://cdn-icons-png.flaticon.com/512/149/149071.png", // Optional Logo
+                "handler": async function (response) {
+                    // PAYMENT SUCCESS LOGIC
+                    const paymentId = response.razorpay_payment_id;
+                    await processSuccessfulPayment(type, itemName, itemValue, cost, discountPercent, paymentId);
+                },
+                "prefill": {
+                    "name": currentUser.displayName || "Premium User",
+                    "email": currentUser.email
+                },
+                "theme": {
+                    "color": "#0A0A0A" // Gold theme color for checkout
+                }
+            };
+
+            var rzp1 = new Razorpay(options);
+            
+            rzp1.on('payment.failed', function (response){
+                Swal.fire('Payment Failed', response.error.description, 'error');
+            });
+
+            rzp1.open();
+        }
+
+        // 🧪 PROCESS DATABASE AFTER SUCCESSFUL PAYMENT
+        async function processSuccessfulPayment(type, itemName, itemValue, cost, discountPercent, paymentId) {
             document.getElementById('loader').style.display = 'flex';
 
-            // Simulate Payment Gateway Delay
-            setTimeout(async () => {
-                try {
-                    const userRef = doc(db, "users", currentUser.uid);
-                    let updates = {
-                        credits: increment(itemValue), // Adding Credits/Bonus Credits
-                        transactions: arrayUnion({
-                            type: type,
-                            item: itemName,
-                            amount: cost, // In test mode this is symbolic
-                            received: itemValue,
-                            date: new Date().toISOString()
-                        })
-                    };
+            try {
+                const userRef = doc(db, "users", currentUser.uid);
+                let updates = {
+                    credits: increment(itemValue),
+                    transactions: arrayUnion({
+                        type: type,
+                        item: itemName,
+                        amount: cost,
+                        received: itemValue,
+                        paymentId: paymentId,
+                        date: new Date().toISOString()
+                    })
+                };
 
-                    // Plan specific updates
-                    if(type === 'Membership') {
-                        updates.planType = itemName;
-                        updates.discountMultiplier = (100 - discountPercent) / 100;
-                    }
-
-                    // 1. Update Current User
-                    await updateDoc(userRef, updates);
-
-                    // 2. Process Referral Commission
-                    if(userData.referredBy) {
-                        let commission = 0;
-                        if(type === 'Credit Pack') {
-                            commission = Math.floor(itemValue * 0.20); // 20% on Credits
-                        } else if(type === 'Membership') {
-                            commission = Math.floor(itemValue * 0.10); // 10% on Bonus Credits
-                        }
-
-                        if(commission > 0) {
-                            const refRef = doc(db, "users", userData.referredBy);
-                            await updateDoc(refRef, {
-                                credits: increment(commission),
-                                referralLogs: arrayUnion({
-                                    type: 'commission',
-                                    buyerName: currentUser.displayName || "User",
-                                    earnedCredits: commission,
-                                    item: itemName,
-                                    date: new Date().toISOString()
-                                })
-                            });
-                        }
-                    }
-
-                    // 3. Telegram Alert
-                    await sendTelegramAlert(
-                        `💰 <b>New Purchase Alert (Test Mode)</b>`, 
-                        `👤 <b>User:</b> ${currentUser.displayName || currentUser.email}\n📦 <b>Item:</b> ${itemName}\n💸 <b>Value:</b> ₹${cost} (Paid ₹0)\n💎 <b>Received:</b> ${itemValue} Credits\n👑 <b>Category:</b> ${type}`
-                    );
-
-                    document.getElementById('loader').style.display = 'none';
-                    Swal.fire({
-                        title: 'Test Payment Successful!',
-                        text: `You have securely received ${itemValue} Credits in your vault.`,
-                        icon: 'success',
-                        background: '#fff',
-                        confirmButtonColor: '#0A0A0A'
-                    }).then(() => location.reload());
-
-                } catch (error) {
-                    console.error(error);
-                    document.getElementById('loader').style.display = 'none';
-                    Swal.fire('Transaction Error', error.message, 'error');
+                // Plan specific updates
+                if(type === 'Membership') {
+                    updates.planType = itemName;
+                    updates.discountMultiplier = (100 - discountPercent) / 100;
                 }
-            }, 1800); // 1.8 seconds processing simulation
+
+                // 1. Update Current User
+                await updateDoc(userRef, updates);
+
+                // 2. Process Referral Commission
+                if(userData.referredBy) {
+                    let commission = 0;
+                    if(type === 'Credit Pack') {
+                        commission = Math.floor(itemValue * 0.20); // 20% on Credits
+                    } else if(type === 'Membership') {
+                        commission = Math.floor(itemValue * 0.10); // 10% on Bonus Credits
+                    }
+
+                    if(commission > 0) {
+                        const refRef = doc(db, "users", userData.referredBy);
+                        await updateDoc(refRef, {
+                            credits: increment(commission),
+                            referralLogs: arrayUnion({
+                                type: 'commission',
+                                buyerName: currentUser.displayName || "User",
+                                earnedCredits: commission,
+                                item: itemName,
+                                date: new Date().toISOString()
+                            })
+                        });
+                    }
+                }
+
+                // 3. Telegram Alert
+                await sendTelegramAlert(
+                    `💰 <b>LIVE Purchase Successful</b>`, 
+                    `👤 <b>User:</b> ${currentUser.displayName || currentUser.email}\n📦 <b>Item:</b> ${itemName}\n💸 <b>Paid:</b> ₹${cost}\n💎 <b>Received:</b> ${itemValue} Credits\n👑 <b>Category:</b> ${type}\n✅ <b>Txn ID:</b> <code>${paymentId}</code>`
+                );
+
+                document.getElementById('loader').style.display = 'none';
+                Swal.fire({
+                    title: 'Payment Successful!',
+                    text: `Transaction ID: ${paymentId}\n\nYou securely received ${itemValue} Credits!`,
+                    icon: 'success',
+                    background: '#fff',
+                    confirmButtonColor: '#0A0A0A'
+                }).then(() => location.reload());
+
+            } catch (error) {
+                console.error(error);
+                document.getElementById('loader').style.display = 'none';
+                Swal.fire('Database Error', 'Payment was successful but database update failed. Please contact support.', 'error');
+            }
         }
 
         // 📢 TELEGRAM API CALL

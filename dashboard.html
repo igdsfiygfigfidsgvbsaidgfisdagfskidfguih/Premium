@@ -133,22 +133,34 @@
         }
         .btn-card:hover { background: var(--gold); border-color: var(--gold); color: #fff; box-shadow: 0 8px 20px rgba(212,175,55,0.3); transform: scale(1.02); }
 
-        /* 🌟 PREMIUM FOOTER */
-        footer { border-top: 1px solid var(--border-color); padding: 50px 20px 30px; text-align: center; background: var(--bg-nav); margin-top: auto; }
-        footer h2 { font-family: 'Cinzel', serif; color: var(--text-main); margin-bottom: 20px; font-size: 2rem; font-weight: 800;}
-        footer span { color: var(--gold); }
+        /* 🌟 NEW TOP-CLASS FOOTER */
+        footer { 
+            background: var(--dark); border-top: 3px solid var(--gold); padding: 60px 20px 30px; 
+            color: #FFFFFF; font-family: 'Inter', sans-serif; position: relative; overflow: hidden;
+        }
+        .footer-glow { position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 300px; height: 100px; background: var(--gold); filter: blur(80px); opacity: 0.2; }
         
-        .support-badge { display: inline-block; background: rgba(16, 185, 129, 0.1); color: #10B981; padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 800; margin-bottom: 25px; border: 1px solid rgba(16, 185, 129, 0.3); letter-spacing: 1px;}
+        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; text-align: left; position: relative; z-index: 10; }
         
-        .footer-socials { display: flex; justify-content: center; gap: 20px; margin-bottom: 25px; }
-        .footer-socials a { width: 45px; height: 45px; border-radius: 50%; background: var(--bg-body); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--text-muted); text-decoration: none; transition: 0.3s; font-size: 1.2rem; }
-        .footer-socials a:hover { border-color: var(--gold); color: #fff; background: var(--gold); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3); }
+        .footer-brand h2 { font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 800; margin-bottom: 15px; color: #FFFFFF; }
+        .footer-brand span { color: var(--gold); }
+        .footer-brand p { color: #A1A1AA; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
         
-        .footer-links { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-bottom: 25px; }
-        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: 0.3s; font-weight: 500; }
-        .footer-links a:hover { color: var(--gold); text-decoration: underline; }
-        
-        .footer-copy { color: var(--text-muted); font-size: 0.85rem; opacity: 0.8; margin-top: 10px; border-top: 1px solid var(--border-color); padding-top: 20px; max-width: 600px; margin-left: auto; margin-right: auto;}
+        .support-badge-footer { display: inline-flex; align-items: center; gap: 10px; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); padding: 10px 20px; border-radius: 8px; color: var(--gold); font-weight: 700; font-size: 0.9rem; }
+        .support-badge-footer i { font-size: 1.2rem; }
+
+        .footer-links-col h3 { color: #FFFFFF; font-size: 1.1rem; margin-bottom: 20px; position: relative; display: inline-block; }
+        .footer-links-col h3::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 40px; height: 2px; background: var(--gold); }
+        .footer-links-col ul { list-style: none; padding: 0; }
+        .footer-links-col ul li { margin-bottom: 12px; }
+        .footer-links-col ul a { color: #A1A1AA; text-decoration: none; font-size: 0.95rem; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .footer-links-col ul a:hover { color: var(--gold); transform: translateX(5px); }
+
+        .footer-socials { display: flex; gap: 15px; margin-top: 15px; }
+        .footer-socials a { width: 40px; height: 40px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: #FFFFFF; text-decoration: none; transition: 0.3s; font-size: 1.1rem; }
+        .footer-socials a:hover { background: var(--gold); border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); color: #0A0A0A;}
+
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); text-align: center; padding-top: 25px; margin-top: 40px; color: #A1A1AA; font-size: 0.85rem; }
 
         /* 🌟 MODALS */
         .modal-overlay { 
@@ -208,6 +220,10 @@
             .hero p { font-size: 0.95rem; }
             .dropdown-menu { right: 20px; width: 250px; }
             .grid { grid-template-columns: 1fr; }
+            .footer-container { text-align: center; }
+            .footer-links-col h3::after { left: 50%; transform: translateX(-50%); }
+            .footer-links-col ul a { justify-content: center; }
+            .support-badge-footer { margin: 0 auto; }
         }
     </style>
 </head>
@@ -254,37 +270,68 @@
     <div class="container">
         <div class="grid">
             <div class="card">
-                <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
+                <div class="card-icon"><i class="fas fa-code"></i></div>
                 <h3>Website Source Codes</h3>
                 <p>Premium HTML/CSS/JS projects ready to deploy and customize.</p>
-                <a href="website-projects.html" class="btn-card">Open Vault</a>
-            </div>
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-microchip"></i></div>
-                <h3>Software & Plugins</h3>
-                <p>Cracked & Pre-activated premium tools for creators and developers.</p>
-                <a href="software-plugins.html" class="btn-card">Open Vault</a>
+                <a href="website-codes.html" class="btn-card">Open Vault</a>
             </div>
             <div class="card">
                 <div class="card-icon"><i class="fas fa-fire"></i></div>
-                <h3>Viral Reels Bundle</h3>
-                <p>High-retention, copyright-free video assets to boost your engagement.</p>
+                <h3>Viral Latest Reels</h3>
+                <p>High-retention, copyright-free video assets to boost engagement.</p>
                 <a href="viral-reels.html" class="btn-card">Open Vault</a>
             </div>
             <div class="card">
-                <div class="card-icon"><i class="fas fa-headphones-alt"></i></div>
-                <h3>Background Music</h3>
-                <p>Cinematic & Lo-fi copyright-free tracks for your premium content.</p>
-                <a href="background-music.html" class="btn-card">Open Vault</a>
+                <div class="card-icon"><i class="fas fa-film"></i></div>
+                <h3>Video Editing Material</h3>
+                <p>Premium LUTs, transitions, overlays, and VFX packs.</p>
+                <a href="video-editing.html" class="btn-card">Open Vault</a>
             </div>
             <div class="card">
-                <div class="card-icon"><i class="fas fa-brain"></i></div>
-                <h3>AI Master Prompts</h3>
-                <p>Unlock the full potential of ChatGPT & Midjourney with secret prompts.</p>
+                <div class="card-icon"><i class="fas fa-music"></i></div>
+                <h3>Background Songs</h3>
+                <p>Cinematic & Lo-fi copyright-free tracks for your content.</p>
+                <a href="background-songs.html" class="btn-card">Open Vault</a>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fab fa-shopify"></i></div>
+                <h3>Shopify Premium Themes</h3>
+                <p>High-converting, beautifully designed themes for your store.</p>
+                <a href="shopify-themes.html" class="btn-card">Open Vault</a>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-robot"></i></div>
+                <h3>AI Premium Prompts</h3>
+                <p>Unlock the full potential of Midjourney, Leonardo, and more.</p>
                 <a href="ai-prompts.html" class="btn-card">Open Vault</a>
             </div>
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-comment-dots"></i></div>
+                <h3>ChatGPT Prompts</h3>
+                <p>Master prompts to skyrocket your productivity and content creation.</p>
+                <a href="chatgpt-prompts.html" class="btn-card">Open Vault</a>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fab fa-steam"></i></div>
+                <h3>Steam Accounts Working</h3>
+                <p>Pre-loaded and secure premium game accounts ready to play.</p>
+                <a href="steam-accounts.html" class="btn-card">Open Vault</a>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Premium Courses</h3>
+                <p>Master new skills with highly rated digital marketing and dev courses.</p>
+                <a href="premium-courses.html" class="btn-card">Open Vault</a>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-gamepad"></i></div>
+                <h3>Free Fire C# & C++ Projects</h3>
+                <p>Exclusive scripts, panels, and project files for advanced users.</p>
+                <a href="free-fire-projects.html" class="btn-card">Open Vault</a>
+            </div>
+            
             <div class="card" style="border-color: var(--gold); background: linear-gradient(180deg, rgba(212,175,55,0.05) 0%, transparent 100%);">
-                <div class="card-icon" style="background: var(--gold); color: #fff; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);"><i class="fas fa-crown"></i></div>
+                <div class="card-icon" style="background: var(--gold); color: #18181B; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);"><i class="fas fa-crown"></i></div>
                 <h3>Store & Upgrades</h3>
                 <p>Get more credits or upgrade your membership for lifetime benefits.</p>
                 <a href="pricing.html" class="btn-card" style="background:var(--gold); color:#18181B; border:none; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);">Visit Store <i class="fas fa-arrow-right" style="margin-left: 5px;"></i></a>
@@ -293,23 +340,47 @@
     </div>
 
     <footer>
-        <div class="support-badge"><i class="fas fa-headset"></i> 24/7 Premium Support</div>
-        <h2>NextGen<span>Adi4U</span></h2>
-        
-        <div class="footer-socials">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-telegram-plane"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fas fa-envelope"></i></a>
-        </div>
+        <div class="footer-glow"></div>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h2>NextGen<span>Adi4U</span></h2>
+                <p>The ultimate digital arsenal for creators, developers, and entrepreneurs. Unlock premium assets, master prompts, and exclusive tools to dominate your digital journey.</p>
+                <div class="support-badge-footer">
+                    <i class="fas fa-headset"></i> 24/7 Premium Support
+                </div>
+            </div>
+            
+            <div class="footer-links-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Dashboard</a></li>
+                    <li><a href="pricing.html"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Pricing & Store</a></li>
+                    <li><a href="#" onclick="openModal('referModal')"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Refer & Earn</a></li>
+                </ul>
+            </div>
 
-        <div class="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Disclaimer</a>
-            <a href="#">Terms & Conditions</a>
-            <a href="#">Contact Us</a>
+            <div class="footer-links-col">
+                <h3>Legal & Terms</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-shield-alt" style="font-size:0.7rem;"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-file-contract" style="font-size:0.7rem;"></i> Terms of Service</a></li>
+                    <li><a href="#"><i class="fas fa-exclamation-triangle" style="font-size:0.7rem;"></i> Disclaimer</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-col">
+                <h3>Connect With Us</h3>
+                <div class="footer-socials">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
         </div>
-        <p class="footer-copy">&copy; 2026 NextGenAdi4U. All Rights Reserved. Built for the elite digital creators.</p>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NextGenAdi4U. All Rights Reserved. Built for the Elite.</p>
+        </div>
     </footer>
 
     <div class="modal-overlay" id="profileModal">

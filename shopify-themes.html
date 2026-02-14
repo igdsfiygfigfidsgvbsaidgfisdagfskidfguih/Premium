@@ -16,7 +16,7 @@
 
     <style>
         /* ====================================================
-           CORE DASHBOARD STYLES (EXACT MATCH NO SHORTCUTS)
+           CORE VARIABLES & DASHBOARD STYLES
            ==================================================== */
         :root {
             --bg-body: #FAFAFA; --bg-nav: rgba(255, 255, 255, 0.95); --bg-card: #FFFFFF; 
@@ -36,10 +36,7 @@
         
         body { background-color: var(--bg-body); color: var(--text-main); overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
 
-        @keyframes shine {
-            0% { background-position: -200%; }
-            100% { background-position: 200%; }
-        }
+        @keyframes shine { 0% { background-position: -200%; } 100% { background-position: 200%; } }
         .nav-logo { 
             font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: 800; text-decoration: none; 
             background: linear-gradient(90deg, var(--text-main) 0%, var(--gold) 50%, var(--text-main) 100%);
@@ -78,83 +75,77 @@
         .dropdown-item:hover { background: rgba(212, 175, 55, 0.1); color: var(--gold); }
         .menu-header { padding: 15px; border-bottom: 1px solid var(--border-color); margin-bottom: 5px; background: linear-gradient(135deg, rgba(212,175,55,0.1), transparent); border-radius: 8px; }
 
-        /* HERO SECTION */
-        .hero { text-align: center; padding: 70px 20px 30px; position: relative; animation: slideDown 1s ease-out; }
+        /* ====================================================
+           HERO & SEARCH SECTION
+           ==================================================== */
+        .hero { text-align: center; padding: 70px 20px 40px; position: relative; animation: slideDown 1s ease-out; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
         
         .hero::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 250px; height: 250px; background: var(--gold); filter: blur(150px); opacity: 0.15; z-index: -1; animation: pulseGlow 4s infinite alternate; }
         @keyframes pulseGlow { 0% { opacity: 0.1; transform: translate(-50%,-50%) scale(0.8); } 100% { opacity: 0.2; transform: translate(-50%,-50%) scale(1.2); } }
         
+        .back-btn-container { text-align: left; max-width: 1300px; margin: 0 auto 20px; padding: 0 20px; }
+        .btn-back { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; padding: 10px 20px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); transition: all 0.3s ease; }
+        .btn-back:hover { border-color: var(--gold); color: var(--gold); transform: translateX(-5px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1); }
+
         .hero h1 { font-family: 'Cinzel', serif; font-size: 3.2rem; color: var(--text-main); margin-bottom: 10px; font-weight: 800; letter-spacing: 1px; }
         .hero span { color: var(--gold); }
         .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
-        /* ====================================================
-           PREMIUM SHOPIFY CARDS & SEARCH STYLES
-           ==================================================== */
-        .search-container {
-            max-width: 600px; margin: 30px auto 40px; position: relative; animation: slideDown 1.2s ease-out;
-        }
-        .search-input {
-            width: 100%; padding: 18px 25px 18px 60px; border-radius: 50px; border: 2px solid var(--border-color);
-            background: var(--bg-card); color: var(--text-main); font-size: 1.1rem; outline: none; transition: 0.4s;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.03); font-weight: 500;
-        }
-        .search-input:focus { border-color: var(--gold); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15); }
-        .search-icon { position: absolute; left: 25px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.3rem; }
+        .search-container { max-width: 700px; margin: 40px auto; position: relative; }
+        .search-input { width: 100%; padding: 20px 25px 20px 60px; border-radius: 50px; border: 2px solid var(--gold); background: var(--bg-card); color: var(--text-main); font-size: 1.1rem; outline: none; transition: 0.4s; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15); font-weight: 600; }
+        .search-input:focus { box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3); transform: scale(1.02); }
+        .search-icon { position: absolute; left: 25px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.4rem; }
 
+        /* ====================================================
+           HYPER PROFESSIONAL CARD DESIGN
+           ==================================================== */
         .container { max-width: 1300px; margin: 0 auto; padding: 0 20px 80px; flex-grow: 1; width: 100%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; justify-content: center; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; justify-content: center; }
         
         .theme-card { 
             background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; 
-            display: flex; flex-direction: column; box-shadow: 0 8px 25px rgba(0,0,0,0.02); z-index: 1;
+            display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.03); z-index: 1;
         }
-        .theme-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--shadow-hover); }
+        .theme-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-hover); }
 
         @keyframes hyperGoldLogo {
-            0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(212,175,55,0.3)); }
-            50% { transform: scale(1.15); filter: drop-shadow(0 0 25px rgba(212,175,55,0.8)); }
-            100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(212,175,55,0.3)); }
+            0% { text-shadow: 0 0 15px rgba(212,175,55,0.4), 0 0 30px rgba(212,175,55,0.2); transform: scale(1) translateY(0); }
+            50% { text-shadow: 0 0 25px rgba(212,175,55,0.8), 0 0 50px rgba(212,175,55,0.6); transform: scale(1.1) translateY(-5px); }
+            100% { text-shadow: 0 0 15px rgba(212,175,55,0.4), 0 0 30px rgba(212,175,55,0.2); transform: scale(1) translateY(0); }
         }
-        .animated-logo-container {
-            width: 100%; height: 190px; border-radius: 12px; margin-bottom: 20px;
+        
+        .card-preview {
+            width: 100%; height: 200px; border-radius: 12px; margin-bottom: 20px;
             background: linear-gradient(135deg, rgba(20,20,20,1) 0%, rgba(0,0,0,1) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
         }
-        .animated-logo-container::before {
-            content: ''; position: absolute; width: 150%; height: 150%; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%); animation: spin 10s linear infinite;
-        }
-        .animated-logo-container i {
-            font-size: 5rem; color: var(--gold); animation: hyperGoldLogo 2s infinite ease-in-out; position: relative; z-index: 2;
-        }
+        .card-preview::before { content: ''; position: absolute; width: 150%; height: 150%; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%); animation: spin 10s linear infinite; }
+        .card-preview i { font-size: 5rem; color: var(--gold); animation: hyperGoldLogo 2.5s infinite ease-in-out; position: relative; z-index: 2; }
 
-        .premium-badge { position: absolute; top: 12px; left: 12px; background: linear-gradient(45deg, var(--gold), var(--gold-hover)); color: #fff; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; z-index: 10; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); text-transform: uppercase;}
+        .theme-card:hover .card-preview { border-color: var(--gold); }
+        .theme-card:hover .card-preview i { animation-duration: 1s; } 
 
-        .theme-info { flex-grow: 1; display: flex; flex-direction: column; text-align: center; }
-        .theme-title { font-size: 1.15rem; color: var(--text-main); font-weight: 800; margin-bottom: 15px; font-family: 'Cinzel'; letter-spacing: 0.5px; }
+        .premium-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(45deg, var(--dark), var(--gold)); color: #fff; padding: 6px 15px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; z-index: 10; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5); text-transform: uppercase; animation: pulseGlow 2s infinite alternate;}
+
+        .card-body { flex-grow: 1; display: flex; flex-direction: column; text-align: center; }
+        .theme-title { font-size: 1.25rem; color: var(--text-main); font-weight: 800; margin-bottom: 15px; font-family: 'Cinzel'; line-height: 1.4; }
         
-        .price-box { border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 12px 0; margin-bottom: 20px; }
-        .market-price { font-size: 0.85rem; color: var(--text-muted); text-decoration: line-through; margin-bottom: 5px; }
-        .our-price { font-size: 1.1rem; color: var(--gold); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .price-box { background: rgba(212,175,55,0.05); border: 1px dashed var(--gold); padding: 15px; border-radius: 12px; margin-bottom: 20px; }
+        .market-price { font-size: 0.9rem; color: var(--text-muted); text-decoration: line-through; margin-bottom: 8px; }
+        .our-price { font-size: 1.15rem; color: var(--gold); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        .btn-download { 
-            width: 100%; padding: 14px; background: var(--dark); color: var(--gold); 
-            border: none; border-radius: 10px; font-weight: 700; cursor: pointer; 
-            transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.95rem;
-        }
-        .btn-download:hover { background: var(--gold); color: #fff; box-shadow: 0 8px 20px rgba(212,175,55,0.3); transform: translateY(-2px); }
-        .no-results { grid-column: 1 / -1; text-align: center; padding: 50px; font-size: 1.2rem; color: var(--text-muted); font-weight: 600; }
+        .btn-download { width: 100%; padding: 15px; background: var(--dark); color: var(--gold); border: 2px solid var(--gold); border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.05rem; }
+        .btn-download:hover { background: var(--gold); color: #fff; box-shadow: 0 8px 25px rgba(212,175,55,0.5); transform: scale(1.03); }
+        
+        .no-results { grid-column: 1 / -1; text-align: center; padding: 50px; font-size: 1.5rem; color: var(--text-muted); font-weight: bold; }
 
         /* ====================================================
-           FOOTER & MODALS (EXACT MATCH DASHBOARD.HTML)
+           FULL FOOTER (100% FROM DASHBOARD)
            ==================================================== */
-        footer { 
-            background: var(--bg-card); border-top: 2px solid var(--gold); padding: 60px 20px 30px; 
-            color: var(--text-main); position: relative; overflow: hidden; box-shadow: 0 -10px 30px rgba(0,0,0,0.02);
-        }
+        footer { background: var(--bg-card); border-top: 2px solid var(--gold); padding: 60px 20px 30px; color: var(--text-main); position: relative; overflow: hidden; box-shadow: 0 -10px 30px rgba(0,0,0,0.02); }
         .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; text-align: left; position: relative; z-index: 10; }
         .footer-brand h2 { font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 800; margin-bottom: 15px; color: var(--text-main); }
         .footer-brand span { color: var(--gold); }
@@ -173,6 +164,9 @@
         .footer-socials a:hover { background: var(--gold); border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); color: #FFF; }
         .footer-bottom { border-top: 1px solid var(--border-color); text-align: center; padding-top: 25px; margin-top: 40px; color: var(--text-muted); font-size: 0.85rem; font-weight: 500; }
 
+        /* ====================================================
+           FULL MODALS (100% FROM DASHBOARD)
+           ==================================================== */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.3s; }
         .modal-overlay.active { opacity: 1; visibility: visible; }
         .modal-content { background: var(--bg-card); width: 90%; max-width: 500px; padding: 40px 35px; border-radius: 24px; border: 1px solid var(--gold); box-shadow: 0 25px 60px rgba(0,0,0,0.3); position: relative; transform: scale(0.9); transition: 0.3s; max-height: 90vh; overflow-y: auto; }
@@ -230,7 +224,7 @@
                 <b id="menuName" style="display:block; color:var(--text-main); font-size:1.05rem; font-weight:800;">Master</b>
                 <small id="menuPlan" style="color:var(--gold); font-weight:800; text-transform: uppercase; letter-spacing: 0.5px;">Free Plan</small>
             </div>
-            <a class="dropdown-item" href="dashboard.html"><i class="fas fa-home"></i> Back to Dashboard</a>
+            <a class="dropdown-item" href="dashboard.html"><i class="fas fa-th-large"></i> Back to Dashboard</a>
             <a class="dropdown-item" onclick="openModal('profileModal')"><i class="fas fa-user-circle"></i> Edit Profile</a>
             <a class="dropdown-item" onclick="openModal('referModal')"><i class="fas fa-gift"></i> Refer & Earn</a>
             <a class="dropdown-item" href="pricing.html"><i class="fas fa-wallet"></i> Buy Credits</a>
@@ -240,6 +234,10 @@
             <a class="dropdown-item" onclick="logout()" style="color:#EF4444; font-weight: 700;"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
     </nav>
+
+    <div class="back-btn-container" style="margin-top: 30px;">
+        <a href="dashboard.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+    </div>
 
     <div class="hero">
         <h1>Shopify <span>Themes Vault</span></h1>
@@ -377,7 +375,7 @@
         import { getAuth, onAuthStateChanged, signOut, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // 🔥 FIREBASE CONFIG (Kept EXACTLY same)
+        // FIREBASE CONFIG
         const firebaseConfig = {
             apiKey: "AIzaSyBE4rNCK5MR1Joy-EOJgWgMLqmm6QDEH40",
             authDomain: "premium-6172b.firebaseapp.com",
@@ -394,7 +392,7 @@
 
         let currentUserDoc = null;
 
-        // 🚀 AUTH LISTENER & PROFILE SETUP
+        // AUTH LISTENER
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const userRef = doc(db, "users", user.uid);
@@ -415,10 +413,10 @@
             }
         });
 
+        // SET UP USER UI
         function setupDashboard(user, data) {
             document.getElementById('loader').style.display = 'none';
 
-            // Text Setup
             const name = data.fullName || "Master";
             document.getElementById('navCredits').innerText = data.credits || 0;
             document.getElementById('menuName').innerText = name;
@@ -426,7 +424,6 @@
             document.getElementById('settingEmail').value = user.email;
             document.getElementById('menuPlan').innerText = (data.planType || "Free") + " Plan";
 
-            // Profile Picture
             if(data.profilePicBase64) {
                 document.getElementById('navProfilePic').src = data.profilePicBase64;
                 document.getElementById('modalImg').src = data.profilePicBase64;
@@ -434,11 +431,9 @@
                 document.getElementById('modalImg').src = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
             }
 
-            // Referral Setup
             let baseUrl = window.location.origin + window.location.pathname.replace('shopify-themes.html', 'index.html');
             document.getElementById('refLink').value = `${baseUrl}?ref=${user.uid}`;
 
-            // Referral Logs Setup
             const logsDiv = document.getElementById('refLogs');
             if (data.referralLogs && data.referralLogs.length > 0) {
                 logsDiv.innerHTML = "";
@@ -452,11 +447,10 @@
                 logsDiv.innerHTML = '<p style="text-align:center; font-size:0.9rem; color:var(--text-muted); padding:20px;">No referrals yet. Share your link to start earning!</p>';
             }
 
-            // Render Themes once data is loaded
             renderThemes(themesData);
         }
 
-        // --- ACCOUNT SETTINGS ---
+        // ACCOUNT MODAL LOGIC
         window.updateSecurity = async () => {
             const newEmail = document.getElementById('settingEmail').value;
             const newPass = document.getElementById('settingPass').value;
@@ -484,12 +478,11 @@
             }
         };
 
-        // --- UI & MODAL FUNCTIONS ---
+        // UI TOGGLES
         window.toggleMenu = () => document.getElementById('userMenu').classList.toggle('active');
         window.openModal = (id) => { document.getElementById(id).classList.add('active'); document.getElementById('userMenu').classList.remove('active'); };
         window.closeModal = (id) => document.getElementById(id).classList.remove('active');
         
-        // --- THEME & BRIGHTNESS TOGGLE (Exactly like Dashboard) ---
         window.toggleTheme = () => {
             document.body.classList.toggle('dark-mode');
             localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
@@ -498,7 +491,7 @@
         
         window.adjustBrightness = (val) => { document.getElementById('brightnessOverlay').style.opacity = val / 100; };
 
-        // --- PROFILE & REFERRAL FUNCTIONS ---
+        // PROFILE & REFER FUNCTIONS
         window.copyRef = () => {
             const copyText = document.getElementById("refLink");
             copyText.select(); navigator.clipboard.writeText(copyText.value);
@@ -529,7 +522,7 @@
         window.logout = () => signOut(auth).then(() => window.location.replace("index.html"));
 
         // ==========================================
-        // 🔥 59 THEMES DATA (NO SHORTCUTS)
+        // ALL 59 THEMES (FULL LIST NO SHORTCUT)
         // ==========================================
         const themesData = [
             // TOP 4 PREMIUM
@@ -596,7 +589,7 @@
             { name: "Streamline v5.0.1", link: "https://drive.google.com/file/d/1Z8nvSuaDhz8hu-uTAPXCsd9t66OSBzgO/view?usp=sharing", cost: 1000, priceUSD: 320, priceINR: 26500, premium: false }
         ];
 
-        // 🚀 RENDER THEMES
+        // RENDER GRID LOGIC
         function renderThemes(themes) {
             const grid = document.getElementById('themeGrid');
             grid.innerHTML = '';
@@ -607,16 +600,16 @@
             }
 
             themes.forEach(theme => {
-                let premiumTag = theme.premium ? `<div class="premium-badge"><i class="fas fa-crown"></i> 5000C EXCLUSIVE</div>` : '';
+                let premiumTag = theme.premium ? `<div class="premium-tag"><i class="fas fa-crown"></i> 5000C EXCLUSIVE</div>` : '';
                 
                 const cardHTML = `
                     <div class="theme-card">
-                        <div class="animated-logo-container">
+                        <div class="card-preview">
                             ${premiumTag}
                             <i class="fab fa-shopify"></i>
                         </div>
                         
-                        <div class="theme-info">
+                        <div class="card-body">
                             <h3 class="theme-title">${theme.name}</h3>
                             <div class="price-box">
                                 <div class="market-price">Market Value: $${theme.priceUSD} | ₹${theme.priceINR.toLocaleString('en-IN')}</div>
@@ -632,14 +625,14 @@
             });
         }
 
-        // 🔍 HYPER SEARCH
+        // SEARCH BAR LOGIC
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
             const filtered = themesData.filter(t => t.name.toLowerCase().includes(query));
             renderThemes(filtered);
         });
 
-        // 💰 PROCESS DOWNLOAD
+        // CREDIT DEDUCTION & DOWNLOAD
         window.processDownload = async (downloadLink, cost, themeName) => {
             const user = auth.currentUser;
             if (!user || !currentUserDoc) return;
@@ -663,8 +656,10 @@
                             Swal.showLoading();
                             const newBalance = currentCredits - cost;
                             
+                            // Database update
                             await updateDoc(doc(db, "users", user.uid), { credits: newBalance });
                             
+                            // UI update
                             currentUserDoc.credits = newBalance;
                             document.getElementById('navCredits').innerText = newBalance;
 

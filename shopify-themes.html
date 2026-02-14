@@ -16,7 +16,7 @@
 
     <style>
         /* ====================================================
-           CORE VARIABLES & DASHBOARD STYLES
+           CORE VARIABLES (DASHBOARD MATCH)
            ==================================================== */
         :root {
             --bg-body: #FAFAFA; --bg-nav: rgba(255, 255, 255, 0.95); --bg-card: #FFFFFF; 
@@ -33,7 +33,6 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background 0.3s, color 0.3s, border 0.3s; }
-        
         body { background-color: var(--bg-body); color: var(--text-main); overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
 
         @keyframes shine { 0% { background-position: -200%; } 100% { background-position: 200%; } }
@@ -44,47 +43,28 @@
             animation: shine 3s linear infinite; display: inline-block;
         }
 
-        .navbar { 
-            position: sticky; top: 0; z-index: 100; background: var(--bg-nav); backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-color); padding: 15px 5%; 
-            display: flex; justify-content: space-between; align-items: center; 
-        }
-        
+        /* NAVBAR */
+        .navbar { position: sticky; top: 0; z-index: 100; background: var(--bg-nav); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border-color); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
         .nav-actions { display: flex; align-items: center; gap: 15px; }
-
-        .credit-badge { 
-            background: var(--bg-card); color: var(--gold); padding: 8px 16px; border-radius: 50px; 
-            font-size: 0.85rem; font-weight: 700; border: 1px solid var(--gold); 
-            display: flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.3s;
-        }
+        .credit-badge { background: var(--bg-card); color: var(--gold); padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; border: 1px solid var(--gold); display: flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.3s; }
         .credit-badge:hover { background: var(--gold); color: #fff; transform: translateY(-2px); box-shadow: 0 0 15px rgba(212,175,55,0.4); }
-
         .profile-btn { cursor: pointer; width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; transition: 0.3s; }
         .profile-btn:hover { transform: scale(1.1); box-shadow: 0 0 10px var(--gold); }
 
-        .dropdown-menu { 
-            position: absolute; top: 75px; right: 5%; background: var(--bg-card); width: 280px; 
-            border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-hover); 
-            padding: 10px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: 0.3s; z-index: 200;
-        }
+        /* DROPDOWN */
+        .dropdown-menu { position: absolute; top: 75px; right: 5%; background: var(--bg-card); width: 280px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-hover); padding: 10px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: 0.3s; z-index: 200; }
         .dropdown-menu.active { opacity: 1; visibility: visible; transform: translateY(0); }
-        .dropdown-item { 
-            display: flex; align-items: center; gap: 12px; padding: 12px; color: var(--text-main); 
-            text-decoration: none; border-radius: 8px; font-size: 0.9rem; font-weight: 500; cursor: pointer; 
-        }
+        .dropdown-item { display: flex; align-items: center; gap: 12px; padding: 12px; color: var(--text-main); text-decoration: none; border-radius: 8px; font-size: 0.9rem; font-weight: 500; cursor: pointer; }
         .dropdown-item:hover { background: rgba(212, 175, 55, 0.1); color: var(--gold); }
         .menu-header { padding: 15px; border-bottom: 1px solid var(--border-color); margin-bottom: 5px; background: linear-gradient(135deg, rgba(212,175,55,0.1), transparent); border-radius: 8px; }
 
-        /* ====================================================
-           HERO & SEARCH SECTION
-           ==================================================== */
-        .hero { text-align: center; padding: 70px 20px 40px; position: relative; animation: slideDown 1s ease-out; }
+        /* HERO & SEARCH */
+        .hero { text-align: center; padding: 50px 20px 40px; position: relative; animation: slideDown 1s ease-out; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        
         .hero::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 250px; height: 250px; background: var(--gold); filter: blur(150px); opacity: 0.15; z-index: -1; animation: pulseGlow 4s infinite alternate; }
         @keyframes pulseGlow { 0% { opacity: 0.1; transform: translate(-50%,-50%) scale(0.8); } 100% { opacity: 0.2; transform: translate(-50%,-50%) scale(1.2); } }
         
-        .back-btn-container { text-align: left; max-width: 1300px; margin: 0 auto 20px; padding: 0 20px; }
+        .back-btn-container { text-align: left; max-width: 1300px; margin: 0 auto; padding: 0 20px; }
         .btn-back { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; padding: 10px 20px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); transition: all 0.3s ease; }
         .btn-back:hover { border-color: var(--gold); color: var(--gold); transform: translateX(-5px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1); }
 
@@ -98,52 +78,49 @@
         .search-icon { position: absolute; left: 25px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.4rem; }
 
         /* ====================================================
-           HYPER PROFESSIONAL CARD DESIGN
+           CLEAN TOP-NOTCH CARDS & CATEGORIES
            ==================================================== */
-        .container { max-width: 1300px; margin: 0 auto; padding: 0 20px 80px; flex-grow: 1; width: 100%; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px 80px; flex-grow: 1; width: 100%; }
+        
+        .category-title { font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 800; color: var(--text-main); margin: 50px 0 25px; padding-bottom: 10px; border-bottom: 2px solid var(--border-color); display: flex; align-items: center; gap: 12px; }
+        .category-title i { color: var(--gold); }
+
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; justify-content: center; }
         
         .theme-card { 
-            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; 
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 25px; 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; 
             display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.03); z-index: 1;
         }
         .theme-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-hover); }
 
-        @keyframes hyperGoldLogo {
-            0% { text-shadow: 0 0 15px rgba(212,175,55,0.4), 0 0 30px rgba(212,175,55,0.2); transform: scale(1) translateY(0); }
-            50% { text-shadow: 0 0 25px rgba(212,175,55,0.8), 0 0 50px rgba(212,175,55,0.6); transform: scale(1.1) translateY(-5px); }
-            100% { text-shadow: 0 0 15px rgba(212,175,55,0.4), 0 0 30px rgba(212,175,55,0.2); transform: scale(1) translateY(0); }
-        }
+        /* FLOATING GOLD LOGO (NO DARK BOX) */
+        @keyframes floatLogo { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 15px 20px rgba(212,175,55,0.4)); } 50% { transform: translateY(-10px); filter: drop-shadow(0 25px 30px rgba(212,175,55,0.7)); } }
         
         .card-preview {
-            width: 100%; height: 200px; border-radius: 12px; margin-bottom: 20px;
-            background: linear-gradient(135deg, rgba(20,20,20,1) 0%, rgba(0,0,0,1) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+            width: 100%; height: 180px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; position: relative;
+            background: transparent; /* Clean background */
+            border-bottom: 1px solid var(--border-color);
         }
-        .card-preview::before { content: ''; position: absolute; width: 150%; height: 150%; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%); animation: spin 10s linear infinite; }
-        .card-preview i { font-size: 5rem; color: var(--gold); animation: hyperGoldLogo 2.5s infinite ease-in-out; position: relative; z-index: 2; }
+        .card-preview i { font-size: 6rem; color: var(--gold); animation: floatLogo 3s ease-in-out infinite; }
+        .theme-card:hover .card-preview i { animation-duration: 1.5s; } /* Floats faster on hover */
 
-        .theme-card:hover .card-preview { border-color: var(--gold); }
-        .theme-card:hover .card-preview i { animation-duration: 1s; } 
-
-        .premium-tag { position: absolute; top: 12px; left: 12px; background: linear-gradient(45deg, var(--dark), var(--gold)); color: #fff; padding: 6px 15px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; z-index: 10; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5); text-transform: uppercase; animation: pulseGlow 2s infinite alternate;}
+        .premium-tag { position: absolute; top: 0px; right: 0px; background: linear-gradient(45deg, var(--gold), var(--gold-hover)); color: #fff; padding: 6px 15px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; z-index: 10; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5); text-transform: uppercase; }
 
         .card-body { flex-grow: 1; display: flex; flex-direction: column; text-align: center; }
         .theme-title { font-size: 1.25rem; color: var(--text-main); font-weight: 800; margin-bottom: 15px; font-family: 'Cinzel'; line-height: 1.4; }
         
-        .price-box { background: rgba(212,175,55,0.05); border: 1px dashed var(--gold); padding: 15px; border-radius: 12px; margin-bottom: 20px; }
+        .price-box { border-top: 1px dashed var(--border-color); border-bottom: 1px dashed var(--border-color); padding: 15px 0; margin-bottom: 25px; }
         .market-price { font-size: 0.9rem; color: var(--text-muted); text-decoration: line-through; margin-bottom: 8px; }
-        .our-price { font-size: 1.15rem; color: var(--gold); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .our-price { font-size: 1.2rem; color: var(--gold); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        .btn-download { width: 100%; padding: 15px; background: var(--dark); color: var(--gold); border: 2px solid var(--gold); border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.05rem; }
-        .btn-download:hover { background: var(--gold); color: #fff; box-shadow: 0 8px 25px rgba(212,175,55,0.5); transform: scale(1.03); }
+        .btn-download { width: 100%; padding: 15px; background: var(--dark); color: var(--gold); border: 2px solid var(--dark); border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.05rem; }
+        .btn-download:hover { background: var(--gold); color: #fff; border-color: var(--gold); box-shadow: 0 8px 25px rgba(212,175,55,0.5); transform: scale(1.03); }
         
         .no-results { grid-column: 1 / -1; text-align: center; padding: 50px; font-size: 1.5rem; color: var(--text-muted); font-weight: bold; }
 
         /* ====================================================
-           FULL FOOTER (100% FROM DASHBOARD)
+           100% DASHBOARD FOOTER (NO SHORTCUTS)
            ==================================================== */
         footer { background: var(--bg-card); border-top: 2px solid var(--gold); padding: 60px 20px 30px; color: var(--text-main); position: relative; overflow: hidden; box-shadow: 0 -10px 30px rgba(0,0,0,0.02); }
         .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; text-align: left; position: relative; z-index: 10; }
@@ -152,7 +129,6 @@
         .footer-brand p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
         .support-badge-footer { display: inline-flex; align-items: center; gap: 10px; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); padding: 10px 20px; border-radius: 8px; color: var(--gold-hover); font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: 0.3s; }
         .support-badge-footer:hover { background: var(--gold); color: #fff; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); transform: translateY(-2px); }
-        .support-badge-footer i { font-size: 1.2rem; }
         .footer-links-col h3 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px; position: relative; display: inline-block; font-weight: 700; }
         .footer-links-col h3::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 40px; height: 3px; background: var(--gold); border-radius: 2px; }
         .footer-links-col ul { list-style: none; padding: 0; }
@@ -165,7 +141,7 @@
         .footer-bottom { border-top: 1px solid var(--border-color); text-align: center; padding-top: 25px; margin-top: 40px; color: var(--text-muted); font-size: 0.85rem; font-weight: 500; }
 
         /* ====================================================
-           FULL MODALS (100% FROM DASHBOARD)
+           100% DASHBOARD MODALS (NO SHORTCUTS)
            ==================================================== */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.3s; }
         .modal-overlay.active { opacity: 1; visibility: visible; }
@@ -179,7 +155,7 @@
         .lux-input { width: 100%; padding: 14px 16px; border: 1px solid var(--border-color); background: var(--bg-body); color: var(--text-main); border-radius: 12px; margin: 8px 0 15px; outline: none; transition: 0.3s; font-size: 0.95rem; }
         .lux-input:focus { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1); }
         .btn-modal { width: 100%; padding: 15px; background: var(--dark); color: var(--gold); border: none; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 10px; transition: 0.3s; font-size: 1rem; }
-        .btn-modal:hover { background: var(--gold); color: var(--card-bg); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212,175,55,0.2); }
+        .btn-modal:hover { background: var(--gold); color: var(--bg-card); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212,175,55,0.2); }
         .ref-box { background: rgba(212,175,55,0.05); padding: 20px; border-radius: 16px; border: 1px dashed var(--gold); text-align: left; margin-bottom: 25px; }
         .ref-step { display: flex; gap: 12px; margin-bottom: 12px; font-size: 0.9rem; align-items: flex-start; color: var(--text-main); line-height: 1.4;}
         .ref-step i { color: var(--gold); margin-top: 3px; font-size: 1.1rem; }
@@ -192,12 +168,7 @@
         .spinner { width: 60px; height: 60px; border: 5px solid rgba(212,175,55,0.1); border-top: 5px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;}
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        @media (max-width: 768px) {
-            .navbar { padding: 15px 20px; } .hero h1 { font-size: 2.2rem; } .hero p { font-size: 0.95rem; }
-            .dropdown-menu { right: 20px; width: 250px; } .grid { grid-template-columns: 1fr; }
-            .footer-container { text-align: center; } .footer-links-col h3::after { left: 50%; transform: translateX(-50%); }
-            .footer-links-col ul a { justify-content: center; } .support-badge-footer { margin: 0 auto; }
-        }
+        @media (max-width: 768px) { .navbar { padding: 15px 20px; } .hero h1 { font-size: 2.2rem; } .grid { grid-template-columns: 1fr; } .footer-container { text-align: center; } .footer-links-col h3::after { left: 50%; transform: translateX(-50%); } .footer-links-col ul a { justify-content: center; } .support-badge-footer { margin: 0 auto; } }
     </style>
 </head>
 <body>
@@ -211,14 +182,12 @@
 
     <nav class="navbar">
         <a href="dashboard.html" class="nav-logo">NextGen<span>Adi4U</span></a>
-        
         <div class="nav-actions">
             <div class="credit-badge" onclick="window.location.href='pricing.html'">
                 <i class="fas fa-coins"></i> <span id="navCredits">0</span>
             </div>
             <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="navProfilePic" class="profile-btn" onclick="toggleMenu()">
         </div>
-
         <div class="dropdown-menu" id="userMenu">
             <div class="menu-header">
                 <b id="menuName" style="display:block; color:var(--text-main); font-size:1.05rem; font-weight:800;">Master</b>
@@ -249,10 +218,8 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="grid" id="themeGrid">
-            </div>
-    </div>
+    <div class="container" id="mainThemeContainer">
+        </div>
 
     <footer>
         <div class="footer-container">
@@ -447,7 +414,7 @@
                 logsDiv.innerHTML = '<p style="text-align:center; font-size:0.9rem; color:var(--text-muted); padding:20px;">No referrals yet. Share your link to start earning!</p>';
             }
 
-            renderThemes(themesData);
+            renderThemesCategorized(themesData);
         }
 
         // ACCOUNT MODAL LOGIC
@@ -525,169 +492,183 @@
         // ALL 59 THEMES (FULL LIST NO SHORTCUT)
         // ==========================================
         const themesData = [
-            // TOP 4 PREMIUM
-            { name: "PRESTIGE THEME", link: "https://drive.google.com/file/d/1Wli6ceFEoRI4Zd1fSd6Fw23_3WQldjXx/view?usp=sharing", cost: 5000, priceUSD: 350, priceINR: 29000, premium: true },
-            { name: "TURBO THEME", link: "https://drive.google.com/file/d/1aOzOHYhUBLWkt81Gp4Fgn7upXVKwb0aH/view?usp=sharing", cost: 5000, priceUSD: 400, priceINR: 33000, premium: true },
-            { name: "WAREHOUSE THEME", link: "https://drive.google.com/file/d/10sbL02oFIdINEuj0rQFQ9qrwBxUUfoyf/view?usp=sharing", cost: 5000, priceUSD: 320, priceINR: 26500, premium: true },
-            { name: "IMPULSE THEME", link: "https://drive.google.com/file/d/1bQlKvu2Sl9m5tBxenDWKCaU-NRini6ry/view?usp=sharing", cost: 5000, priceUSD: 350, priceINR: 29000, premium: true },
+            // TOP 4 PREMIUM (5000C)
+            { name: "PRESTIGE THEME", link: "https://drive.google.com/file/d/1Wli6ceFEoRI4Zd1fSd6Fw23_3WQldjXx/view?usp=sharing", cost: 5000, priceUSD: 350, premium: true },
+            { name: "TURBO THEME", link: "https://drive.google.com/file/d/1aOzOHYhUBLWkt81Gp4Fgn7upXVKwb0aH/view?usp=sharing", cost: 5000, priceUSD: 400, premium: true },
+            { name: "WAREHOUSE THEME", link: "https://drive.google.com/file/d/10sbL02oFIdINEuj0rQFQ9qrwBxUUfoyf/view?usp=sharing", cost: 5000, priceUSD: 320, premium: true },
+            { name: "IMPULSE THEME", link: "https://drive.google.com/file/d/1bQlKvu2Sl9m5tBxenDWKCaU-NRini6ry/view?usp=sharing", cost: 5000, priceUSD: 350, premium: true },
 
-            // 55 REGULAR THEMES
-            { name: "Apparelix Mens Fashion", link: "https://drive.google.com/file/d/12cjI6ByXD6pO9KfwlEVcHMexsrAF2h8F/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
-            { name: "Apparelix Sunglasses", link: "https://drive.google.com/file/d/1Vd5gl5ywSxR0Sm4STJ4alGXnO5b89nXk/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
-            { name: "Aronic Hardware Tool", link: "https://drive.google.com/file/d/1G1xwQ8oFxpokdVw3w-BWnVxtrKSi5wlO/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
-            { name: "Bob Multipurpose Fashion", link: "https://drive.google.com/file/d/1YPrmuJazTNqF42fhMTR5C85r6Fr6zUCj/view?usp=sharing", cost: 1000, priceUSD: 65, priceINR: 5400, premium: false },
-            { name: "Flone v2.0.8", link: "https://drive.google.com/file/d/1ASqr4tNC3b4CCeZQjV1s6Au_VhGsC28a/view?usp=sharing", cost: 1000, priceUSD: 79, priceINR: 6500, premium: false },
-            { name: "Coro Minimal Clean Fashion", link: "https://drive.google.com/file/d/1ok-V9fitP0Pn3Ber7NAIr4iiW2l61sND/view?usp=sharing", cost: 1000, priceUSD: 55, priceINR: 4500, premium: false },
-            { name: "Apparelix Mobile Accessories", link: "https://drive.google.com/file/d/1FacOnk0i6HDftm6Sa_0e5lvqPLgweh_e/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
-            { name: "ClickBoom2", link: "https://drive.google.com/file/d/1bfnyGXxXF0UUALejuGzEVrm8BrLuBd_a/view?usp=sharing", cost: 1000, priceUSD: 75, priceINR: 6200, premium: false },
-            { name: "FlashMart Responsive", link: "https://drive.google.com/file/d/1URlnbUtjDQCj2kopDkUwDYUH5vo0uDYr/view?usp=sharing", cost: 1000, priceUSD: 58, priceINR: 4800, premium: false },
-            { name: "FashShop Drag & Drop", link: "https://drive.google.com/file/d/111QjcE4i2HL0LNiPHQ1HjTYcSFcUsgEb/view?usp=sharing", cost: 1000, priceUSD: 62, priceINR: 5100, premium: false },
-            { name: "Flairy Fashion", link: "https://drive.google.com/file/d/1K26vJxegJMfEZO2KGb4OC_t-pAxkLCOs/view?usp=sharing", cost: 1000, priceUSD: 55, priceINR: 4500, premium: false },
-            { name: "Cake Shop Bakery v1.4", link: "https://drive.google.com/file/d/14ff4PpdIpjM3fjVsJOOVnywL7Zneg4KE/view?usp=sharing", cost: 1000, priceUSD: 49, priceINR: 4000, premium: false },
-            { name: "Drou Electronics Store", link: "https://drive.google.com/file/d/1cEY44VAyPtjVzYZNLJcBO5It72rWGRdx/view?usp=sharing", cost: 1000, priceUSD: 85, priceINR: 7000, premium: false },
-            { name: "Floza v1.0.0", link: "https://drive.google.com/file/d/1xDilaQ2pWIeR6bpxfp6lgljwU2OOKJsa/view?usp=sharing", cost: 1000, priceUSD: 50, priceINR: 4100, premium: false },
-            { name: "Milatino Coffee Tea & Cake", link: "https://drive.google.com/file/d/1WWRySwHS-X2bZzPAJ0VAFceWtv3zOErA/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
-            { name: "Crazy Fashion", link: "https://drive.google.com/file/d/1QqOryJ70GlB8rTFnmvfrdI4xiq_GRXxD/view?usp=sharing", cost: 1000, priceUSD: 60, priceINR: 5000, premium: false },
-            { name: "Exist Drag & Drop", link: "https://drive.google.com/file/d/1CPV3-CjSAdAXM2vcU5sjQv5zMCJV-q69/view?usp=sharing", cost: 1000, priceUSD: 65, priceINR: 5400, premium: false },
-            { name: "Cafesa Coffee Shops", link: "https://drive.google.com/file/d/1vo0ovSZWvGVg9NkdQRnDRYncoDhCHnNN/view?usp=sharing", cost: 1000, priceUSD: 55, priceINR: 4500, premium: false },
-            { name: "Kaffe Coffee Shop", link: "https://drive.google.com/file/d/1nNR1FRiqTNKnevtclIE6ogkmrQ34BbNb/view?usp=sharing", cost: 1000, priceUSD: 58, priceINR: 4800, premium: false },
-            { name: "Frues Fruits Organic", link: "https://drive.google.com/file/d/14i7C8reuvmcsA9dsbiwp7jf_HE4IYn2y/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
-            { name: "Foodizo v1.0.0", link: "https://drive.google.com/file/d/1Fv-BtrDQmPwTEmtRkzR8X9CUkR_HDK15/view?usp=sharing", cost: 1000, priceUSD: 60, priceINR: 5000, premium: false },
-            { name: "Esprezo Cake Shop", link: "https://drive.google.com/file/d/10WiMms3FTXOPj_p-e8YD9h06l9FkROcz/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
-            { name: "Bowow Pet Store", link: "https://drive.google.com/file/d/1-Sm6yHfIK9ZBAvi9M9AMHlR93S8U8U1m/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
-            { name: "Astro Handbags Clothes", link: "https://drive.google.com/file/d/15P7WXhaAcrEQURlgCEXS1Gn_xPjjuaig/view?usp=sharing", cost: 1000, priceUSD: 55, priceINR: 4500, premium: false },
-            { name: "Brewmix Coffee Shops", link: "https://drive.google.com/file/d/1QlKfzPeKHWi7oIWCH-N78NQir9AyNQQK/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
-            { name: "Airkool Air Conditioning", link: "https://drive.google.com/file/d/1weKKNafjCUjUZGjTUKaSUkwG_mQGxUvg/view?usp=sharing", cost: 1000, priceUSD: 75, priceINR: 6200, premium: false },
-            { name: "Apexx Esports Gaming", link: "https://drive.google.com/file/d/1avUe_BUalTMExVE_MRmSwnTftzku0srg/view?usp=sharing", cost: 1000, priceUSD: 85, priceINR: 7000, premium: false },
-            { name: "Elektrix Electronics", link: "https://drive.google.com/file/d/1SCqV3Ul001o3tIGd3d-mmHac42NmWEEb/view?usp=sharing", cost: 1000, priceUSD: 79, priceINR: 6500, premium: false },
-            { name: "Fixxer Hardwares Tools", link: "https://drive.google.com/file/d/1YDEZMFIRzfwkIOT3x6VZ_uMtfLGRT5_5/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
-            { name: "Chewy Pet Shop", link: "https://drive.google.com/file/d/1brScRwe3thvfJ7i4JlhaoNweHbszDEYC/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
-            { name: "Cufee Coffee Shops", link: "https://drive.google.com/file/d/1YRNPHWIZmtC3WVfjir4fypzTFdaHgf_w/view?usp=sharing", cost: 1000, priceUSD: 62, priceINR: 5100, premium: false },
-            { name: "Clarie HandMade", link: "https://drive.google.com/file/d/1QKRcJvG8temDdL_EUCXmJo0H7Vyut37P/view?usp=sharing", cost: 1000, priceUSD: 55, priceINR: 4500, premium: false },
-            { name: "Chikshopify 11", link: "https://drive.google.com/file/d/1dyxJg19dorv4BvqmMr2663eVBjeOUf1k/view?usp=sharing", cost: 1000, priceUSD: 60, priceINR: 5000, premium: false },
-            { name: "Carze Auto Parts", link: "https://drive.google.com/file/d/1en6z8vrjbq_aarEBzM1xJMTfP59kR0XO/view?usp=sharing", cost: 1000, priceUSD: 75, priceINR: 6200, premium: false },
-            { name: "Dialz Shopify v1.0", link: "https://drive.google.com/file/d/1kYQKAMsC15v_5rJeZSqK_eBZeRpCPQFL/view?usp=sharing", cost: 1000, priceUSD: 65, priceINR: 5400, premium: false },
-            { name: "Bikun Bicycles Store", link: "https://drive.google.com/file/d/1XcmrgbWAt7b5djx_1bzAQaxm88AYFPuK/view?usp=sharing", cost: 1000, priceUSD: 79, priceINR: 6500, premium: false },
-            { name: "Drinks & Beverages", link: "https://drive.google.com/file/d/1OhjKozHav6PcKEEZvUiQO71fz9pIxcpO/view?usp=sharing", cost: 1000, priceUSD: 55, priceINR: 4500, premium: false },
-            { name: "Fivo Wedding Shop", link: "https://drive.google.com/file/d/1Z8MJV9afuU_srjuoCD91PrQZJPyecwtj/view?usp=sharing", cost: 1000, priceUSD: 85, priceINR: 7000, premium: false },
-            { name: "Alivana Interior Decor", link: "https://drive.google.com/file/d/1jEXcH9AlX3UAbpj4kS5aTgr9RnqjoldK/view?usp=sharing", cost: 1000, priceUSD: 79, priceINR: 6500, premium: false },
-            { name: "Electree Unique Electronics", link: "https://drive.google.com/file/d/1Vuis2vbOpB32JSdJK-9PGSBbvGjy-_2w/view?usp=sharing", cost: 1000, priceUSD: 89, priceINR: 7300, premium: false },
-            { name: "Bixbang Fullpackage", link: "https://drive.google.com/file/d/1IrQ37wIQ20UtjAxw1nBg4q3hAvnyfUGc/view?usp=sharing", cost: 1000, priceUSD: 99, priceINR: 8200, premium: false },
-            { name: "Brator Auto Parts", link: "https://drive.google.com/file/d/1mEn64K3i_ENVNf_u2QHYqWLYaoeUqmEg/view?usp=sharing", cost: 1000, priceUSD: 75, priceINR: 6200, premium: false },
-            { name: "Emllo Electronics", link: "https://drive.google.com/file/d/1o-FMs8yE6-39E95h5ESpqSj44RX9ub5d/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
-            { name: "Electrodream Electronics", link: "https://drive.google.com/file/d/10sGSXHEzb2Gxm-36q_oW0HBHaYk-XXxM/view?usp=sharing", cost: 1000, priceUSD: 85, priceINR: 7000, premium: false },
-            { name: "Elessi Shopify 3.0.1", link: "https://drive.google.com/file/d/1Njze9ynhR9v6Nse5q2InmE2eOvBUsgpy/view?usp=sharing", cost: 1000, priceUSD: 99, priceINR: 8200, premium: false },
-            { name: "Camaro Gadgets Digital", link: "https://drive.google.com/file/d/1aQY2o7H_WlRQCSq0rlc2FSRlApVgYAya/view?usp=sharing", cost: 1000, priceUSD: 79, priceINR: 6500, premium: false },
-            { name: "Anon Minimal Responsive", link: "https://drive.google.com/file/d/1rQ2DlM78tw9fomeDSPRj9MLjAA2sF0Wy/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
-            { name: "Corano v2.4.7", link: "https://drive.google.com/file/d/1tFpwJ93vxOQ8RkVJbrKGXvKXWGUj0sbq/view?usp=sharing", cost: 1000, priceUSD: 69, priceINR: 5700, premium: false },
-            { name: "Fastlane Shopify v4.4.6", link: "https://drive.google.com/file/d/13LX3SE4KEL3wiFtC_KTuI7JTjgMkMp2a/view?usp=sharing", cost: 1000, priceUSD: 89, priceINR: 7300, premium: false },
-            { name: "Brittney WP Blog Shop", link: "https://drive.google.com/file/d/1tFQLt2yA7Vc59_wV19-28-1RSrsXGnmd/view?usp=sharing", cost: 1000, priceUSD: 49, priceINR: 4000, premium: false },
-            { name: "Brittny", link: "https://drive.google.com/file/d/14bFdYhVRMysq5t5CyUqQ7JyY8Pxcx8KM/view?usp=sharing", cost: 1000, priceUSD: 49, priceINR: 4000, premium: false },
-            { name: "Avatar Shopify v2.0.1", link: "https://drive.google.com/file/d/167VwiJkb_U2n-aBG5t_JB_lI7IPHNQyb/view?usp=sharing", cost: 1000, priceUSD: 59, priceINR: 4900, premium: false },
-            { name: "Fabish Skincare Cosmetics", link: "https://drive.google.com/file/d/1D0qRVAk13Eq7wOzeeiqOsRfNu_Lw_2o_/view?usp=sharing", cost: 1000, priceUSD: 65, priceINR: 5400, premium: false },
-            { name: "Empire Shopify v6.2.0", link: "https://drive.google.com/file/d/1a53f58uCmpIZ9az51CTc9s2V1OcozPs0/view?usp=sharing", cost: 1000, priceUSD: 340, priceINR: 28000, premium: false },
-            { name: "Streamline v5.0.1", link: "https://drive.google.com/file/d/1Z8nvSuaDhz8hu-uTAPXCsd9t66OSBzgO/view?usp=sharing", cost: 1000, priceUSD: 320, priceINR: 26500, premium: false }
+            // 55 REGULAR THEMES (1000C)
+            { name: "Apparelix Mens Fashion", link: "https://drive.google.com/file/d/12cjI6ByXD6pO9KfwlEVcHMexsrAF2h8F/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
+            { name: "Apparelix Sunglasses", link: "https://drive.google.com/file/d/1Vd5gl5ywSxR0Sm4STJ4alGXnO5b89nXk/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
+            { name: "Aronic Hardware Tool", link: "https://drive.google.com/file/d/1G1xwQ8oFxpokdVw3w-BWnVxtrKSi5wlO/view?usp=sharing", cost: 1000, priceUSD: 59, premium: false },
+            { name: "Bob Multipurpose Fashion", link: "https://drive.google.com/file/d/1YPrmuJazTNqF42fhMTR5C85r6Fr6zUCj/view?usp=sharing", cost: 1000, priceUSD: 65, premium: false },
+            { name: "Flone v2.0.8", link: "https://drive.google.com/file/d/1ASqr4tNC3b4CCeZQjV1s6Au_VhGsC28a/view?usp=sharing", cost: 1000, priceUSD: 79, premium: false },
+            { name: "Coro Minimal Clean", link: "https://drive.google.com/file/d/1ok-V9fitP0Pn3Ber7NAIr4iiW2l61sND/view?usp=sharing", cost: 1000, priceUSD: 55, premium: false },
+            { name: "Apparelix Mobile Acc.", link: "https://drive.google.com/file/d/1FacOnk0i6HDftm6Sa_0e5lvqPLgweh_e/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
+            { name: "ClickBoom2", link: "https://drive.google.com/file/d/1bfnyGXxXF0UUALejuGzEVrm8BrLuBd_a/view?usp=sharing", cost: 1000, priceUSD: 75, premium: false },
+            { name: "FlashMart Responsive", link: "https://drive.google.com/file/d/1URlnbUtjDQCj2kopDkUwDYUH5vo0uDYr/view?usp=sharing", cost: 1000, priceUSD: 58, premium: false },
+            { name: "FashShop Drag & Drop", link: "https://drive.google.com/file/d/111QjcE4i2HL0LNiPHQ1HjTYcSFcUsgEb/view?usp=sharing", cost: 1000, priceUSD: 62, premium: false },
+            { name: "Flairy Fashion", link: "https://drive.google.com/file/d/1K26vJxegJMfEZO2KGb4OC_t-pAxkLCOs/view?usp=sharing", cost: 1000, priceUSD: 55, premium: false },
+            { name: "Cake Shop Bakery v1.4", link: "https://drive.google.com/file/d/14ff4PpdIpjM3fjVsJOOVnywL7Zneg4KE/view?usp=sharing", cost: 1000, priceUSD: 49, premium: false },
+            { name: "Drou Electronics Store", link: "https://drive.google.com/file/d/1cEY44VAyPtjVzYZNLJcBO5It72rWGRdx/view?usp=sharing", cost: 1000, priceUSD: 85, premium: false },
+            { name: "Floza v1.0.0", link: "https://drive.google.com/file/d/1xDilaQ2pWIeR6bpxfp6lgljwU2OOKJsa/view?usp=sharing", cost: 1000, priceUSD: 50, premium: false },
+            { name: "Milatino Coffee Tea", link: "https://drive.google.com/file/d/1WWRySwHS-X2bZzPAJ0VAFceWtv3zOErA/view?usp=sharing", cost: 1000, priceUSD: 59, premium: false },
+            { name: "Crazy Fashion", link: "https://drive.google.com/file/d/1QqOryJ70GlB8rTFnmvfrdI4xiq_GRXxD/view?usp=sharing", cost: 1000, priceUSD: 60, premium: false },
+            { name: "Exist Responsive", link: "https://drive.google.com/file/d/1CPV3-CjSAdAXM2vcU5sjQv5zMCJV-q69/view?usp=sharing", cost: 1000, priceUSD: 65, premium: false },
+            { name: "Cafesa Coffee Shops", link: "https://drive.google.com/file/d/1vo0ovSZWvGVg9NkdQRnDRYncoDhCHnNN/view?usp=sharing", cost: 1000, priceUSD: 55, premium: false },
+            { name: "Kaffe Coffee Shop", link: "https://drive.google.com/file/d/1nNR1FRiqTNKnevtclIE6ogkmrQ34BbNb/view?usp=sharing", cost: 1000, priceUSD: 58, premium: false },
+            { name: "Frues Fruits Organic", link: "https://drive.google.com/file/d/14i7C8reuvmcsA9dsbiwp7jf_HE4IYn2y/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
+            { name: "Foodizo v1.0.0", link: "https://drive.google.com/file/d/1Fv-BtrDQmPwTEmtRkzR8X9CUkR_HDK15/view?usp=sharing", cost: 1000, priceUSD: 60, premium: false },
+            { name: "Esprezo Cake Shop", link: "https://drive.google.com/file/d/10WiMms3FTXOPj_p-e8YD9h06l9FkROcz/view?usp=sharing", cost: 1000, priceUSD: 59, premium: false },
+            { name: "Bowow Pet Store", link: "https://drive.google.com/file/d/1-Sm6yHfIK9ZBAvi9M9AMHlR93S8U8U1m/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
+            { name: "Astro Handbags Clothes", link: "https://drive.google.com/file/d/15P7WXhaAcrEQURlgCEXS1Gn_xPjjuaig/view?usp=sharing", cost: 1000, priceUSD: 55, premium: false },
+            { name: "Brewmix Coffee Shops", link: "https://drive.google.com/file/d/1QlKfzPeKHWi7oIWCH-N78NQir9AyNQQK/view?usp=sharing", cost: 1000, priceUSD: 59, premium: false },
+            { name: "Airkool AC Heating", link: "https://drive.google.com/file/d/1weKKNafjCUjUZGjTUKaSUkwG_mQGxUvg/view?usp=sharing", cost: 1000, priceUSD: 75, premium: false },
+            { name: "Apexx Esports Gaming", link: "https://drive.google.com/file/d/1avUe_BUalTMExVE_MRmSwnTftzku0srg/view?usp=sharing", cost: 1000, priceUSD: 85, premium: false },
+            { name: "Elektrix Electronics", link: "https://drive.google.com/file/d/1SCqV3Ul001o3tIGd3d-mmHac42NmWEEb/view?usp=sharing", cost: 1000, priceUSD: 79, premium: false },
+            { name: "Fixxer Hardwares Tools", link: "https://drive.google.com/file/d/1YDEZMFIRzfwkIOT3x6VZ_uMtfLGRT5_5/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
+            { name: "Chewy Dog Kitten Shop", link: "https://drive.google.com/file/d/1brScRwe3thvfJ7i4JlhaoNweHbszDEYC/view?usp=sharing", cost: 1000, priceUSD: 59, premium: false },
+            { name: "Cufee Coffee Shops", link: "https://drive.google.com/file/d/1YRNPHWIZmtC3WVfjir4fypzTFdaHgf_w/view?usp=sharing", cost: 1000, priceUSD: 62, premium: false },
+            { name: "Clarie HandMade", link: "https://drive.google.com/file/d/1QKRcJvG8temDdL_EUCXmJo0H7Vyut37P/view?usp=sharing", cost: 1000, priceUSD: 55, premium: false },
+            { name: "Chikshopify 11", link: "https://drive.google.com/file/d/1dyxJg19dorv4BvqmMr2663eVBjeOUf1k/view?usp=sharing", cost: 1000, priceUSD: 60, premium: false },
+            { name: "Carze Auto Parts", link: "https://drive.google.com/file/d/1en6z8vrjbq_aarEBzM1xJMTfP59kR0XO/view?usp=sharing", cost: 1000, priceUSD: 75, premium: false },
+            { name: "Dialz Shopify v1.0", link: "https://drive.google.com/file/d/1kYQKAMsC15v_5rJeZSqK_eBZeRpCPQFL/view?usp=sharing", cost: 1000, priceUSD: 65, premium: false },
+            { name: "Bikun Bicycles Store", link: "https://drive.google.com/file/d/1XcmrgbWAt7b5djx_1bzAQaxm88AYFPuK/view?usp=sharing", cost: 1000, priceUSD: 79, premium: false },
+            { name: "Drinks & Beverages", link: "https://drive.google.com/file/d/1OhjKozHav6PcKEEZvUiQO71fz9pIxcpO/view?usp=sharing", cost: 1000, priceUSD: 55, premium: false },
+            { name: "Fivo Wedding Shop", link: "https://drive.google.com/file/d/1Z8MJV9afuU_srjuoCD91PrQZJPyecwtj/view?usp=sharing", cost: 1000, priceUSD: 85, premium: false },
+            { name: "Alivana Interior Decor", link: "https://drive.google.com/file/d/1jEXcH9AlX3UAbpj4kS5aTgr9RnqjoldK/view?usp=sharing", cost: 1000, priceUSD: 79, premium: false },
+            { name: "Electree Electronics", link: "https://drive.google.com/file/d/1Vuis2vbOpB32JSdJK-9PGSBbvGjy-_2w/view?usp=sharing", cost: 1000, priceUSD: 89, premium: false },
+            { name: "Bixbang Fullpackage", link: "https://drive.google.com/file/d/1IrQ37wIQ20UtjAxw1nBg4q3hAvnyfUGc/view?usp=sharing", cost: 1000, priceUSD: 99, premium: false },
+            { name: "Brator Auto Parts", link: "https://drive.google.com/file/d/1mEn64K3i_ENVNf_u2QHYqWLYaoeUqmEg/view?usp=sharing", cost: 1000, priceUSD: 75, premium: false },
+            { name: "Emllo Gadgets Responsive", link: "https://drive.google.com/file/d/1o-FMs8yE6-39E95h5ESpqSj44RX9ub5d/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
+            { name: "Electrodream Electronics", link: "https://drive.google.com/file/d/10sGSXHEzb2Gxm-36q_oW0HBHaYk-XXxM/view?usp=sharing", cost: 1000, priceUSD: 85, premium: false },
+            { name: "Elessi Shopify 3.0.1", link: "https://drive.google.com/file/d/1Njze9ynhR9v6Nse5q2InmE2eOvBUsgpy/view?usp=sharing", cost: 1000, priceUSD: 99, premium: false },
+            { name: "Camaro Digital Theme", link: "https://drive.google.com/file/d/1aQY2o7H_WlRQCSq0rlc2FSRlApVgYAya/view?usp=sharing", cost: 1000, priceUSD: 79, premium: false },
+            { name: "Anon Minimal Responsive", link: "https://drive.google.com/file/d/1rQ2DlM78tw9fomeDSPRj9MLjAA2sF0Wy/view?usp=sharing", cost: 1000, priceUSD: 59, premium: false },
+            { name: "Corano v2.4.7", link: "https://drive.google.com/file/d/1tFpwJ93vxOQ8RkVJbrKGXvKXWGUj0sbq/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
+            { name: "Fastlane Shopify v4.4.6", link: "https://drive.google.com/file/d/13LX3SE4KEL3wiFtC_KTuI7JTjgMkMp2a/view?usp=sharing", cost: 1000, priceUSD: 89, premium: false },
+            { name: "Brittney WP Blog Shop", link: "https://drive.google.com/file/d/1tFQLt2yA7Vc59_wV19-28-1RSrsXGnmd/view?usp=sharing", cost: 1000, priceUSD: 49, premium: false },
+            { name: "Brittny", link: "https://drive.google.com/file/d/14bFdYhVRMysq5t5CyUqQ7JyY8Pxcx8KM/view?usp=sharing", cost: 1000, priceUSD: 49, premium: false },
+            { name: "Avatar Shopify v2.0.1", link: "https://drive.google.com/file/d/167VwiJkb_U2n-aBG5t_JB_lI7IPHNQyb/view?usp=sharing", cost: 1000, priceUSD: 59, premium: false },
+            { name: "Fabish Cosmetics Store", link: "https://drive.google.com/file/d/1D0qRVAk13Eq7wOzeeiqOsRfNu_Lw_2o_/view?usp=sharing", cost: 1000, priceUSD: 65, premium: false },
+            { name: "Empire Shopify v6.2.0", link: "https://drive.google.com/file/d/1a53f58uCmpIZ9az51CTc9s2V1OcozPs0/view?usp=sharing", cost: 1000, priceUSD: 340, premium: false },
+            { name: "Streamline v5.0.1", link: "https://drive.google.com/file/d/1Z8nvSuaDhz8hu-uTAPXCsd9t66OSBzgO/view?usp=sharing", cost: 1000, priceUSD: 320, premium: false }
         ];
 
-        // RENDER GRID LOGIC
-        function renderThemes(themes) {
-            const grid = document.getElementById('themeGrid');
-            grid.innerHTML = '';
+        // 🚀 RENDER CATEGORIZED GRID LOGIC
+        function renderThemesCategorized(themes) {
+            const container = document.getElementById('mainThemeContainer');
+            container.innerHTML = ''; 
 
-            if(themes.length === 0) {
-                grid.innerHTML = '<div class="no-results"><i class="fas fa-ghost" style="font-size:3rem; color:var(--gold); margin-bottom:15px; display:block;"></i> No themes found. Try another search!</div>';
-                return;
+            if (themes.length === 0) {
+               container.innerHTML = '<div class="no-results"><i class="fas fa-ghost" style="font-size:3rem; color:var(--gold); margin-bottom:15px; display:block;"></i> No themes found matching your search.</div>';
+               return;
             }
 
-            themes.forEach(theme => {
-                let premiumTag = theme.premium ? `<div class="premium-tag"><i class="fas fa-crown"></i> 5000C EXCLUSIVE</div>` : '';
-                
-                const cardHTML = `
-                    <div class="theme-card">
-                        <div class="card-preview">
-                            ${premiumTag}
-                            <i class="fab fa-shopify"></i>
-                        </div>
-                        
-                        <div class="card-body">
-                            <h3 class="theme-title">${theme.name}</h3>
-                            <div class="price-box">
-                                <div class="market-price">Market Value: $${theme.priceUSD} | ₹${theme.priceINR.toLocaleString('en-IN')}</div>
-                                <div class="our-price"><i class="fas fa-coins"></i> ${theme.cost} Credits Only</div>
-                            </div>
-                            <button class="btn-download" onclick="processDownload('${theme.link}', ${theme.cost}, '${theme.name}')">
-                                <i class="fas fa-cloud-download-alt"></i> Unlock Theme
-                            </button>
-                        </div>
-                    </div>
+            const premiumThemes = themes.filter(t => t.premium);
+            const regularThemes = themes.filter(t => !t.premium);
+
+            // CATEGORY 1: HIGH DEMAND (5000C)
+            if (premiumThemes.length > 0) {
+                let premiumHTML = `
+                    <h2 class="category-title"><i class="fas fa-fire"></i> High Market Demand</h2>
+                    <div class="grid">
                 `;
-                grid.innerHTML += cardHTML;
-            });
+                premiumThemes.forEach(theme => { premiumHTML += generateCardHTML(theme); });
+                premiumHTML += `</div>`;
+                container.innerHTML += premiumHTML;
+            }
+
+            // CATEGORY 2: STANDARD COLLECTION (1000C)
+            if (regularThemes.length > 0) {
+                let regularHTML = `
+                    <h2 class="category-title" style="margin-top: 60px;"><i class="fas fa-layer-group"></i> Standard Collection</h2>
+                    <div class="grid">
+                `;
+                regularThemes.forEach(theme => { regularHTML += generateCardHTML(theme); });
+                regularHTML += `</div>`;
+                container.innerHTML += regularHTML;
+            }
+        }
+
+        // GENERATE CLEAN HTML FOR EACH CARD (NO DARK BOX)
+        function generateCardHTML(theme) {
+             const tag = theme.premium ? `<div class="premium-tag"><i class="fas fa-crown"></i> TOP DEMAND</div>` : '';
+             return `
+                <div class="theme-card">
+                    <div class="card-preview">
+                        ${tag}
+                        <i class="fab fa-shopify"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="theme-title">${theme.name}</h3>
+                        <div class="price-box">
+                            <span class="market-price">Market Value: $${theme.priceUSD}</span>
+                            <div class="our-price"><i class="fas fa-coins"></i> ${theme.cost} Credits</div>
+                        </div>
+                        <button class="btn-download" onclick="processDownload('${theme.link}', ${theme.cost}, '${theme.name}')">
+                            <i class="fas fa-unlock"></i> Unlock Theme
+                        </button>
+                    </div>
+                </div>
+            `;
         }
 
         // SEARCH BAR LOGIC
         document.getElementById('searchInput').addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            const filtered = themesData.filter(t => t.name.toLowerCase().includes(query));
-            renderThemes(filtered);
+            const val = e.target.value.toLowerCase();
+            const filtered = themesData.filter(t => t.name.toLowerCase().includes(val));
+            renderThemesCategorized(filtered);
         });
 
-        // CREDIT DEDUCTION & DOWNLOAD
-        window.processDownload = async (downloadLink, cost, themeName) => {
-            const user = auth.currentUser;
-            if (!user || !currentUserDoc) return;
-
-            const currentCredits = currentUserDoc.credits || 0;
-
-            if (currentCredits >= cost) {
+        // CREDIT DEDUCTION & DOWNLOAD LOGIC
+        window.processDownload = async (link, cost, name) => {
+            if(!currentUserDoc) return;
+            const current = currentUserDoc.credits || 0;
+            
+            if(current >= cost) {
                 Swal.fire({
-                    title: `Unlock ${themeName}?`,
+                    title: `Unlock ${name}?`,
                     text: `This will consume ${cost} Credits from your wallet.`,
-                    icon: 'warning',
+                    icon: 'question',
                     showCancelButton: true,
+                    confirmButtonText: 'Yes, Unlock It!',
                     confirmButtonColor: '#D4AF37',
-                    cancelButtonColor: '#EF4444',
-                    confirmButtonText: '<i class="fas fa-unlock"></i> Yes, Unlock It!',
                     background: 'var(--bg-card)',
                     color: 'var(--text-main)'
-                }).then(async (result) => {
-                    if (result.isConfirmed) {
+                }).then(async (res) => {
+                    if(res.isConfirmed) {
                         try {
                             Swal.showLoading();
-                            const newBalance = currentCredits - cost;
+                            const newBal = current - cost;
                             
                             // Database update
-                            await updateDoc(doc(db, "users", user.uid), { credits: newBalance });
+                            await updateDoc(doc(db, "users", auth.currentUser.uid), { credits: newBal });
                             
                             // UI update
-                            currentUserDoc.credits = newBalance;
-                            document.getElementById('navCredits').innerText = newBalance;
-
-                            Swal.fire({
-                                icon: 'success', title: 'Theme Unlocked!',
-                                text: 'Your download link will open in a new tab.',
-                                background: 'var(--bg-card)', color: 'var(--text-main)', confirmButtonColor: '#D4AF37'
-                            }).then(() => {
-                                window.open(downloadLink, '_blank');
-                            });
-                        } catch (err) {
-                            Swal.fire('Error', 'Transaction Failed. Please check your internet connection.', 'error');
+                            currentUserDoc.credits = newBal;
+                            document.getElementById('navCredits').innerText = newBal;
+                            
+                            // Open drive link
+                            window.open(link, '_blank');
+                            Swal.fire({icon: 'success', title: 'Unlocked!', background: 'var(--bg-card)', color: 'var(--text-main)', confirmButtonColor: '#D4AF37'});
+                        } catch(e) { 
+                            Swal.fire('Error', 'Transaction failed.', 'error'); 
                         }
                     }
                 });
             } else {
                 Swal.fire({
-                    title: 'Insufficient Credits',
-                    text: `You need ${cost} credits to download this. You currently have ${currentCredits}.`,
-                    icon: 'error',
-                    showCancelButton: true,
+                    title: 'Low Credits',
+                    text: `You need ${cost} credits to download this. You only have ${current}.`,
+                    icon: 'warning',
                     confirmButtonText: 'Buy Credits',
-                    cancelButtonText: 'Cancel',
                     confirmButtonColor: '#D4AF37',
                     background: 'var(--bg-card)',
                     color: 'var(--text-main)'
-                }).then((result) => {
-                    if (result.isConfirmed) window.location.href = 'pricing.html';
+                }).then((r) => { 
+                    if(r.isConfirmed) window.location.href='pricing.html'; 
                 });
             }
         };

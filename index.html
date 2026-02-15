@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NextGenAdi4U | Premium Access</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style> 
         body { -webkit-user-select: none; user-select: none; } 
         :root { 
-            --gold: #D4AF37; --gold-dark: #B8860B; 
-            --bg-body: #FAFAFA; --card-bg: #FFFFFF;
+            --gold: #D4AF37; --gold-dark: #B8860B; --gold-light: rgba(212, 175, 55, 0.15);
+            --bg-body: #FAFAFA; --card-bg: rgba(255, 255, 255, 0.95);
             --text-main: #18181B; --text-muted: #71717A; --border: #E4E4E7;
-            --shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.1);
+            --shadow: 0 25px 50px -12px rgba(212, 175, 55, 0.15), 0 0 25px rgba(212, 175, 55, 0.05);
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -25,99 +25,127 @@
             background-color: var(--bg-body); overflow: hidden; position: relative;
         }
 
-        /* ✨ GOLDEN GLOW ANIMATION (White Theme Special) */
-        .ambient-glow {
-            position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08), transparent 70%);
-            animation: pulseGlow 6s infinite alternate; z-index: 1; pointer-events: none;
+        /* ✨ ANIMATED GOLDEN GRID BACKGROUND */
+        .bg-grid {
+            position: absolute; width: 200%; height: 200%; top: -50%; left: -50%;
+            background-image: 
+                linear-gradient(rgba(212, 175, 55, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+            transform: rotate(-10deg);
+            animation: moveGrid 40s linear infinite;
+            z-index: 0; pointer-events: none;
         }
-        @keyframes pulseGlow { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.1); opacity: 1; } }
-        
-        /* ✨ PARTICLES */
-        .particles {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(#D4AF37 1px, transparent 1px);
-            background-size: 40px 40px; opacity: 0.15; z-index: 1;
+        @keyframes moveGrid {
+            0% { transform: rotate(-10deg) translateY(0); }
+            100% { transform: rotate(-10deg) translateY(-40px); }
         }
 
-        /* 🏰 AUTH CARD (White Luxury) */
+        /* ✨ GOLDEN AMBIENT GLOW */
+        .ambient-glow {
+            position: absolute; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08), transparent 60%);
+            animation: pulseGlow 4s infinite alternate ease-in-out; z-index: 1; pointer-events: none;
+        }
+        @keyframes pulseGlow { 0% { transform: scale(0.9); opacity: 0.5; } 100% { transform: scale(1.1); opacity: 1; } }
+
+        /* 🏰 AUTH CARD (Hyper Professional & Floating) */
         .auth-card {
-            position: relative; z-index: 10; width: 100%; max-width: 420px; 
-            background: var(--card-bg); border: 1px solid white;
-            padding: 45px 40px; border-radius: 20px; 
+            position: relative; z-index: 10; width: 100%; max-width: 440px; 
+            background: var(--card-bg); border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 50px 45px; border-radius: 24px; 
             box-shadow: var(--shadow);
-            animation: slideUp 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.8s cubic-bezier(0.2, 1, 0.3, 1), floatCard 6s ease-in-out infinite;
         }
         @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes floatCard { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
         /* HEADER */
-        .brand-header { text-align: center; margin-bottom: 30px; }
-        .brand-header h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 5px; letter-spacing: 1px; }
-        .brand-header span { color: var(--gold); }
+        .brand-header { text-align: center; margin-bottom: 35px; }
+        .brand-header h1 { font-family: 'Cinzel', serif; font-size: 2.4rem; font-weight: 800; color: var(--text-main); margin-bottom: 8px; letter-spacing: 1px; }
+        .brand-header span { color: var(--gold); text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
         .brand-header p { color: var(--text-muted); font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;}
 
         /* TOGGLE BUTTONS */
         .toggle-container { 
-            display: flex; background: #F4F4F5; border-radius: 12px; padding: 5px; margin-bottom: 25px; 
-            border: 1px solid var(--border);
+            display: flex; background: #F4F4F5; border-radius: 12px; padding: 6px; margin-bottom: 30px; 
+            border: 1px solid var(--border); box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
         }
         .toggle-btn { 
-            flex: 1; padding: 10px; border: none; background: transparent; 
-            font-size: 0.9rem; font-weight: 600; color: var(--text-muted); cursor: pointer; 
-            border-radius: 8px; transition: all 0.3s ease; 
+            flex: 1; padding: 12px; border: none; background: transparent; 
+            font-size: 0.95rem; font-weight: 600; color: var(--text-muted); cursor: pointer; 
+            border-radius: 8px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
         }
-        .toggle-btn.active { background: #FFFFFF; color: var(--text-main); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .toggle-btn.active { background: #FFFFFF; color: var(--text-main); box-shadow: 0 4px 15px rgba(0,0,0,0.08); transform: scale(1.02); }
 
         /* FORMS */
-        .form-area { display: none; animation: fadeIn 0.4s ease; }
+        .form-area { display: none; animation: fadeInForm 0.5s ease; }
         .form-area.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeInForm { from { opacity: 0; transform: translateX(15px); } to { opacity: 1; transform: translateX(0); } }
 
-        .input-group { margin-bottom: 18px; position: relative; }
-        .input-group i { position: absolute; left: 15px; top: 40px; color: var(--gold); font-size: 0.95rem; }
-        .input-group label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px; margin-left: 5px; }
+        .input-group { margin-bottom: 22px; position: relative; }
+        .input-group i { position: absolute; left: 16px; top: 41px; color: var(--gold); font-size: 1rem; transition: 0.3s; }
+        .input-group label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px; margin-left: 5px; }
         
         .lux-input { 
-            width: 100%; padding: 12px 12px 12px 40px; 
+            width: 100%; padding: 14px 14px 14px 45px; 
             background: #FFFFFF; border: 1px solid var(--border); 
-            border-radius: 10px; font-size: 0.95rem; color: var(--text-main); outline: none; transition: 0.3s; 
+            border-radius: 12px; font-size: 0.95rem; color: var(--text-main); outline: none; transition: all 0.3s ease; 
         }
-        .lux-input:focus { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1); }
+        .lux-input:focus { border-color: var(--gold); box-shadow: 0 0 0 4px var(--gold-light); transform: translateY(-2px); }
+        .lux-input:focus + i { transform: scale(1.1); text-shadow: 0 0 8px rgba(212, 175, 55, 0.5); }
 
         /* BUTTONS */
         .btn-primary { 
-            width: 100%; padding: 14px; background: #0A0A0A; 
-            color: var(--gold); border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; 
-            cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; 
-            margin-top: 10px; 
+            width: 100%; padding: 16px; background: #0A0A0A; 
+            color: var(--gold); border: none; border-radius: 12px; font-size: 1.05rem; font-weight: 700; 
+            cursor: pointer; transition: all 0.4s ease; display: flex; justify-content: center; align-items: center; gap: 10px; 
+            margin-top: 15px; position: relative; overflow: hidden;
         }
-        .btn-primary:hover { background: var(--gold); color: #fff; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212,175,55,0.2); }
+        .btn-primary::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.3), transparent);
+            transform: skewX(-25deg); transition: 0s;
+        }
+        .btn-primary:hover { background: var(--gold); color: #fff; transform: translateY(-3px); box-shadow: 0 15px 25px rgba(212,175,55,0.3); }
+        .btn-primary:hover::after { left: 200%; transition: 0.8s ease-in-out; }
 
-        .forgot-pass { text-align: right; margin-bottom: 20px; }
-        .forgot-pass a { color: var(--text-muted); font-size: 0.85rem; text-decoration: none; transition: 0.3s; cursor: pointer; font-weight: 500; }
-        .forgot-pass a:hover { color: var(--gold); text-decoration: underline; }
+        .forgot-pass { text-align: right; margin-bottom: 25px; margin-top: -10px; }
+        .forgot-pass a { color: var(--text-muted); font-size: 0.85rem; text-decoration: none; transition: 0.3s; cursor: pointer; font-weight: 600; }
+        .forgot-pass a:hover { color: var(--gold); }
 
-        .divider { display: flex; align-items: center; text-align: center; margin: 25px 0; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        .divider { display: flex; align-items: center; text-align: center; margin: 30px 0; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
         .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border); }
         .divider::before { margin-right: 15px; } .divider::after { margin-left: 15px; }
         
         .social-btn { 
-            width: 100%; padding: 12px; background: #FFFFFF; border: 1px solid var(--border); border-radius: 10px; 
-            font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; 
-            transition: 0.3s; color: var(--text-main);
+            width: 100%; padding: 14px; background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; 
+            font-weight: 600; font-size: 0.95rem; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; 
+            transition: all 0.3s ease; color: var(--text-main);
         }
-        .social-btn:hover { background: #F9FAFB; transform: translateY(-2px); border-color: #D1D5DB; }
+        .social-btn:hover { background: #FAFAFA; transform: translateY(-2px); border-color: var(--gold); box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
 
         /* SWEETALERT CUSTOM */
-        .luxury-popup { background: #FFFFFF !important; border-radius: 16px !important; }
-        .luxury-title { color: #18181B !important; font-family: 'Cinzel' !important; }
-        .luxury-confirm { background-color: #0A0A0A !important; color: #D4AF37 !important; }
+        .luxury-popup { background: #FFFFFF !important; border-radius: 20px !important; border: 1px solid rgba(212, 175, 55, 0.2) !important; box-shadow: var(--shadow) !important; }
+        .luxury-title { color: #18181B !important; font-family: 'Cinzel', serif !important; font-weight: 800 !important; }
+        .luxury-confirm { background-color: #0A0A0A !important; color: #D4AF37 !important; border-radius: 10px !important; padding: 12px 25px !important; transition: 0.3s !important; }
+        .luxury-confirm:hover { background-color: var(--gold) !important; color: #fff !important; }
+
+        /* 📱 MOBILE RESPONSIVENESS */
+        @media (max-width: 500px) {
+            .auth-card { padding: 40px 25px; max-width: 90%; width: 90%; }
+            .brand-header h1 { font-size: 2rem; }
+            .lux-input { padding: 12px 12px 12px 40px; }
+            .input-group i { top: 38px; left: 14px; }
+            .btn-primary { padding: 14px; }
+        }
     </style>
 </head>
 <body>
 
+    <div class="bg-grid"></div>
     <div class="ambient-glow"></div>
-    <div class="particles"></div>
 
     <div class="auth-card">
         <div class="brand-header">
@@ -172,7 +200,7 @@
 
         <div class="divider">Or Access With</div>
         <button class="social-btn" onclick="handleGoogleLogin()">
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20"> Google Secure Login
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="22" alt="Google"> Google Secure Login
         </button>
     </div>
 

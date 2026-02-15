@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Rated Phonks | NextGenAdi4U</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.onkeydown = function(e) { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) return false; }
+    </script>
+
+    <style>
+        :root { 
+            --gold: #D4AF37; --gold-dark: #B8860B; --gold-light: rgba(212, 175, 55, 0.15);
+            --bg-body: #FAFAFA; --bg-nav: rgba(255, 255, 255, 0.85); --bg-card: rgba(255, 255, 255, 0.9);
+            --text-main: #18181B; --text-muted: #71717A; --border-color: rgba(228, 228, 231, 0.8);
+            --shadow: 0 15px 35px rgba(0,0,0,0.05); --shadow-hover: 0 25px 50px -12px rgba(212, 175, 55, 0.3), 0 0 25px rgba(212, 175, 55, 0.1);
+            --dark: #0A0A0A;
+        }
+
+        body.dark-mode { --bg-body: #050505; --bg-nav: rgba(10, 10, 10, 0.85); --bg-card: rgba(18, 18, 18, 0.9); --text-main: #F4F4F5; --text-muted: #A1A1AA; --border-color: rgba(51, 51, 51, 0.8); --shadow: 0 15px 40px rgba(0,0,0,0.5); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s; }
+        body { background-color: var(--bg-body); color: var(--text-main); overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; position: relative; }
+
+        .bg-grid { position: fixed; width: 200vw; height: 200vh; top: -50%; left: -50%; background-image: linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px); background-size: 50px 50px; transform: rotate(-10deg); animation: moveGrid 50s linear infinite; z-index: -2; pointer-events: none; }
+        @keyframes moveGrid { 0% { transform: rotate(-10deg) translateY(0); } 100% { transform: rotate(-10deg) translateY(-50px); } }
+        .ambient-glow { position: fixed; width: 100vw; height: 100vh; top: 0; left: 0; background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.08), transparent 70%); animation: pulseGlowBg 5s infinite alternate ease-in-out; z-index: -1; pointer-events: none; }
+        @keyframes pulseGlowBg { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.1); opacity: 1; } }
+
+        .navbar { position: sticky; top: 0; z-index: 100; background: var(--bg-nav); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03); }
+        .nav-logo { font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 800; text-decoration: none; color: var(--text-main); background: linear-gradient(90deg, var(--text-main) 0%, var(--gold) 50%, var(--text-main) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
+        @keyframes shine { 0% { background-position: -200%; } 100% { background-position: 200%; } }
+        .nav-actions { display: flex; align-items: center; gap: 20px; }
+        .credit-badge { background: var(--bg-body); color: var(--gold); padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 800; border: 1px solid var(--gold); display: flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.4s ease; box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.05); }
+        .profile-btn { cursor: pointer; width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
+        .dropdown-menu { position: absolute; top: 80px; right: 5%; background: var(--bg-card); width: 280px; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: var(--shadow-hover); padding: 12px; opacity: 0; visibility: hidden; transform: translateY(-15px) scale(0.95); transition: all 0.4s ease; z-index: 200; backdrop-filter: blur(15px); }
+        .dropdown-menu.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+        .dropdown-item { display: flex; align-items: center; gap: 12px; padding: 12px 15px; color: var(--text-main); text-decoration: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+        .menu-header { padding: 15px; border-bottom: 1px solid var(--border-color); margin-bottom: 10px; background: linear-gradient(135deg, var(--gold-light), transparent); border-radius: 12px; }
+
+        .back-btn-container { text-align: left; max-width: 1400px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; margin-top: 35px;}
+        .btn-back { display: inline-flex; align-items: center; gap: 10px; color: var(--text-muted); text-decoration: none; font-weight: 700; font-size: 0.95rem; padding: 12px 25px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-card); transition: all 0.4s ease; backdrop-filter: blur(10px); cursor: pointer; }
+        .btn-back:hover { border-color: var(--gold); color: var(--gold); transform: translateX(-5px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.15); background: var(--bg-body); }
+
+        .hero { text-align: center; padding: 40px 20px 40px; position: relative; animation: slideDownHero 1.2s cubic-bezier(0.2, 1, 0.3, 1); }
+        @keyframes slideDownHero { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: var(--text-main); margin-bottom: 15px; font-weight: 800; text-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .hero span { color: var(--gold); }
+        
+        .search-container { max-width: 750px; margin: 20px auto; position: relative; z-index: 10;}
+        .search-input { width: 100%; padding: 22px 25px 22px 65px; border-radius: 50px; border: 2px solid rgba(212, 175, 55, 0.4); background: var(--bg-card); color: var(--text-main); font-size: 1.1rem; outline: none; transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1); box-shadow: 0 15px 35px rgba(0,0,0,0.05); font-weight: 600; backdrop-filter: blur(15px); }
+        .search-input:focus { border-color: var(--gold); box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2); transform: scale(1.02) translateY(-2px); }
+        .search-icon { position: absolute; left: 28px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.5rem; transition: 0.4s; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px 80px; flex-grow: 1; width: 100%; position: relative; z-index: 10; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .audio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; justify-content: center; margin-top: 20px;}
+        
+        .audio-card { background: var(--bg-card); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 24px; padding: 25px; transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow); z-index: 1; backdrop-filter: blur(10px); }
+        .audio-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.1), transparent); transform: skewX(-25deg); transition: 0s; z-index: -1; pointer-events: none; }
+        .audio-card:hover { transform: translateY(-10px) scale(1.02); border-color: var(--gold); box-shadow: var(--shadow-hover); }
+        .audio-card:hover::before { left: 200%; transition: 0.8s ease-in-out; }
+
+        .premium-tag { position: absolute; top: 15px; right: 15px; background: linear-gradient(45deg, var(--dark), #222); color: var(--gold); padding: 6px 15px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; z-index: 10; box-shadow: 0 5px 15px rgba(0,0,0,0.15); border: 1px solid var(--gold); text-transform: uppercase; }
+
+        .player-top { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .disk-cover { width: 70px; height: 70px; background: radial-gradient(circle, var(--gold-light), var(--bg-body)); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--gold); position: relative; box-shadow: 0 5px 15px rgba(212,175,55,0.2); }
+        .disk-cover i { font-size: 1.8rem; color: var(--gold); }
+        .disk-cover::after { content: ''; position: absolute; width: 15px; height: 15px; background: var(--card-bg); border-radius: 50%; border: 1px solid var(--gold); }
+        .spin { animation: spinDisk 3s linear infinite !important; }
+        @keyframes spinDisk { 100% { transform: rotate(360deg); } }
+
+        .track-info { text-align: left; flex-grow: 1; }
+        .track-title { font-size: 1.15rem; color: var(--text-main); font-weight: 800; margin-bottom: 5px; font-family: 'Cinzel', serif; }
+        .track-category { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+        .player-controls { display: flex; align-items: center; justify-content: space-between; background: var(--bg-body); padding: 10px 20px; border-radius: 50px; border: 1px solid var(--border-color); margin-bottom: 20px; }
+        .play-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); color: #fff; border: none; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(212,175,55,0.4); transition: 0.3s; }
+        .play-btn:hover { transform: scale(1.1); background: var(--dark); color: var(--gold); }
+        
+        .equalizer { display: flex; align-items: flex-end; gap: 4px; height: 20px; opacity: 0.3; transition: 0.3s; }
+        .equalizer span { display: block; width: 4px; background: var(--gold); border-radius: 2px; }
+        .equalizer span:nth-child(1) { height: 40%; } .equalizer span:nth-child(2) { height: 80%; } .equalizer span:nth-child(3) { height: 60%; } .equalizer span:nth-child(4) { height: 100%; } .equalizer span:nth-child(5) { height: 50%; }
+        .playing .equalizer { opacity: 1; }
+        .playing .equalizer span { animation: eqAnimation 0.5s infinite alternate ease-in-out; }
+        .playing .equalizer span:nth-child(2) { animation-delay: 0.1s; } .playing .equalizer span:nth-child(3) { animation-delay: 0.2s; } .playing .equalizer span:nth-child(4) { animation-delay: 0.3s; } .playing .equalizer span:nth-child(5) { animation-delay: 0.4s; }
+        @keyframes eqAnimation { 0% { height: 30%; } 100% { height: 100%; } }
+
+        .price-box { margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1.2rem; color: var(--gold); font-weight: 800; background: var(--gold-light); padding: 10px; border-radius: 12px; border: 1px dashed var(--gold); }
+        .btn-download { width: 100%; padding: 15px; background: var(--dark); color: var(--gold); border: none; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.4s ease; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1rem; position: relative; overflow: hidden; }
+        .btn-download::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.3), transparent); transform: skewX(-25deg); transition: 0s; }
+        .btn-download:hover { background: var(--gold); color: #fff; box-shadow: 0 10px 25px rgba(212,175,55,0.4); transform: translateY(-2px); }
+        .btn-download:hover::after { left: 200%; transition: 0.8s ease-in-out; }
+        .no-results { grid-column: 1 / -1; text-align: center; padding: 60px; font-size: 1.6rem; color: var(--text-muted); font-weight: bold; background: var(--bg-card); border-radius: 24px; border: 1px dashed var(--gold); }
+
+        footer { background: var(--bg-card); border-top: 2px solid var(--gold); padding: 70px 20px 30px; color: var(--text-main); position: relative; overflow: hidden; width: 100%; margin-top: auto; box-shadow: 0 -10px 40px rgba(0,0,0,0.03); backdrop-filter: blur(10px); }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; text-align: left; }
+        .footer-brand h2 { font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: 800; margin-bottom: 15px; color: var(--text-main); }
+        .footer-brand span { color: var(--gold); text-shadow: 0 0 10px rgba(212,175,55,0.3);}
+        .footer-brand p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 25px; }
+        .footer-bottom { border-top: 1px solid var(--border-color); text-align: center; padding-top: 30px; margin-top: 50px; color: var(--text-muted); font-size: 0.9rem; font-weight: 600; }
+        
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-body); display: flex; justify-content: center; align-items: center; z-index: 99999; flex-direction: column; }
+        .spinner { width: 70px; height: 70px; border: 5px solid rgba(212,175,55,0.1); border-top: 5px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 25px;}
+        
+        @media (max-width: 768px) { .navbar { padding: 15px 20px; } .hero h1 { font-size: 2.5rem; } .audio-grid { grid-template-columns: 1fr; } .footer-container { text-align: center; } }
+    </style>
+</head>
+<body>
+
+    <div class="bg-grid"></div>
+    <div class="ambient-glow"></div>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <h3 style="font-family: 'Cinzel', serif; color: var(--text-main); letter-spacing: 2px; font-weight: 800;">Loading Phonk...</h3>
+    </div>
+
+    <nav class="navbar">
+        <a href="dashboard.html" class="nav-logo">NextGen<span>Adi4U</span></a>
+        <div class="nav-actions">
+            <div class="credit-badge" onclick="window.location.href='pricing.html'">
+                <i class="fas fa-coins"></i> <span id="navCredits">0</span>
+            </div>
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="navProfilePic" class="profile-btn" onclick="toggleMenu()" alt="Profile">
+        </div>
+        <div class="dropdown-menu" id="userMenu">
+            <div class="menu-header">
+                <b id="menuName" style="display:block; color:var(--text-main); font-size:1.1rem; font-weight:800;">Master</b>
+                <small id="menuPlan" style="color:var(--gold); font-weight:800; text-transform: uppercase;">Free Plan</small>
+            </div>
+            <a class="dropdown-item" href="dashboard.html"><i class="fas fa-th-large"></i> Back to Dashboard</a>
+            <a class="dropdown-item" href="pricing.html"><i class="fas fa-wallet"></i> Buy Credits</a>
+            <div style="height:1px; background:var(--border-color); margin:10px 0;"></div>
+            <a class="dropdown-item" onclick="logout()" style="color:#EF4444; font-weight: 700;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </nav>
+
+    <div class="back-btn-container">
+        <a href="background-songs.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Folders</a>
+    </div>
+
+    <div class="hero" style="padding-bottom: 20px;">
+        <h1>Top Rated <span style="font-family: 'Cinzel';"><i class="fas fa-skull"></i> Phonks</span></h1>
+        
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search 60+ Phonk Tracks...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="mainAudioContainer" class="audio-grid">
+            </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h2>NextGen<span>Adi4U</span></h2>
+                <p>The ultimate digital arsenal for creators, developers, and entrepreneurs. Dominate the space with premium assets.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NextGenAdi4U. All Rights Reserved. Built for the Elite.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBE4rNCK5MR1Joy-EOJgWgMLqmm6QDEH40",
+            authDomain: "premium-6172b.firebaseapp.com",
+            projectId: "premium-6172b",
+            storageBucket: "premium-6172b.firebasestorage.app",
+            messagingSenderId: "1024825846032",
+            appId: "1:1024825846032:web:93209b4ca94480da32dd95"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        let currentUserDoc = null;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userRef = doc(db, "users", user.uid);
+                try {
+                    const snap = await getDoc(userRef);
+                    if (snap.exists()) {
+                        currentUserDoc = snap.data();
+                        document.getElementById('loader').style.display = 'none';
+                        document.getElementById('navCredits').innerText = currentUserDoc.credits || 0;
+                        document.getElementById('menuName').innerText = currentUserDoc.fullName || "Master";
+                        document.getElementById('menuPlan').innerText = (currentUserDoc.planType || "Free") + " Plan";
+                        if(currentUserDoc.profilePicBase64) { document.getElementById('navProfilePic').src = currentUserDoc.profilePicBase64; }
+                        
+                        renderAudioGrid(audioData);
+                    }
+                } catch (e) { console.error("DB Error", e); }
+            } else {
+                window.location.replace("index.html");
+            }
+        });
+
+        // ==========================================
+        // ALL 62 PHONK TRACKS (5 CREDITS EACH + DIRECT DOWNLOAD)
+        // ==========================================
+        const audioData = [
+            { id: "p1", name: "ANDROMEDA - MONTAGEM CORE", category: "Phonk", cost: 5, premium: true, link: "https://drive.google.com/uc?export=download&id=1ll7QOMMhdtIFHGQQKL937PyVyDMh_P0K" },
+            { id: "p2", name: "Aris - dança zip", category: "Phonk", cost: 5, premium: true, link: "https://drive.google.com/uc?export=download&id=1mvq5WkHJbk-iJr4dwSV90w4_aqUSR3Xc" },
+            { id: "p3", name: "Aris - GOZALO (Slowed)", category: "Phonk", cost: 5, premium: true, link: "https://drive.google.com/uc?export=download&id=1Udx3UfuqI9CrfTKEfm42xR9I7HWb2g5M" },
+            { id: "p4", name: "AUTOMOTIVO DA TURBULENCIA", category: "Phonk", cost: 5, premium: true, link: "https://drive.google.com/uc?export=download&id=1KiHgr5BhFV3t8OieESZqOAt-zigLfwIK" },
+            { id: "p5", name: "AUTOMOTIVO MANGOS", category: "Phonk", cost: 5, premium: true, link: "https://drive.google.com/uc?export=download&id=1zb4QTvHOz6WxqrWVrc6rcEMTxoW37LOV" },
+            { id: "p6", name: "BLZZVRD - Uh Balancao", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1Coud1ObUv1OTjVdd8z5epFIRMGMCtj9-" },
+            { id: "p7", name: "Crazy Frog - Axel F", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1G5_ERpVtB16JMNfRTuz5yceVfzXT64Hq" },
+            { id: "p8", name: "CUTE DEPRESSED - Dylan Dxddy", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1dSVLY6ugjz0VvgXKiXSWRePS4zaPtu1w" },
+            { id: "p9", name: "DJ Asu - NO ERA AMOR", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1EdjBWDHtnUY0k_20T5Y6q_LufHu_Y6GY" },
+            { id: "p10", name: "ENVY - SLXUGHTER", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1kd5iHoMtDUCsmtYRDw_-BBMSZ0mTto9i" },
+            { id: "p11", name: "From The Start - Prey", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1BGZIhQlVZx0d6tecSyC2lsHI3c5hC_MA" },
+            { id: "p12", name: "Funk Da Montanha", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1R_gSwO4YVIz8SjsToo05SHpfnK-BPPHl" },
+            { id: "p13", name: "Funk de Beleza", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1VKxGB4aqhDCvbZzDAww2oOeMPHExO6dH" },
+            { id: "p14", name: "Funk de Beleza 2", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1DrmCuePUPdvZ7NL4HhoJIp8g4ix9W4na" },
+            { id: "p15", name: "FUNK DO BALKAN", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1kLvWbLglaxVP-Z0cWKkja-Ts-MKG_KaC" },
+            { id: "p16", name: "FUNK DO BOUNCE", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=15gM17P5o7UXK0XIOfdlCkuzheDISBQOB" },
+            { id: "p17", name: "FUNK MI CAMINO", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=132kMGlaEm4stLaileC6zvDymIWkQs1I-" },
+            { id: "p18", name: "FUNK SIGILO", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1FIGbrdcZUSgwidPO9G4M2v_8_vCLZtZs" },
+            { id: "p19", name: "Irokz - FUNK UNIVERSO", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1PvF3h3TdJe7h8HZMzZ9PBz-cSoBWApIB" },
+            { id: "p20", name: "J.Geco - Chicken Song", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1DeMdcMGI-GNNzzWewV_RmMxnmhfUw1qL" },
+            { id: "p21", name: "Jmilton - Montagem", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1--uzvUX4P8nR33D06FEPzsaqfVX5bAtB" },
+            { id: "p22", name: "Life in Rio", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1n2uz-zHDxWO-fAv9w7CW7ZjNiKbg_qma" },
+            { id: "p23", name: "Louca Encubada", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1-hNzbwE-4WwiwBHPZIB6_b31wXNUzNd4" },
+            { id: "p24", name: "LUA NA PRAÇA", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1Ay5bkMt4K61hLX1K-ng6aOAybzhhhQzD" },
+            { id: "p25", name: "LUA NA PRAÇA V2", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1qRrLh3OiLc50Os0zRj6ST6pcOCxzTF2F" },
+            { id: "p26", name: "LUNA BALA", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1fvIAlXbEdpG27_PP7PEdAzrombDxjJch" },
+            { id: "p27", name: "Matushka Ultrafunk", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1-Nrrc3sFCnQbS36Iojn5DYylLYvdj3_R" },
+            { id: "p28", name: "Montagem Bandido", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1BSDzhhKny7F8Nf_hPbZEgbTWh-0WixsA" },
+            { id: "p29", name: "Montagem Bionica Espectral", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=17161t5frijHm9X1UZoISDiTkghMi25R_" },
+            { id: "p30", name: "Montagem Core Espectro", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=15kVmY2uhrhNDxRJyt3N6fPJwui7SgVKP" },
+            { id: "p31", name: "Montagem Lunar Celestia", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1pki8waCw0XSZvqwrVO8N61_SJGoOhbtu" },
+            { id: "p32", name: "Montagem Melodia Explosiva", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=10oTlOwwAiBj274AwBDdiZggpgirynCXa" },
+            { id: "p33", name: "Montagem Solar Atmosfera", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1fNDZwlBKVhVHLHudHMiWR3_Sr3JzzcCA" },
+            { id: "p34", name: "Montagem sombra estelar", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1cXShjGhM0XVJWWfu5ghnyZZgga5Soueh" },
+            { id: "p35", name: "Montagem Supersonic", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1yDlv27ugXI9nYBKA9WATB5JrfNq3meNW" },
+            { id: "p36", name: "MONTAGEM DIREÇÃO", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1OjuZhYLSAolrioeKxye-0JQ4hh0hFz51" },
+            { id: "p37", name: "MONTAGEM DIREÇÃO 2", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1iHWwv1bOxYmfe5oMj1wRjsiwXE_BrWuL" },
+            { id: "p38", name: "MONTAGEM LADRÃO", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1Xvjh895c-1XJGehHjbWDhLVw1ZVfMipT" },
+            { id: "p39", name: "MONTAGEM NOSTALGIA", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1ODvBzgNY0BZ59Gqi7VKDU3iAu7I2l_f0" },
+            { id: "p40", name: "MONTAGEM RELACIONISTA", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1z3kfeM8gC1wd-Ubhkbq8xLggAlfrxZen" },
+            { id: "p41", name: "MONTAGEM TONTURA", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1BIs1GAFhCUNjgpIqQhCogNgLCk13ehT7" },
+            { id: "p42", name: "MONTAGEM VOZES", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1fvfW2An7IiMx2yuFx4fe-t_56UCLNoMk" },
+            { id: "p43", name: "MONTAGEM XONADA", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1h6KEiEc7AsMa2YjDo7pHMpF3ojYw3VxP" },
+            { id: "p44", name: "Murder In My Mind", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1i7dJ5FcjDLvZpvMfKOF-E8SZVE98Ip6_" },
+            { id: "p45", name: "VILLAGE FUNK", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1jVTCZ0Oo-E-2WHDTrq3AMy9b9dFUCP4n" },
+            { id: "p46", name: "SLAVA FUNK", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1e5KoLprawOAjQJqSDtCbhYOQYLX_vAwt" },
+            { id: "p47", name: "Nada Nada - Jmilton", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=14stUJ_KXdZxqNamTkJf49r0gyoo6ytWu" },
+            { id: "p48", name: "NEON BLADE", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1oYwzn-XToWsaGOqf1vNP_5ujNmThLKEf" },
+            { id: "p49", name: "Nomi XD - BLAH", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1uPETwU7J4BES4917rGNkJn0LqDGYuAh7" },
+            { id: "p50", name: "NO BATIDÃO", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1t27dLZcgLsKnkeqq7LWDPJjv53kgQcRj" },
+            { id: "p51", name: "EMPIRE - Ogryzek", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1SuIlziW3WC7zUPHXgBRnaM4Ntl5NvXwB" },
+            { id: "p52", name: "PASSO BEM SOLTO", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1TmipWpQyG56ri6kJFpmkqFc4xNXUIECU" },
+            { id: "p53", name: "GANGNAM STYLE Phonk", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1jHV-zCSeXdohvM0_Hn3a2JXPtuke96pT" },
+            { id: "p54", name: "RAVE - Dxrk", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1Sy0fz3ZQy0vmOK3Hl2Sp1W8wUEvm5qrz" },
+            { id: "p55", name: "MONTAGEM PR", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1WkYahvmBOOkSVNehvEZONtsTBoHMakXc" },
+            { id: "p56", name: "BLOODY BRAZIL", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1u1PG7OmF1DsjUicf61EsSfs9qwVvhfAg" },
+            { id: "p57", name: "TUNG SAHUR FUNK", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=17lwWR50cu1YEVo2hqHfGIH8bo3AQPeA-" },
+            { id: "p58", name: "VEM PERE REKA", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1P-9o8ibrKFCYSmqG5lulkYQl8tTf3ARI" },
+            { id: "p59", name: "Victory Anthem", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1YvncLVyJJKVFzGRHLHtw50O4930t460A" },
+            { id: "p60", name: "OIIA OIIA Cat", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1a-T2Ke7VShdxBbws-3lGXorGmPtI5eGb" },
+            { id: "p61", name: "Woops - Dj Bountyhunter", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1_xgCFYPJl_c4RGmt1X4e-H8wE8FXOsAP" },
+            { id: "p62", name: "GigaChad Theme Phonk", category: "Phonk", cost: 5, premium: false, link: "https://drive.google.com/uc?export=download&id=1OXJwOoAoWiDZX9J1-N5iqALf9AushW3p" }
+        ];
+
+        function renderAudioGrid(tracks) {
+            const container = document.getElementById('mainAudioContainer');
+            container.innerHTML = ''; 
+
+            if (tracks.length === 0) {
+               container.innerHTML = '<div class="no-results"><i class="fas fa-volume-mute" style="font-size:3.5rem; color:var(--gold); margin-bottom:20px; display:block;"></i> No tracks found in this category.</div>';
+               return;
+            }
+
+            let html = '';
+            tracks.forEach(track => {
+                const tag = track.premium ? `<div class="premium-tag"><i class="fas fa-fire" style="margin-right:3px;"></i> TOP RATED</div>` : '';
+                html += `
+                    <div class="audio-card" id="${track.id}">
+                        ${tag}
+                        <div class="player-top">
+                            <div class="disk-cover"><i class="fas fa-skull"></i></div>
+                            <div class="track-info">
+                                <div class="track-title">${track.name}</div>
+                                <div class="track-category">${track.category}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="player-controls">
+                            <button class="play-btn" onclick="togglePlay('${track.id}', this, '${track.link}')"><i class="fas fa-play"></i></button>
+                            <div class="equalizer">
+                                <span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                            <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Play Preview</span>
+                        </div>
+
+                        <div class="price-box">
+                            <i class="fas fa-coins"></i> ${track.cost} Credits
+                        </div>
+                        
+                        <button class="btn-download" onclick="processDownload('${track.link}', ${track.cost}, '${track.name}')">
+                            <i class="fas fa-download"></i> Download Full Track
+                        </button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase();
+            const filtered = audioData.filter(t => t.name.toLowerCase().includes(val));
+            renderAudioGrid(filtered);
+        });
+
+        // 🎧 REAL AUDIO PLAYER LOGIC
+        let currentAudio = null;
+        let currentlyPlaying = null;
+        let currentBtn = null;
+
+        window.togglePlay = function(cardId, btnElement, audioUrl) {
+            const card = document.getElementById(cardId);
+            const disk = card.querySelector('.disk-cover');
+            const icon = btnElement.querySelector('i');
+
+            if(currentlyPlaying === cardId) {
+                // Pause it
+                if(currentAudio) currentAudio.pause();
+                card.classList.remove('playing');
+                disk.classList.remove('spin');
+                icon.className = 'fas fa-play';
+                currentlyPlaying = null;
+                currentBtn = null;
+            } else {
+                // Stop previous if playing
+                if(currentlyPlaying) {
+                    if(currentAudio) currentAudio.pause();
+                    const prevCard = document.getElementById(currentlyPlaying);
+                    prevCard.classList.remove('playing');
+                    prevCard.querySelector('.disk-cover').classList.remove('spin');
+                    currentBtn.querySelector('i').className = 'fas fa-play';
+                }
+                
+                // Play new track directly from Google Drive Link
+                currentAudio = new Audio(audioUrl);
+                currentAudio.play().catch(e => {
+                    console.log("Audio preview failed to load (CORS/Drive restrictions).", e);
+                    Swal.fire({ toast:true, icon: 'info', title: 'Preview unvailable for this drive link.', position: 'top-end', showConfirmButton: false, timer: 2000 });
+                });
+
+                card.classList.add('playing');
+                disk.classList.add('spin');
+                icon.className = 'fas fa-pause';
+                currentlyPlaying = cardId;
+                currentBtn = btnElement;
+
+                // When audio ends
+                currentAudio.onended = () => {
+                    card.classList.remove('playing');
+                    disk.classList.remove('spin');
+                    icon.className = 'fas fa-play';
+                    currentlyPlaying = null;
+                    currentBtn = null;
+                };
+            }
+        }
+
+        // ⬇️ DIRECT DOWNLOAD (NO REDIRECT) LOGIC
+        window.processDownload = async (link, cost, name) => {
+            if(!currentUserDoc) return;
+            const current = currentUserDoc.credits || 0;
+            
+            if(current >= cost) {
+                Swal.fire({
+                    title: `Unlock & Download?`,
+                    text: `This will consume ${cost} Credits from your wallet.`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Download Now!',
+                    confirmButtonColor: '#D4AF37',
+                    background: 'var(--bg-card)',
+                    color: 'var(--text-main)',
+                    customClass: { popup: 'luxury-popup' }
+                }).then(async (res) => {
+                    if(res.isConfirmed) {
+                        try {
+                            Swal.showLoading();
+                            
+                            const newBal = current - cost;
+                            await updateDoc(doc(db, "users", auth.currentUser.uid), { credits: newBal });
+                            
+                            currentUserDoc.credits = newBal;
+                            document.getElementById('navCredits').innerText = newBal;
+                            
+                            // 🚀 INVISIBLE ANCHOR DOWNLOAD TRICK
+                            const a = document.createElement('a');
+                            a.href = link;
+                            a.download = name + '.mp3';
+                            a.target = '_blank';
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+
+                            Swal.fire({
+                                icon: 'success', 
+                                title: 'Download Started!', 
+                                text: 'Your Phonk track is downloading.',
+                                background: 'var(--bg-card)', 
+                                color: 'var(--text-main)', 
+                                confirmButtonColor: '#D4AF37'
+                            });
+                        } catch(e) { Swal.fire('Error', 'Transaction failed.', 'error'); }
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Low Credits',
+                    text: `You need ${cost} credits. You have ${current}.`,
+                    icon: 'warning',
+                    confirmButtonText: 'Buy Credits',
+                    confirmButtonColor: '#D4AF37',
+                    background: 'var(--bg-card)',
+                    color: 'var(--text-main)'
+                }).then((r) => { if(r.isConfirmed) window.location.href='pricing.html'; });
+            }
+        };
+
+        window.toggleMenu = () => document.getElementById('userMenu').classList.toggle('active');
+        window.logout = () => signOut(auth).then(() => window.location.replace("index.html"));
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Store | NextGenAdi4U</title>
+    <title>Premium Store (TEST MODE) | NextGenAdi4U</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -35,7 +35,6 @@
             min-height: 100vh; padding: 20px 20px 80px; display: flex; flex-direction: column; align-items: center; position: relative; overflow-x: hidden;
         }
 
-        /* ✨ ANIMATED GOLDEN GRID BACKGROUND */
         .bg-grid {
             position: fixed; width: 200vw; height: 200vh; top: -50%; left: -50%;
             background-image: 
@@ -46,7 +45,6 @@
         }
         @keyframes moveGrid { 0% { transform: rotate(-10deg) translateY(0); } 100% { transform: rotate(-10deg) translateY(-50px); } }
 
-        /* ✨ GOLDEN AMBIENT GLOW */
         .ambient-glow {
             position: fixed; width: 100vw; height: 100vh; top: 0; left: 0;
             background: radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.1), transparent 60%);
@@ -78,14 +76,15 @@
         .store-title h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; margin-bottom: 15px; font-weight: 800; letter-spacing: 1px; text-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .store-title span { color: var(--gold); }
         
+        /* TEST MODE BADGE */
         .live-mode-badge { 
-            display: inline-block; background: var(--gold-light); color: var(--gold-dark); padding: 10px 25px; 
-            border-radius: 50px; font-size: 0.9rem; font-weight: 800; border: 1px solid rgba(212, 175, 55, 0.4); 
-            letter-spacing: 1.5px; box-shadow: 0 5px 15px rgba(212,175,55,0.2); animation: pulseTag 2s infinite alternate;
+            display: inline-block; background: rgba(239, 68, 68, 0.1); color: #EF4444; padding: 10px 25px; 
+            border-radius: 50px; font-size: 0.9rem; font-weight: 800; border: 1px dashed #EF4444; 
+            letter-spacing: 1.5px; box-shadow: 0 5px 15px rgba(239, 68, 68, 0.2); animation: pulseTag 2s infinite alternate;
         }
-        @keyframes pulseTag { 0% { box-shadow: 0 0 10px rgba(212,175,55,0.2); } 100% { box-shadow: 0 0 20px rgba(212,175,55,0.6); } }
+        @keyframes pulseTag { 0% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); } 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); } }
 
-        /* TABS (Premium Pill Switch) */
+        /* TABS */
         .tabs-wrapper { width: 100%; display: flex; justify-content: center; margin-bottom: 50px; position: relative; z-index: 10;}
         .toggle-container { display: flex; background: var(--bg-card); border-radius: 16px; padding: 8px; width: fit-content; border: 1px solid var(--border); box-shadow: var(--shadow); backdrop-filter: blur(10px); }
         .toggle-btn { padding: 14px 40px; border: none; background: transparent; font-weight: 700; cursor: pointer; border-radius: 12px; color: var(--text-muted); font-size: 1rem; transition: all 0.4s ease;}
@@ -100,7 +99,7 @@
         .grid-container.active { display: grid; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 🏰 3D HYPER CARDS */
+        /* CARDS */
         .card { 
             background: var(--card-bg); padding: 45px 35px; border-radius: 28px; border: 1px solid rgba(212, 175, 55, 0.2); 
             text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column;
@@ -128,9 +127,8 @@
         }
         .card.premium .badge { background: linear-gradient(45deg, var(--gold), var(--gold-dark)); color: #fff; border-bottom: none;}
 
-        /* FLOATING ICONS */
-        @keyframes floatIcon { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 10px 10px rgba(212,175,55,0.2)); } 50% { transform: translateY(-8px); filter: drop-shadow(0 20px 20px rgba(212,175,55,0.5)); } }
         .icon { font-size: 3.5rem; color: var(--gold); margin-bottom: 25px; position: relative; z-index: 2; animation: floatIcon 4s ease-in-out infinite; transition: 0.4s;}
+        @keyframes floatIcon { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 10px 10px rgba(212,175,55,0.2)); } 50% { transform: translateY(-8px); filter: drop-shadow(0 20px 20px rgba(212,175,55,0.5)); } }
         .card:hover .icon { transform: scale(1.1); animation-duration: 2s; }
 
         .plan-name { font-size: 1.6rem; font-weight: 800; margin-bottom: 10px; font-family: 'Cinzel', serif; color: var(--text-main); position: relative; z-index: 2;}
@@ -145,7 +143,6 @@
         .features li { font-size: 1rem; margin-bottom: 18px; color: var(--text-muted); display: flex; gap: 15px; align-items: center; font-weight: 600; }
         .features li i { color: var(--gold); font-size: 1.2rem; background: var(--gold-light); padding: 8px; border-radius: 50%; }
 
-        /* BUTTONS */
         .btn-buy { 
             width: 100%; padding: 18px; background: var(--dark); color: var(--gold); 
             border: none; border-radius: 14px; font-size: 1.1rem; font-weight: 800; 
@@ -163,7 +160,6 @@
         #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-body); display: flex; justify-content: center; align-items: center; z-index: 99999; flex-direction: column; display: none; }
         .spinner { width: 70px; height: 70px; border: 5px solid rgba(212,175,55,0.1); border-top: 5px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 25px; box-shadow: 0 0 20px rgba(212,175,55,0.2);}
 
-        /* MOBILE */
         @media (max-width: 768px) {
             .header { flex-direction: column; gap: 20px; }
             .store-title h1 { font-size: 2.5rem; }
@@ -180,7 +176,7 @@
 
     <div id="loader">
         <div class="spinner"></div>
-        <h2 style="font-family:'Cinzel', serif; color: var(--text-main); letter-spacing:2px; font-weight: 800;">Securing Purchase...</h2>
+        <h2 style="font-family:'Cinzel', serif; color: var(--text-main); letter-spacing:2px; font-weight: 800;">Simulating Purchase...</h2>
     </div>
 
     <div class="header">
@@ -190,7 +186,7 @@
 
     <div class="store-title">
         <h1>Premium <span>Store</span></h1>
-        <div class="live-mode-badge"><i class="fas fa-shield-check"></i> SECURE SECONDS CHECKOUT</div>
+        <div class="live-mode-badge"><i class="fas fa-vial"></i> TESTING MODE ACTIVE</div>
         <p id="memberStatusMsg" style="color:var(--gold); font-weight:bold; margin-top:20px; font-size:1.1rem; text-shadow: 0 0 10px rgba(212,175,55,0.2);"></p>
     </div>
 
@@ -249,7 +245,6 @@
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, doc, updateDoc, increment, getDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // 🔥 FIREBASE CONFIG
         const firebaseConfig = {
             apiKey: "AIzaSyBE4rNCK5MR1Joy-EOJgWgMLqmm6QDEH40",
             authDomain: "premium-6172b.firebaseapp.com",
@@ -263,8 +258,7 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // 🚨 LIVE KEYS & TOKENS
-        const RAZORPAY_KEY = "rzp_live_SFCBSbx9v2B3Nw"; 
+        // KEYS
         const TG_TOKEN = "8336599171:AAFNKIKQ_3DBOLO9HHpkgFoFHXd2NO2NOAE"; 
         const TG_CHAT_ID = "8255824096"; 
 
@@ -272,7 +266,6 @@
         let userData = null;
         let discountMultiplier = 1;
 
-        // 🔄 INIT DATA
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
@@ -286,7 +279,6 @@
                         const offPercent = Math.round((1 - discountMultiplier) * 100);
                         document.getElementById("memberStatusMsg").innerHTML = `<i class="fas fa-star" style="margin-right:5px;"></i> You are a ${userData.planType}! Enjoying ${offPercent}% OFF on Credits.`;
                     }
-                    
                     renderCreditPacks();
                 }
             } else {
@@ -294,7 +286,6 @@
             }
         });
 
-        // 🟡 DYNAMIC CREDIT PACKS RENDERING (HTML UPGRADED)
         function renderCreditPacks() {
             const container = document.getElementById('credits-grid');
             const packs = [
@@ -329,48 +320,31 @@
             }).join('');
         }
 
-        // 💳 LIVE RAZORPAY INTEGRATION
+        // 💳 DUMMY / TEST RAZORPAY INTEGRATION
         window.initiateRazorpayPayment = function(type, itemName, itemValue, cost, discountPercent = 0) {
             if(!currentUser) return;
 
-            var options = {
-                "key": RAZORPAY_KEY, 
-                "amount": cost * 100, // Amount is in paise (₹1 = 100 paise)
-                "currency": "INR",
-                "name": "NextGenAdi4U",
-                "description": "Purchase: " + itemName,
-                "image": "https://cdn-icons-png.flaticon.com/512/149/149071.png", // Optional Logo
-                "handler": async function (response) {
-                    // PAYMENT SUCCESS LOGIC
-                    const paymentId = response.razorpay_payment_id;
-                    await processSuccessfulPayment(type, itemName, itemValue, cost, discountPercent, paymentId);
+            // Simulating Payment delay with SweetAlert
+            Swal.fire({
+                title: 'Test Mode Active',
+                html: 'Bypassing Razorpay... Simulating transaction.',
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
                 },
-                "prefill": {
-                    "name": currentUser.displayName || "Premium User",
-                    "email": currentUser.email
-                },
-                "theme": {
-                    "color": "#0A0A0A" // Dark theme color for checkout
-                }
-            };
-
-            var rzp1 = new Razorpay(options);
-            
-            rzp1.on('payment.failed', function (response){
-                Swal.fire({
-                    title: 'Payment Failed',
-                    text: response.error.description,
-                    icon: 'error',
-                    background: 'var(--card-bg)',
-                    color: 'var(--text-main)',
-                    confirmButtonColor: '#D4AF37'
-                });
+                background: 'var(--card-bg)',
+                color: 'var(--text-main)'
+            }).then(async (result) => {
+                // Generate a dummy payment ID for testing
+                const dummyPaymentId = 'pay_test_' + Math.random().toString(36).substr(2, 9);
+                
+                // Jump directly to success function
+                await processSuccessfulPayment(type, itemName, itemValue, cost, discountPercent, dummyPaymentId);
             });
-
-            rzp1.open();
         }
 
-        // 🧪 PROCESS DATABASE AFTER SUCCESSFUL PAYMENT
+        // 🧪 PROCESS DATABASE
         async function processSuccessfulPayment(type, itemName, itemValue, cost, discountPercent, paymentId) {
             document.getElementById('loader').style.display = 'flex';
 
@@ -388,22 +362,19 @@
                     })
                 };
 
-                // Plan specific updates
                 if(type === 'Membership') {
                     updates.planType = itemName;
                     updates.discountMultiplier = (100 - discountPercent) / 100;
                 }
 
-                // 1. Update Current User
                 await updateDoc(userRef, updates);
 
-                // 2. Process Referral Commission
                 if(userData.referredBy) {
                     let commission = 0;
                     if(type === 'Credit Pack') {
-                        commission = Math.floor(itemValue * 0.20); // 20% on Credits
+                        commission = Math.floor(itemValue * 0.20); 
                     } else if(type === 'Membership') {
-                        commission = Math.floor(itemValue * 0.10); // 10% on Bonus Credits
+                        commission = Math.floor(itemValue * 0.10); 
                     }
 
                     if(commission > 0) {
@@ -421,16 +392,16 @@
                     }
                 }
 
-                // 3. Telegram Alert
+                // Telegram Alert (Changed to TEST)
                 await sendTelegramAlert(
-                    `💰 <b>LIVE Purchase Successful</b>`, 
-                    `👤 <b>User:</b> ${currentUser.displayName || currentUser.email}\n📦 <b>Item:</b> ${itemName}\n💸 <b>Paid:</b> ₹${cost}\n💎 <b>Received:</b> ${itemValue} Credits\n👑 <b>Category:</b> ${type}\n✅ <b>Txn ID:</b> <code>${paymentId}</code>`
+                    `🛠️ <b>TEST Purchase Successful</b>`, 
+                    `👤 <b>User:</b> ${currentUser.displayName || currentUser.email}\n📦 <b>Item:</b> ${itemName}\n💸 <b>Paid:</b> ₹${cost} (TEST)\n💎 <b>Received:</b> ${itemValue} Credits\n👑 <b>Category:</b> ${type}\n✅ <b>Txn ID:</b> <code>${paymentId}</code>`
                 );
 
                 document.getElementById('loader').style.display = 'none';
                 Swal.fire({
-                    title: 'Payment Successful!',
-                    text: `Transaction ID: ${paymentId}\n\nYou securely received ${itemValue} Credits!`,
+                    title: 'Test Payment Successful!',
+                    text: `Dummy Transaction ID: ${paymentId}\n\nYou received ${itemValue} Credits!`,
                     icon: 'success',
                     background: 'var(--card-bg)',
                     color: 'var(--text-main)',
@@ -440,11 +411,10 @@
             } catch (error) {
                 console.error(error);
                 document.getElementById('loader').style.display = 'none';
-                Swal.fire('Database Error', 'Payment was successful but database update failed. Please contact support.', 'error');
+                Swal.fire('Database Error', 'Update failed.', 'error');
             }
         }
 
-        // 📢 TELEGRAM API CALL
         async function sendTelegramAlert(title, details) {
             try {
                 await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
@@ -454,7 +424,6 @@
             } catch (e) { console.error("Telegram error", e); }
         }
 
-        // TABS TOGGLE
         window.switchTab = function(tab, btn) {
             document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.grid-container').forEach(g => g.classList.remove('active'));

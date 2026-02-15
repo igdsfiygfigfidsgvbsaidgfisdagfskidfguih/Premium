@@ -84,8 +84,8 @@
         .hero::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 300px; height: 300px; background: var(--gold); filter: blur(180px); opacity: 0.15; z-index: -1; animation: pulseGlow 4s infinite alternate; }
         @keyframes pulseGlow { 0% { opacity: 0.1; transform: translate(-50%,-50%) scale(0.8); } 100% { opacity: 0.2; transform: translate(-50%,-50%) scale(1.2); } }
         
-        .back-btn-container { text-align: left; max-width: 1400px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; }
-        .btn-back { display: inline-flex; align-items: center; gap: 10px; color: var(--text-muted); text-decoration: none; font-weight: 700; font-size: 0.95rem; padding: 12px 25px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-card); transition: all 0.4s ease; backdrop-filter: blur(10px); }
+        .back-btn-container { text-align: left; max-width: 1400px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; margin-top: 35px;}
+        .btn-back { display: inline-flex; align-items: center; gap: 10px; color: var(--text-muted); text-decoration: none; font-weight: 700; font-size: 0.95rem; padding: 12px 25px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-card); transition: all 0.4s ease; backdrop-filter: blur(10px); cursor: pointer;}
         .btn-back:hover { border-color: var(--gold); color: var(--gold); transform: translateX(-5px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.15); background: var(--bg-body); }
 
         .hero h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: var(--text-main); margin-bottom: 15px; font-weight: 800; letter-spacing: 1px; text-shadow: 0 10px 30px rgba(0,0,0,0.05); }
@@ -167,7 +167,7 @@
         /* ====================================================
            100% DASHBOARD FOOTER & MODALS (NO SHORTCUTS)
            ==================================================== */
-        footer { background: var(--bg-card); border-top: 2px solid var(--gold); padding: 70px 20px 30px; color: var(--text-main); position: relative; overflow: hidden; box-shadow: 0 -10px 40px rgba(0,0,0,0.03); backdrop-filter: blur(10px); }
+        footer { background: var(--bg-card); border-top: 2px solid var(--gold); padding: 70px 20px 30px; color: var(--text-main); position: relative; overflow: hidden; box-shadow: 0 -10px 40px rgba(0,0,0,0.03); backdrop-filter: blur(10px); width: 100%; margin-top: auto;}
         .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; text-align: left; position: relative; z-index: 10; }
         .footer-brand h2 { font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: 800; margin-bottom: 15px; color: var(--text-main); }
         .footer-brand span { color: var(--gold); text-shadow: 0 0 10px rgba(212,175,55,0.3);}
@@ -248,7 +248,7 @@
         </div>
     </nav>
 
-    <div class="back-btn-container" style="margin-top: 35px;">
+    <div class="back-btn-container">
         <a href="dashboard.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
     </div>
 
@@ -386,6 +386,7 @@
         import { getAuth, onAuthStateChanged, signOut, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // 🔥 FIREBASE CONFIG
         const firebaseConfig = {
             apiKey: "AIzaSyBE4rNCK5MR1Joy-EOJgWgMLqmm6QDEH40",
             authDomain: "premium-6172b.firebaseapp.com",
@@ -401,6 +402,7 @@
         const db = getFirestore(app);
         let currentUserDoc = null;
 
+        // 🚀 AUTH LISTENER
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const userRef = doc(db, "users", user.uid);
@@ -423,10 +425,9 @@
 
         function setupDashboard(user, data) {
             document.getElementById('loader').style.display = 'none';
-            const name = data.fullName || "Master";
             document.getElementById('navCredits').innerText = data.credits || 0;
-            document.getElementById('menuName').innerText = name;
-            document.getElementById('editName').value = name;
+            document.getElementById('menuName').innerText = data.fullName || "Master";
+            document.getElementById('editName').value = data.fullName || "Master";
             document.getElementById('settingEmail').value = user.email;
             document.getElementById('menuPlan').innerText = (data.planType || "Free") + " Plan";
 
@@ -456,134 +457,69 @@
             renderThemesCategorized(themesData);
         }
 
-        window.updateSecurity = async () => {
-            const newEmail = document.getElementById('settingEmail').value;
-            const newPass = document.getElementById('settingPass').value;
-            const user = auth.currentUser;
-
-            if(!newEmail && !newPass) return Swal.fire('Notice', 'Please enter email or password to update.', 'info');
-
-            try {
-                if(newPass && newPass.length >= 6) {
-                    await updatePassword(user, newPass);
-                    Swal.fire({icon:'success', title:'Password Securely Updated!', toast:true, position:'top-end', showConfirmButton:false, timer:2500});
-                }
-                if(newEmail && newEmail !== user.email) {
-                    await updateEmail(user, newEmail);
-                    await updateDoc(doc(db, "users", user.uid), { email: newEmail });
-                    Swal.fire('Email Updated', 'Your email has been changed. Please login again.', 'success').then(() => window.logout());
-                }
-                document.getElementById('settingPass').value = '';
-            } catch (error) {
-                if(error.code === 'auth/requires-recent-login') {
-                    Swal.fire('Security Alert', 'For your security, please Logout & Login again to update sensitive info.', 'warning');
-                } else {
-                    Swal.fire('Error', error.message, 'error');
-                }
-            }
-        };
-
-        window.toggleMenu = () => document.getElementById('userMenu').classList.toggle('active');
-        window.openModal = (id) => { document.getElementById(id).classList.add('active'); document.getElementById('userMenu').classList.remove('active'); };
-        window.closeModal = (id) => document.getElementById(id).classList.remove('active');
-        
-        window.toggleTheme = () => {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
-        };
-        if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
-        
-        window.adjustBrightness = (val) => { document.getElementById('brightnessOverlay').style.opacity = val / 100; };
-
-        window.copyRef = () => {
-            const copyText = document.getElementById("refLink");
-            copyText.select(); navigator.clipboard.writeText(copyText.value);
-            Swal.fire({ icon: 'success', title: 'Referral Link Copied!', toast: true, position: 'top-end', showConfirmButton: false, timer: 2000, background: '#D4AF37', color: '#fff', iconColor: '#fff' });
-        };
-
-        window.saveProfile = async () => {
-            const newName = document.getElementById('editName').value;
-            if(newName) {
-                await updateDoc(doc(db, "users", auth.currentUser.uid), { fullName: newName });
-                Swal.fire({ icon: 'success', title: 'Profile Updated!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1500 }).then(() => location.reload());
-            }
-        };
-
-        window.uploadPic = (e) => {
-            const file = e.target.files[0];
-            if(file && file.size < 1572864) {
-                const reader = new FileReader();
-                reader.onloadend = async () => {
-                    document.getElementById('modalImg').src = reader.result;
-                    await updateDoc(doc(db, "users", auth.currentUser.uid), { profilePicBase64: reader.result });
-                    Swal.fire({ icon: 'success', title: 'Avatar Saved!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1500 }).then(() => location.reload());
-                };
-                reader.readAsDataURL(file);
-            } else { Swal.fire('Error', 'Image is too large. Please upload an image under 1.5MB.', 'error'); }
-        };
-
-        window.logout = () => signOut(auth).then(() => window.location.replace("index.html"));
-
+        // ==========================================
+        // SHOPIFY THEMES DATA (CONVERTED TO DIRECT DOWNLOAD LINKS)
+        // ==========================================
         const themesData = [
-            { name: "PRESTIGE THEME", link: "https://drive.google.com/file/d/1Wli6ceFEoRI4Zd1fSd6Fw23_3WQldjXx/view?usp=sharing", cost: 5000, priceUSD: 350, premium: true },
-            { name: "TURBO THEME", link: "https://drive.google.com/file/d/1aOzOHYhUBLWkt81Gp4Fgn7upXVKwb0aH/view?usp=sharing", cost: 5000, priceUSD: 400, premium: true },
-            { name: "WAREHOUSE THEME", link: "https://drive.google.com/file/d/10sbL02oFIdINEuj0rQFQ9qrwBxUUfoyf/view?usp=sharing", cost: 5000, priceUSD: 320, premium: true },
-            { name: "IMPULSE THEME", link: "https://drive.google.com/file/d/1bQlKvu2Sl9m5tBxenDWKCaU-NRini6ry/view?usp=sharing", cost: 5000, priceUSD: 350, premium: true },
-            { name: "Apparelix Mens Fashion", link: "https://drive.google.com/file/d/12cjI6ByXD6pO9KfwlEVcHMexsrAF2h8F/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
-            { name: "Apparelix Sunglasses", link: "https://drive.google.com/file/d/1Vd5gl5ywSxR0Sm4STJ4alGXnO5b89nXk/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
-            { name: "Aronic Hardware Tool", link: "https://drive.google.com/file/d/1G1xwQ8oFxpokdVw3w-BWnVxtrKSi5wlO/view?usp=sharing", cost: 1000, priceUSD: 59, premium: false },
-            { name: "Bob Multipurpose Fashion", link: "https://drive.google.com/file/d/1YPrmuJazTNqF42fhMTR5C85r6Fr6zUCj/view?usp=sharing", cost: 1000, priceUSD: 65, premium: false },
-            { name: "Flone v2.0.8", link: "https://drive.google.com/file/d/1ASqr4tNC3b4CCeZQjV1s6Au_VhGsC28a/view?usp=sharing", cost: 1000, priceUSD: 79, premium: false },
-            { name: "Coro Minimal Clean", link: "https://drive.google.com/file/d/1ok-V9fitP0Pn3Ber7NAIr4iiW2l61sND/view?usp=sharing", cost: 1000, priceUSD: 55, premium: false },
-            { name: "Apparelix Mobile Acc.", link: "https://drive.google.com/file/d/1FacOnk0i6HDftm6Sa_0e5lvqPLgweh_e/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
-            { name: "ClickBoom2", link: "https://drive.google.com/file/d/1bfnyGXxXF0UUALejuGzEVrm8BrLuBd_a/view?usp=sharing", cost: 1000, priceUSD: 75, premium: false },
-            { name: "FlashMart Responsive", link: "https://drive.google.com/file/d/1URlnbUtjDQCj2kopDkUwDYUH5vo0uDYr/view?usp=sharing", cost: 1000, priceUSD: 58, premium: false },
-            { name: "FashShop Drag & Drop", link: "https://drive.google.com/file/d/111QjcE4i2HL0LNiPHQ1HjTYcSFcUsgEb/view?usp=sharing", cost: 1000, priceUSD: 62, premium: false },
-            { name: "Flairy Fashion", link: "https://drive.google.com/file/d/1K26vJxegJMfEZO2KGb4OC_t-pAxkLCOs/view?usp=sharing", cost: 1000, priceUSD: 55, premium: false },
-            { name: "Cake Shop Bakery v1.4", link: "https://drive.google.com/file/d/14ff4PpdIpjM3fjVsJOOVnywL7Zneg4KE/view?usp=sharing", cost: 1000, priceUSD: 49, premium: false },
-            { name: "Drou Electronics Store", link: "https://drive.google.com/file/d/1cEY44VAyPtjVzYZNLJcBO5It72rWGRdx/view?usp=sharing", cost: 1000, priceUSD: 85, premium: false },
-            { name: "Floza v1.0.0", link: "https://drive.google.com/file/d/1xDilaQ2pWIeR6bpxfp6lgljwU2OOKJsa/view?usp=sharing", cost: 1000, priceUSD: 50, premium: false },
-            { name: "Milatino Coffee Tea", link: "https://drive.google.com/file/d/1WWRySwHS-X2bZzPAJ0VAFceWtv3zOErA/view?usp=sharing", cost: 1000, priceUSD: 59, premium: false },
-            { name: "Crazy Fashion", link: "https://drive.google.com/file/d/1QqOryJ70GlB8rTFnmvfrdI4xiq_GRXxD/view?usp=sharing", cost: 1000, priceUSD: 60, premium: false },
-            { name: "Exist Responsive", link: "https://drive.google.com/file/d/1CPV3-CjSAdAXM2vcU5sjQv5zMCJV-q69/view?usp=sharing", cost: 1000, priceUSD: 65, premium: false },
-            { name: "Cafesa Coffee Shops", link: "https://drive.google.com/file/d/1vo0ovSZWvGVg9NkdQRnDRYncoDhCHnNN/view?usp=sharing", cost: 1000, priceUSD: 55, premium: false },
-            { name: "Kaffe Coffee Shop", link: "https://drive.google.com/file/d/1nNR1FRiqTNKnevtclIE6ogkmrQ34BbNb/view?usp=sharing", cost: 1000, priceUSD: 58, premium: false },
-            { name: "Frues Fruits Organic", link: "https://drive.google.com/file/d/14i7C8reuvmcsA9dsbiwp7jf_HE4IYn2y/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
-            { name: "Foodizo v1.0.0", link: "https://drive.google.com/file/d/1Fv-BtrDQmPwTEmtRkzR8X9CUkR_HDK15/view?usp=sharing", cost: 1000, priceUSD: 60, premium: false },
-            { name: "Esprezo Cake Shop", link: "https://drive.google.com/file/d/10WiMms3FTXOPj_p-e8YD9h06l9FkROcz/view?usp=sharing", cost: 1000, priceUSD: 59, premium: false },
-            { name: "Bowow Pet Store", link: "https://drive.google.com/file/d/1-Sm6yHfIK9ZBAvi9M9AMHlR93S8U8U1m/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
-            { name: "Astro Handbags Clothes", link: "https://drive.google.com/file/d/15P7WXhaAcrEQURlgCEXS1Gn_xPjjuaig/view?usp=sharing", cost: 1000, priceUSD: 55, premium: false },
-            { name: "Brewmix Coffee Shops", link: "https://drive.google.com/file/d/1QlKfzPeKHWi7oIWCH-N78NQir9AyNQQK/view?usp=sharing", cost: 1000, priceUSD: 59, premium: false },
-            { name: "Airkool AC Heating", link: "https://drive.google.com/file/d/1weKKNafjCUjUZGjTUKaSUkwG_mQGxUvg/view?usp=sharing", cost: 1000, priceUSD: 75, premium: false },
-            { name: "Apexx Esports Gaming", link: "https://drive.google.com/file/d/1avUe_BUalTMExVE_MRmSwnTftzku0srg/view?usp=sharing", cost: 1000, priceUSD: 85, premium: false },
-            { name: "Elektrix Electronics", link: "https://drive.google.com/file/d/1SCqV3Ul001o3tIGd3d-mmHac42NmWEEb/view?usp=sharing", cost: 1000, priceUSD: 79, premium: false },
-            { name: "Fixxer Hardwares Tools", link: "https://drive.google.com/file/d/1YDEZMFIRzfwkIOT3x6VZ_uMtfLGRT5_5/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
-            { name: "Chewy Dog Kitten Shop", link: "https://drive.google.com/file/d/1brScRwe3thvfJ7i4JlhaoNweHbszDEYC/view?usp=sharing", cost: 1000, priceUSD: 59, premium: false },
-            { name: "Cufee Coffee Shops", link: "https://drive.google.com/file/d/1YRNPHWIZmtC3WVfjir4fypzTFdaHgf_w/view?usp=sharing", cost: 1000, priceUSD: 62, premium: false },
-            { name: "Clarie HandMade", link: "https://drive.google.com/file/d/1QKRcJvG8temDdL_EUCXmJo0H7Vyut37P/view?usp=sharing", cost: 1000, priceUSD: 55, premium: false },
-            { name: "Chikshopify 11", link: "https://drive.google.com/file/d/1dyxJg19dorv4BvqmMr2663eVBjeOUf1k/view?usp=sharing", cost: 1000, priceUSD: 60, premium: false },
-            { name: "Carze Auto Parts", link: "https://drive.google.com/file/d/1en6z8vrjbq_aarEBzM1xJMTfP59kR0XO/view?usp=sharing", cost: 1000, priceUSD: 75, premium: false },
-            { name: "Dialz Shopify v1.0", link: "https://drive.google.com/file/d/1kYQKAMsC15v_5rJeZSqK_eBZeRpCPQFL/view?usp=sharing", cost: 1000, priceUSD: 65, premium: false },
-            { name: "Bikun Bicycles Store", link: "https://drive.google.com/file/d/1XcmrgbWAt7b5djx_1bzAQaxm88AYFPuK/view?usp=sharing", cost: 1000, priceUSD: 79, premium: false },
-            { name: "Drinks & Beverages", link: "https://drive.google.com/file/d/1OhjKozHav6PcKEEZvUiQO71fz9pIxcpO/view?usp=sharing", cost: 1000, priceUSD: 55, premium: false },
-            { name: "Fivo Wedding Shop", link: "https://drive.google.com/file/d/1Z8MJV9afuU_srjuoCD91PrQZJPyecwtj/view?usp=sharing", cost: 1000, priceUSD: 85, premium: false },
-            { name: "Alivana Interior Decor", link: "https://drive.google.com/file/d/1jEXcH9AlX3UAbpj4kS5aTgr9RnqjoldK/view?usp=sharing", cost: 1000, priceUSD: 79, premium: false },
-            { name: "Electree Electronics", link: "https://drive.google.com/file/d/1Vuis2vbOpB32JSdJK-9PGSBbvGjy-_2w/view?usp=sharing", cost: 1000, priceUSD: 89, premium: false },
-            { name: "Bixbang Fullpackage", link: "https://drive.google.com/file/d/1IrQ37wIQ20UtjAxw1nBg4q3hAvnyfUGc/view?usp=sharing", cost: 1000, priceUSD: 99, premium: false },
-            { name: "Brator Auto Parts", link: "https://drive.google.com/file/d/1mEn64K3i_ENVNf_u2QHYqWLYaoeUqmEg/view?usp=sharing", cost: 1000, priceUSD: 75, premium: false },
-            { name: "Emllo Gadgets Responsive", link: "https://drive.google.com/file/d/1o-FMs8yE6-39E95h5ESpqSj44RX9ub5d/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
-            { name: "Electrodream Electronics", link: "https://drive.google.com/file/d/10sGSXHEzb2Gxm-36q_oW0HBHaYk-XXxM/view?usp=sharing", cost: 1000, priceUSD: 85, premium: false },
-            { name: "Elessi Shopify 3.0.1", link: "https://drive.google.com/file/d/1Njze9ynhR9v6Nse5q2InmE2eOvBUsgpy/view?usp=sharing", cost: 1000, priceUSD: 99, premium: false },
-            { name: "Camaro Digital Theme", link: "https://drive.google.com/file/d/1aQY2o7H_WlRQCSq0rlc2FSRlApVgYAya/view?usp=sharing", cost: 1000, priceUSD: 79, premium: false },
-            { name: "Anon Minimal Responsive", link: "https://drive.google.com/file/d/1rQ2DlM78tw9fomeDSPRj9MLjAA2sF0Wy/view?usp=sharing", cost: 1000, priceUSD: 59, premium: false },
-            { name: "Corano v2.4.7", link: "https://drive.google.com/file/d/1tFpwJ93vxOQ8RkVJbrKGXvKXWGUj0sbq/view?usp=sharing", cost: 1000, priceUSD: 69, premium: false },
-            { name: "Fastlane Shopify v4.4.6", link: "https://drive.google.com/file/d/13LX3SE4KEL3wiFtC_KTuI7JTjgMkMp2a/view?usp=sharing", cost: 1000, priceUSD: 89, premium: false },
-            { name: "Brittney WP Blog Shop", link: "https://drive.google.com/file/d/1tFQLt2yA7Vc59_wV19-28-1RSrsXGnmd/view?usp=sharing", cost: 1000, priceUSD: 49, premium: false },
-            { name: "Brittny", link: "https://drive.google.com/file/d/14bFdYhVRMysq5t5CyUqQ7JyY8Pxcx8KM/view?usp=sharing", cost: 1000, priceUSD: 49, premium: false },
-            { name: "Avatar Shopify v2.0.1", link: "https://drive.google.com/file/d/167VwiJkb_U2n-aBG5t_JB_lI7IPHNQyb/view?usp=sharing", cost: 1000, priceUSD: 59, premium: false },
-            { name: "Fabish Cosmetics Store", link: "https://drive.google.com/file/d/1D0qRVAk13Eq7wOzeeiqOsRfNu_Lw_2o_/view?usp=sharing", cost: 1000, priceUSD: 65, premium: false },
-            { name: "Empire Shopify v6.2.0", link: "https://drive.google.com/file/d/1a53f58uCmpIZ9az51CTc9s2V1OcozPs0/view?usp=sharing", cost: 1000, priceUSD: 340, premium: false },
-            { name: "Streamline v5.0.1", link: "https://drive.google.com/file/d/1Z8nvSuaDhz8hu-uTAPXCsd9t66OSBzgO/view?usp=sharing", cost: 1000, priceUSD: 320, premium: false }
+            { name: "PRESTIGE THEME", link: "https://drive.google.com/uc?export=download&id=1Wli6ceFEoRI4Zd1fSd6Fw23_3WQldjXx", cost: 5000, priceUSD: 350, premium: true },
+            { name: "TURBO THEME", link: "https://drive.google.com/uc?export=download&id=1aOzOHYhUBLWkt81Gp4Fgn7upXVKwb0aH", cost: 5000, priceUSD: 400, premium: true },
+            { name: "WAREHOUSE THEME", link: "https://drive.google.com/uc?export=download&id=10sbL02oFIdINEuj0rQFQ9qrwBxUUfoyf", cost: 5000, priceUSD: 320, premium: true },
+            { name: "IMPULSE THEME", link: "https://drive.google.com/uc?export=download&id=1bQlKvu2Sl9m5tBxenDWKCaU-NRini6ry", cost: 5000, priceUSD: 350, premium: true },
+            { name: "Apparelix Mens Fashion", link: "https://drive.google.com/uc?export=download&id=12cjI6ByXD6pO9KfwlEVcHMexsrAF2h8F", cost: 1000, priceUSD: 69, premium: false },
+            { name: "Apparelix Sunglasses", link: "https://drive.google.com/uc?export=download&id=1Vd5gl5ywSxR0Sm4STJ4alGXnO5b89nXk", cost: 1000, priceUSD: 69, premium: false },
+            { name: "Aronic Hardware Tool", link: "https://drive.google.com/uc?export=download&id=1G1xwQ8oFxpokdVw3w-BWnVxtrKSi5wlO", cost: 1000, priceUSD: 59, premium: false },
+            { name: "Bob Multipurpose Fashion", link: "https://drive.google.com/uc?export=download&id=1YPrmuJazTNqF42fhMTR5C85r6Fr6zUCj", cost: 1000, priceUSD: 65, premium: false },
+            { name: "Flone v2.0.8", link: "https://drive.google.com/uc?export=download&id=1ASqr4tNC3b4CCeZQjV1s6Au_VhGsC28a", cost: 1000, priceUSD: 79, premium: false },
+            { name: "Coro Minimal Clean", link: "https://drive.google.com/uc?export=download&id=1ok-V9fitP0Pn3Ber7NAIr4iiW2l61sND", cost: 1000, priceUSD: 55, premium: false },
+            { name: "Apparelix Mobile Acc.", link: "https://drive.google.com/uc?export=download&id=1FacOnk0i6HDftm6Sa_0e5lvqPLgweh_e", cost: 1000, priceUSD: 69, premium: false },
+            { name: "ClickBoom2", link: "https://drive.google.com/uc?export=download&id=1bfnyGXxXF0UUALejuGzEVrm8BrLuBd_a", cost: 1000, priceUSD: 75, premium: false },
+            { name: "FlashMart Responsive", link: "https://drive.google.com/uc?export=download&id=1URlnbUtjDQCj2kopDkUwDYUH5vo0uDYr", cost: 1000, priceUSD: 58, premium: false },
+            { name: "FashShop Drag & Drop", link: "https://drive.google.com/uc?export=download&id=111QjcE4i2HL0LNiPHQ1HjTYcSFcUsgEb", cost: 1000, priceUSD: 62, premium: false },
+            { name: "Flairy Fashion", link: "https://drive.google.com/uc?export=download&id=1K26vJxegJMfEZO2KGb4OC_t-pAxkLCOs", cost: 1000, priceUSD: 55, premium: false },
+            { name: "Cake Shop Bakery v1.4", link: "https://drive.google.com/uc?export=download&id=14ff4PpdIpjM3fjVsJOOVnywL7Zneg4KE", cost: 1000, priceUSD: 49, premium: false },
+            { name: "Drou Electronics Store", link: "https://drive.google.com/uc?export=download&id=1cEY44VAyPtjVzYZNLJcBO5It72rWGRdx", cost: 1000, priceUSD: 85, premium: false },
+            { name: "Floza v1.0.0", link: "https://drive.google.com/uc?export=download&id=1xDilaQ2pWIeR6bpxfp6lgljwU2OOKJsa", cost: 1000, priceUSD: 50, premium: false },
+            { name: "Milatino Coffee Tea", link: "https://drive.google.com/uc?export=download&id=1WWRySwHS-X2bZzPAJ0VAFceWtv3zOErA", cost: 1000, priceUSD: 59, premium: false },
+            { name: "Crazy Fashion", link: "https://drive.google.com/uc?export=download&id=1QqOryJ70GlB8rTFnmvfrdI4xiq_GRXxD", cost: 1000, priceUSD: 60, premium: false },
+            { name: "Exist Responsive", link: "https://drive.google.com/uc?export=download&id=1CPV3-CjSAdAXM2vcU5sjQv5zMCJV-q69", cost: 1000, priceUSD: 65, premium: false },
+            { name: "Cafesa Coffee Shops", link: "https://drive.google.com/uc?export=download&id=1vo0ovSZWvGVg9NkdQRnDRYncoDhCHnNN", cost: 1000, priceUSD: 55, premium: false },
+            { name: "Kaffe Coffee Shop", link: "https://drive.google.com/uc?export=download&id=1nNR1FRiqTNKnevtclIE6ogkmrQ34BbNb", cost: 1000, priceUSD: 58, premium: false },
+            { name: "Frues Fruits Organic", link: "https://drive.google.com/uc?export=download&id=14i7C8reuvmcsA9dsbiwp7jf_HE4IYn2y", cost: 1000, priceUSD: 69, premium: false },
+            { name: "Foodizo v1.0.0", link: "https://drive.google.com/uc?export=download&id=1Fv-BtrDQmPwTEmtRkzR8X9CUkR_HDK15", cost: 1000, priceUSD: 60, premium: false },
+            { name: "Esprezo Cake Shop", link: "https://drive.google.com/uc?export=download&id=10WiMms3FTXOPj_p-e8YD9h06l9FkROcz", cost: 1000, priceUSD: 59, premium: false },
+            { name: "Bowow Pet Store", link: "https://drive.google.com/uc?export=download&id=1-Sm6yHfIK9ZBAvi9M9AMHlR93S8U8U1m", cost: 1000, priceUSD: 69, premium: false },
+            { name: "Astro Handbags Clothes", link: "https://drive.google.com/uc?export=download&id=15P7WXhaAcrEQURlgCEXS1Gn_xPjjuaig", cost: 1000, priceUSD: 55, premium: false },
+            { name: "Brewmix Coffee Shops", link: "https://drive.google.com/uc?export=download&id=1QlKfzPeKHWi7oIWCH-N78NQir9AyNQQK", cost: 1000, priceUSD: 59, premium: false },
+            { name: "Airkool AC Heating", link: "https://drive.google.com/uc?export=download&id=1weKKNafjCUjUZGjTUKaSUkwG_mQGxUvg", cost: 1000, priceUSD: 75, premium: false },
+            { name: "Apexx Esports Gaming", link: "https://drive.google.com/uc?export=download&id=1avUe_BUalTMExVE_MRmSwnTftzku0srg", cost: 1000, priceUSD: 85, premium: false },
+            { name: "Elektrix Electronics", link: "https://drive.google.com/uc?export=download&id=1SCqV3Ul001o3tIGd3d-mmHac42NmWEEb", cost: 1000, priceUSD: 79, premium: false },
+            { name: "Fixxer Hardwares Tools", link: "https://drive.google.com/uc?export=download&id=1YDEZMFIRzfwkIOT3x6VZ_uMtfLGRT5_5", cost: 1000, priceUSD: 69, premium: false },
+            { name: "Chewy Dog Kitten Shop", link: "https://drive.google.com/uc?export=download&id=1brScRwe3thvfJ7i4JlhaoNweHbszDEYC", cost: 1000, priceUSD: 59, premium: false },
+            { name: "Cufee Coffee Shops", link: "https://drive.google.com/uc?export=download&id=1YRNPHWIZmtC3WVfjir4fypzTFdaHgf_w", cost: 1000, priceUSD: 62, premium: false },
+            { name: "Clarie HandMade", link: "https://drive.google.com/uc?export=download&id=1QKRcJvG8temDdL_EUCXmJo0H7Vyut37P", cost: 1000, priceUSD: 55, premium: false },
+            { name: "Chikshopify 11", link: "https://drive.google.com/uc?export=download&id=1dyxJg19dorv4BvqmMr2663eVBjeOUf1k", cost: 1000, priceUSD: 60, premium: false },
+            { name: "Carze Auto Parts", link: "https://drive.google.com/uc?export=download&id=1en6z8vrjbq_aarEBzM1xJMTfP59kR0XO", cost: 1000, priceUSD: 75, premium: false },
+            { name: "Dialz Shopify v1.0", link: "https://drive.google.com/uc?export=download&id=1kYQKAMsC15v_5rJeZSqK_eBZeRpCPQFL", cost: 1000, priceUSD: 65, premium: false },
+            { name: "Bikun Bicycles Store", link: "https://drive.google.com/uc?export=download&id=1XcmrgbWAt7b5djx_1bzAQaxm88AYFPuK", cost: 1000, priceUSD: 79, premium: false },
+            { name: "Drinks & Beverages", link: "https://drive.google.com/uc?export=download&id=1OhjKozHav6PcKEEZvUiQO71fz9pIxcpO", cost: 1000, priceUSD: 55, premium: false },
+            { name: "Fivo Wedding Shop", link: "https://drive.google.com/uc?export=download&id=1Z8MJV9afuU_srjuoCD91PrQZJPyecwtj", cost: 1000, priceUSD: 85, premium: false },
+            { name: "Alivana Interior Decor", link: "https://drive.google.com/uc?export=download&id=1jEXcH9AlX3UAbpj4kS5aTgr9RnqjoldK", cost: 1000, priceUSD: 79, premium: false },
+            { name: "Electree Electronics", link: "https://drive.google.com/uc?export=download&id=1Vuis2vbOpB32JSdJK-9PGSBbvGjy-_2w", cost: 1000, priceUSD: 89, premium: false },
+            { name: "Bixbang Fullpackage", link: "https://drive.google.com/uc?export=download&id=1IrQ37wIQ20UtjAxw1nBg4q3hAvnyfUGc", cost: 1000, priceUSD: 99, premium: false },
+            { name: "Brator Auto Parts", link: "https://drive.google.com/uc?export=download&id=1mEn64K3i_ENVNf_u2QHYqWLYaoeUqmEg", cost: 1000, priceUSD: 75, premium: false },
+            { name: "Emllo Gadgets Responsive", link: "https://drive.google.com/uc?export=download&id=1o-FMs8yE6-39E95h5ESpqSj44RX9ub5d", cost: 1000, priceUSD: 69, premium: false },
+            { name: "Electrodream Electronics", link: "https://drive.google.com/uc?export=download&id=10sGSXHEzb2Gxm-36q_oW0HBHaYk-XXxM", cost: 1000, priceUSD: 85, premium: false },
+            { name: "Elessi Shopify 3.0.1", link: "https://drive.google.com/uc?export=download&id=1Njze9ynhR9v6Nse5q2InmE2eOvBUsgpy", cost: 1000, priceUSD: 99, premium: false },
+            { name: "Camaro Digital Theme", link: "https://drive.google.com/uc?export=download&id=1aQY2o7H_WlRQCSq0rlc2FSRlApVgYAya", cost: 1000, priceUSD: 79, premium: false },
+            { name: "Anon Minimal Responsive", link: "https://drive.google.com/uc?export=download&id=1rQ2DlM78tw9fomeDSPRj9MLjAA2sF0Wy", cost: 1000, priceUSD: 59, premium: false },
+            { name: "Corano v2.4.7", link: "https://drive.google.com/uc?export=download&id=1tFpwJ93vxOQ8RkVJbrKGXvKXWGUj0sbq", cost: 1000, priceUSD: 69, premium: false },
+            { name: "Fastlane Shopify v4.4.6", link: "https://drive.google.com/uc?export=download&id=13LX3SE4KEL3wiFtC_KTuI7JTjgMkMp2a", cost: 1000, priceUSD: 89, premium: false },
+            { name: "Brittney WP Blog Shop", link: "https://drive.google.com/uc?export=download&id=1tFQLt2yA7Vc59_wV19-28-1RSrsXGnmd", cost: 1000, priceUSD: 49, premium: false },
+            { name: "Brittny", link: "https://drive.google.com/uc?export=download&id=14bFdYhVRMysq5t5CyUqQ7JyY8Pxcx8KM", cost: 1000, priceUSD: 49, premium: false },
+            { name: "Avatar Shopify v2.0.1", link: "https://drive.google.com/uc?export=download&id=167VwiJkb_U2n-aBG5t_JB_lI7IPHNQyb", cost: 1000, priceUSD: 59, premium: false },
+            { name: "Fabish Cosmetics Store", link: "https://drive.google.com/uc?export=download&id=1D0qRVAk13Eq7wOzeeiqOsRfNu_Lw_2o_", cost: 1000, priceUSD: 65, premium: false },
+            { name: "Empire Shopify v6.2.0", link: "https://drive.google.com/uc?export=download&id=1a53f58uCmpIZ9az51CTc9s2V1OcozPs0", cost: 1000, priceUSD: 340, premium: false },
+            { name: "Streamline v5.0.1", link: "https://drive.google.com/uc?export=download&id=1Z8nvSuaDhz8hu-uTAPXCsd9t66OSBzgO", cost: 1000, priceUSD: 320, premium: false }
         ];
 
         function renderThemesCategorized(themes) {
@@ -647,17 +583,18 @@
             renderThemesCategorized(filtered);
         });
 
+        // ⬇️ INVISIBLE ANCHOR DOWNLOAD TRICK FOR THEMES
         window.processDownload = async (link, cost, name) => {
             if(!currentUserDoc) return;
             const current = currentUserDoc.credits || 0;
             
             if(current >= cost) {
                 Swal.fire({
-                    title: `Unlock ${name}?`,
+                    title: `Unlock & Download ${name}?`,
                     text: `This will consume ${cost} Credits from your wallet.`,
                     icon: 'question',
                     showCancelButton: true,
-                    confirmButtonText: 'Yes, Unlock It!',
+                    confirmButtonText: 'Yes, Download Now!',
                     confirmButtonColor: '#D4AF37',
                     background: 'var(--bg-card)',
                     color: 'var(--text-main)',
@@ -666,15 +603,30 @@
                     if(res.isConfirmed) {
                         try {
                             Swal.showLoading();
-                            const newBal = current - cost;
                             
+                            const newBal = current - cost;
                             await updateDoc(doc(db, "users", auth.currentUser.uid), { credits: newBal });
                             
                             currentUserDoc.credits = newBal;
                             document.getElementById('navCredits').innerText = newBal;
                             
-                            window.open(link, '_blank');
-                            Swal.fire({icon: 'success', title: 'Unlocked!', background: 'var(--bg-card)', color: 'var(--text-main)', confirmButtonColor: '#D4AF37'});
+                            // 🚀 INVISIBLE ANCHOR TRICK
+                            const a = document.createElement('a');
+                            a.href = link;
+                            a.download = name + '.zip'; 
+                            a.target = '_blank';
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            
+                            Swal.fire({
+                                icon: 'success', 
+                                title: 'Download Started!', 
+                                text: 'Your theme is downloading securely.',
+                                background: 'var(--bg-card)', 
+                                color: 'var(--text-main)', 
+                                confirmButtonColor: '#D4AF37'
+                            });
                         } catch(e) { 
                             Swal.fire('Error', 'Transaction failed.', 'error'); 
                         }
@@ -694,6 +646,74 @@
                 });
             }
         };
+
+        window.toggleMenu = () => document.getElementById('userMenu').classList.toggle('active');
+        window.openModal = (id) => { document.getElementById(id).classList.add('active'); document.getElementById('userMenu').classList.remove('active'); };
+        window.closeModal = (id) => document.getElementById(id).classList.remove('active');
+        
+        window.toggleTheme = () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        };
+        if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
+        
+        window.adjustBrightness = (val) => { document.getElementById('brightnessOverlay').style.opacity = val / 100; };
+
+        window.copyRef = () => {
+            const copyText = document.getElementById("refLink");
+            copyText.select(); navigator.clipboard.writeText(copyText.value);
+            Swal.fire({ icon: 'success', title: 'Referral Link Copied!', toast: true, position: 'top-end', showConfirmButton: false, timer: 2000, background: '#D4AF37', color: '#fff', iconColor: '#fff' });
+        };
+
+        window.saveProfile = async () => {
+            const newName = document.getElementById('editName').value;
+            if(newName) {
+                await updateDoc(doc(db, "users", auth.currentUser.uid), { fullName: newName });
+                Swal.fire({ icon: 'success', title: 'Profile Updated!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1500 }).then(() => location.reload());
+            }
+        };
+
+        window.uploadPic = (e) => {
+            const file = e.target.files[0];
+            if(file && file.size < 1572864) {
+                const reader = new FileReader();
+                reader.onloadend = async () => {
+                    document.getElementById('modalImg').src = reader.result;
+                    await updateDoc(doc(db, "users", auth.currentUser.uid), { profilePicBase64: reader.result });
+                    Swal.fire({ icon: 'success', title: 'Avatar Saved!', toast: true, position: 'top-end', showConfirmButton: false, timer: 1500 }).then(() => location.reload());
+                };
+                reader.readAsDataURL(file);
+            } else { Swal.fire('Error', 'Image is too large. Please upload an image under 1.5MB.', 'error'); }
+        };
+
+        window.updateSecurity = async () => {
+            const newEmail = document.getElementById('settingEmail').value;
+            const newPass = document.getElementById('settingPass').value;
+            const user = auth.currentUser;
+
+            if(!newEmail && !newPass) return Swal.fire('Notice', 'Please enter email or password to update.', 'info');
+
+            try {
+                if(newPass && newPass.length >= 6) {
+                    await updatePassword(user, newPass);
+                    Swal.fire({icon:'success', title:'Password Securely Updated!', toast:true, position:'top-end', showConfirmButton:false, timer:2500});
+                }
+                if(newEmail && newEmail !== user.email) {
+                    await updateEmail(user, newEmail);
+                    await updateDoc(doc(db, "users", user.uid), { email: newEmail });
+                    Swal.fire('Email Updated', 'Your email has been changed. Please login again.', 'success').then(() => window.logout());
+                }
+                document.getElementById('settingPass').value = '';
+            } catch (error) {
+                if(error.code === 'auth/requires-recent-login') {
+                    Swal.fire('Security Alert', 'For your security, please Logout & Login again to update sensitive info.', 'warning');
+                } else {
+                    Swal.fire('Error', error.message, 'error');
+                }
+            }
+        };
+
+        window.logout = () => signOut(auth).then(() => window.location.replace("index.html"));
 
     </script>
 </body>
